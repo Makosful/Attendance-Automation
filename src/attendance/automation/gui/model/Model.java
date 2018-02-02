@@ -1,5 +1,7 @@
 package attendance.automation.gui.model;
 
+import attendance.automation.bll.BLLManager;
+
 /**
  * This class will cache all data for the application while acting as the sole
  * point of connection to the BL Layer
@@ -12,6 +14,8 @@ public class Model
     // Singleton instance of the model
     private static final Model INSTANCE = new Model();
 
+    BLLManager bll;
+
     /**
      * Singleton constructor. Prevents new instances of this class being made
      * outside of this class
@@ -19,6 +23,8 @@ public class Model
     private Model()
     {
         // Acts as a normal constructor otherwise
+
+        bll = new BLLManager();
     }
 
     /**
@@ -29,5 +35,10 @@ public class Model
     public static Model getInstance()
     {
         return INSTANCE;
+    }
+
+    public void saveXML()
+    {
+        bll.saveXML();
     }
 }
