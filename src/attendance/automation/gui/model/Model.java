@@ -37,8 +37,4 @@ public class Model
         return INSTANCE;
     }
 
-    public void saveXML()
-    {
-        bll.saveXML();
-    }
 }

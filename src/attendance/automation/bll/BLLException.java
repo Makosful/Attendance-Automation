@@ -1,8 +1,5 @@
 package attendance.automation.bll;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-
 /**
  *
  * @author Axl
@@ -10,69 +7,18 @@ import java.io.PrintWriter;
 public class BLLException extends Exception
 {
 
-    @Override
-    public void setStackTrace(StackTraceElement[] stackTrace)
+    public BLLException(String message)
     {
-        super.setStackTrace(stackTrace); //To change body of generated methods, choose Tools | Templates.
+        super(message);
     }
 
-    @Override
-    public StackTraceElement[] getStackTrace()
+    public BLLException(String message, Throwable cause)
     {
-        return super.getStackTrace(); //To change body of generated methods, choose Tools | Templates.
+        super(message, cause);
     }
 
-    @Override
-    public synchronized Throwable fillInStackTrace()
+    public BLLException(Throwable cause)
     {
-        return super.fillInStackTrace(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void printStackTrace(PrintWriter s)
-    {
-        super.printStackTrace(s); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void printStackTrace(PrintStream s)
-    {
-        super.printStackTrace(s); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void printStackTrace()
-    {
-        super.printStackTrace(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String toString()
-    {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public synchronized Throwable initCause(Throwable cause)
-    {
-        return super.initCause(cause); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public synchronized Throwable getCause()
-    {
-        return super.getCause(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getLocalizedMessage()
-    {
-        return super.getLocalizedMessage(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getMessage()
-    {
-        return super.getMessage(); //To change body of generated methods, choose Tools | Templates.
+        super(cause);
     }
 }

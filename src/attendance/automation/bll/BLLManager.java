@@ -16,8 +16,4 @@ public class BLLManager
         dal = new DALManager();
     }
 
-    public void saveXML()
-    {
-        dal.saveXML();
-    }
 }

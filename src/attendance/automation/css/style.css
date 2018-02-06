@@ -1,0 +1,50 @@
+#present {
+    -fx-background-color: #0d0;
+    -fx-text-fill: #000;
+}
+
+#present:pressed {
+    -fx-background-color: #0a0;
+}
+
+#absent {
+    -fx-background-color: #f44;
+    -fx-text-fill: #fefefe;
+}
+
+#absent:pressed {
+    -fx-background-color: #b44;
+}
+
+#stats,
+#schoolstart,
+#today {
+    -fx-background-color: #59F;
+    -fx-text-fill: #eee;
+}
+
+#stats:pressed,
+#schoolstart:pressed,
+#today:pressed {
+    -fx-background-color: #37d;
+}
+
+.checkbox-container{
+    -fx-background-color: #eaeaea;
+}
+
+.checkboxes {
+    -fx-text-fill: #222;
+}
+
+#sub1 {
+    -fx-background-color: #f54;
+}
+
+#sub2 {
+    -fx-background-color: #4bf;
+}
+
+#sub3 {
+    -fx-background-color: #2d2;
+}

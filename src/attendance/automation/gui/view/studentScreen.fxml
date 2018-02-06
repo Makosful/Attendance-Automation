@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane
+    xmlns="http://javafx.com/javafx/8.0.111"
+    xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+        <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Label text="Statistics">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="260.0" fitWidth="370.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                            <image>
+                                <Image url="@Pie-Pyramid-620x311.png" />
+                            </image>
+                        </ImageView>
+                        <Button id="stats" mnemonicParsing="false" text="Show Detailed Attendance Statistics">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Label text="Attendance">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" text="You have been automatically registered as:" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label maxHeight="210.0" text="Present">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="20.0">
+                            <children>
+                                <Button id="present" mnemonicParsing="false" text="Present">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>
