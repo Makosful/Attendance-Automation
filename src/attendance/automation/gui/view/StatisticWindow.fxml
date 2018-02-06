@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -16,7 +17,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StatisticWindowController">
     <padding>
@@ -45,8 +45,8 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <DatePicker GridPane.columnIndex="1" />
-                                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" />
+                                        <DatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label text="From">
                                             <font>
                                                 <Font size="14.0" />
@@ -57,8 +57,8 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <Button id="schoolstart" mnemonicParsing="false" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
-                                        <Button id="today" mnemonicParsing="false" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
+                                        <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>
@@ -69,16 +69,7 @@
                     <children>
                         <VBox alignment="BOTTOM_CENTER" spacing="10.0">
                             <children>
-                                <ImageView fitHeight="500.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@piechart.png" />
-                                    </image>
-                                </ImageView>
-                                <Label text="Total Attendance">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
+                        <PieChart fx:id="chrtTotalAttendance" title="Total Attendance" titleSide="BOTTOM" />
                             </children>
                         </VBox>
                         <VBox alignment="BOTTOM_CENTER" spacing="10.0">
@@ -90,16 +81,14 @@
                                         <CheckBox id="sub3" mnemonicParsing="false" styleClass="checkboxes" text="ITO" />
                                     </children>
                                 </FlowPane>
-                                <ImageView fitHeight="500.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@column%20chart.png" />
-                                    </image>
-                                </ImageView>
-                                <Label text="Attendance, by Class">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
+                        <BarChart fx:id="chrtClassAttendance" title="Attendance by Class" titleSide="BOTTOM">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
                             </children>
                         </VBox>
                     </children>
