@@ -5,10 +5,13 @@ import attendance.automation.bll.BLLManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -39,6 +42,7 @@ public class Model
     BLLManager bll;
 
     private Stage stage;
+    private final ObservableList<PieChart.Data> pieChartAttendance;
 
     /**
      * Singleton constructor. Prevents new instances of this class being made
@@ -48,8 +52,16 @@ public class Model
     {
         // Object initiation
         bll = new BLLManager();
+
+        // Adding mock data to the pie chart
+        pieChartAttendance = FXCollections.observableArrayList();
+        pieChartAttendance.addAll(
+                new PieChart.Data("Present", 80),
+                new PieChart.Data("Absent", 20)
+        );
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Stage">
     /**
      * Sets the central stage
      *
@@ -69,7 +81,9 @@ public class Model
     {
         return this.stage;
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Change Stage">
     /**
      * Changes the Stage to the login screen
      */
@@ -105,6 +119,14 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Observables">
+    public ObservableList<PieChart.Data> getPieChartAttendance()
+    {
+        return pieChartAttendance;
+    }
+    //</editor-fold>
 
     /**
      * Centers the window on the screen
@@ -117,4 +139,5 @@ public class Model
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
+
 }

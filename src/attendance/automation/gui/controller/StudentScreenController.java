@@ -1,12 +1,14 @@
 package attendance.automation.gui.controller;
 
+import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.SubScene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -16,11 +18,14 @@ import javafx.scene.layout.AnchorPane;
 public class StudentScreenController implements Initializable
 {
 
+    private Model model;
+
     @FXML
     private PieChart chrtStatistics;
     @FXML
-    private AnchorPane root;
-    private SubScene innerScene;
+    private Label lblAttendance;
+    @FXML
+    private Button btnRegisterPresent;
 
     /**
      * Initializes the controller class.
@@ -31,5 +36,13 @@ public class StudentScreenController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        model = Model.getInstance();
+        chrtStatistics.setData(model.getPieChartAttendance());
+    }
+
+    @FXML
+    private void handleRegisterPresent(ActionEvent event)
+    {
+        lblAttendance.setText("Present");
     }
 }
