@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.SubScene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
@@ -14,8 +15,12 @@ import javafx.scene.control.DatePicker;
  *
  * @author Axl
  */
-public class StudentStatisticWindowController implements Initializable
+public class StudentStatisticWindowController
+        extends Controller
+        implements Initializable
 {
+
+    private SubScene innerScene;
 
     @FXML
     private DatePicker dateFrom;
@@ -39,6 +44,24 @@ public class StudentStatisticWindowController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+    }
+
+    @Override
+    public double getHeight()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double getWidth()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setInnerScene(SubScene scene)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

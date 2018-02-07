@@ -38,10 +38,17 @@ public class RootController implements Initializable
         try
         {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("gui/view/StudentScreen.fxml"));
+            loader.setLocation(Main.class.getResource("gui/view/LoginScreen.fxml"));
             Parent parent = loader.load();
 
+            Controller ctrl = loader.getController();
+            double height = ctrl.getHeight();
+            double width = ctrl.getWidth();
+            ctrl.setInnerScene(innerScene);
+
             innerScene.setRoot(parent);
+            innerScene.setWidth(width);
+            innerScene.setHeight(height);
         }
         catch (IOException ex)
         {

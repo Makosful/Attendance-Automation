@@ -7,25 +7,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="attendance.automation.gui.controller.LoginScreenController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER">
                <children>
-                  <Label text="Uni-Login" />
-                  <TextField />
+                  <Label text="Uni-Login">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="txtUserName" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
                <children>
-                  <Label text="Password" />
-                  <PasswordField />
+                  <Label text="Password">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <PasswordField fx:id="txtPassword" />
                </children>
             </VBox>
-            <Button id="login" mnemonicParsing="false" text="Sign In" />
+            <Button id="login" fx:id="btnLogin" mnemonicParsing="false" onAction="#handleLogin" text="Sign In">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
          </children>
       </VBox>
    </children>
