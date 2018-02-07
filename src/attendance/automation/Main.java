@@ -2,6 +2,7 @@ package attendance.automation;
 
 import attendance.automation.gui.model.Model;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -11,12 +12,16 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 
+    public static Image icon;
+
     private Model model;
 
     @Override
     public void start(Stage stage) throws Exception
     {
         model = Model.getInstance();
+
+        stage.setTitle("Automatic Attendance");
 
         model.setStage(stage);
         model.changeStageLogin();

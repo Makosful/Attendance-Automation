@@ -1,10 +1,13 @@
 package attendance.automation.gui.controller;
 
+import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 /**
@@ -15,6 +18,8 @@ import javafx.scene.control.ListView;
 public class TeacherScreenController implements Initializable
 {
 
+    private Model model;
+
     @FXML
     private ListView<String> lstClasses;
     @FXML
@@ -23,6 +28,8 @@ public class TeacherScreenController implements Initializable
     private ListView<String> lstStudents;
     @FXML
     private PieChart chrtStudents;
+    @FXML
+    private Button btnStudentStatistics;
 
     /**
      * Initializes the controller class.
@@ -33,6 +40,8 @@ public class TeacherScreenController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        model = Model.getInstance();
+
         fillClassesList();
         fillStudentsList();
         fillClassesChart();
@@ -109,6 +118,12 @@ public class TeacherScreenController implements Initializable
                 new PieChart.Data("Attendance", 98),
                 new PieChart.Data("Absense", 2)
         );
+    }
+
+    @FXML
+    private void handleStudentStatictics(ActionEvent event)
+    {
+        model.changeStageTeacherStudentView();
     }
 
 }
