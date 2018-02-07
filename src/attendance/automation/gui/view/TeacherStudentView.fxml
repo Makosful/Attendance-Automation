@@ -4,12 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="attendance.automation.gui.controller.TeacherStudentViewController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherStudentViewController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -22,6 +23,16 @@
                   <Label text="[Student Name]" />
                </children>
             </VBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <RadioButton mnemonicParsing="false" selected="true" text="Single Day">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="days" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Day Range" toggleGroup="$days" />
+               </children>
+            </HBox>
             <VBox alignment="CENTER" focusTraversable="true" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" spacing="10.0">
