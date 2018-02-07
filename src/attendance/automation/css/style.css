@@ -38,15 +38,20 @@
 }
 
 #sub1 {
-    -fx-background-color: #f54;
+    -fx-background-color: #f8a31a;
 }
 
 #sub2 {
-    -fx-background-color: #4bf;
+    -fx-background-color: #f2612d;
 }
 
 #sub3 {
-    -fx-background-color: #2d2;
+    -fx-background-color: #57b657;
+}
+
+#backbutton {
+    -fx-background-color: #009973;
+    -fx-text-fill: #fff;
 }
 
 #login {

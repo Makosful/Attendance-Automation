@@ -26,6 +26,8 @@ public class StudentScreenController implements Initializable
     private Label lblAttendance;
     @FXML
     private Button btnRegisterPresent;
+    @FXML
+    private Button btnShowDetailStatistics;
 
     /**
      * Initializes the controller class.
@@ -44,5 +46,11 @@ public class StudentScreenController implements Initializable
     private void handleRegisterPresent(ActionEvent event)
     {
         lblAttendance.setText("Present");
+    }
+
+    @FXML
+    private void handleOpenDetailedView(ActionEvent event)
+    {
+        model.changeStageStudentAttendance();
     }
 }

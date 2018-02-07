@@ -17,7 +17,7 @@
                 <VBox alignment="CENTER" spacing="10.0">
                     <children>
                   <PieChart fx:id="chrtStatistics" title="Statistics" />
-                        <Button id="stats" mnemonicParsing="false" text="Show Detailed Attendance Statistics">
+                        <Button id="stats" fx:id="btnShowDetailStatistics" mnemonicParsing="false" onAction="#handleOpenDetailedView" text="Show Detailed Attendance Statistics">
                             <font>
                                 <Font size="18.0" />
                             </font>

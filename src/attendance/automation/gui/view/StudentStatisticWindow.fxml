@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
+<AnchorPane stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -57,8 +57,8 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
-                                        <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" onAction="#handleSetDateStart" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
+                                        <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" onAction="#handleSetDateToday" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>
@@ -69,19 +69,19 @@
                     <children>
                         <VBox alignment="BOTTOM_CENTER" spacing="10.0">
                             <children>
-                                <PieChart fx:id="chrtTotalAttendance" title="Total Attendance" titleSide="BOTTOM" />
+                                <PieChart fx:id="chrtTotalAttendance" prefHeight="400.0" prefWidth="400.0" title="Total Attendance" titleSide="BOTTOM" />
                             </children>
                         </VBox>
                         <VBox alignment="BOTTOM_CENTER" spacing="10.0">
                             <children>
                                 <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" hgap="20.0" prefWrapLength="300.0" styleClass="checkbox-container" vgap="10.0">
                                     <children>
-                                        <CheckBox id="sub1" mnemonicParsing="false" styleClass="checkboxes" text="SDE" />
-                                        <CheckBox id="sub2" mnemonicParsing="false" styleClass="checkboxes" text="SCO" />
-                                        <CheckBox id="sub3" mnemonicParsing="false" styleClass="checkboxes" text="ITO" />
+                                        <CheckBox id="sub2" fx:id="cbSCO" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="SCO" />
+                                        <CheckBox id="sub1" fx:id="cbSDE" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="SDE" />
+                                        <CheckBox id="sub3" fx:id="cbITO" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="ITO" />
                                     </children>
                                 </FlowPane>
-                                <BarChart fx:id="chrtClassAttendance" title="Attendance by Class" titleSide="BOTTOM">
+                                <BarChart fx:id="chrtClassAttendance" prefHeight="400.0" prefWidth="400.0" title="Attendance by Class" titleSide="BOTTOM">
                                     <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                     </xAxis>
@@ -95,5 +95,6 @@
                 </HBox>
             </children>
         </VBox>
+      <Button id="backbutton" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButton" text="&lt;-" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

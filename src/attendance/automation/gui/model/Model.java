@@ -119,6 +119,21 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void changeStageStudentAttendance()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentStatisticWindow.fxml"));
+            Parent parent = loader.load();
+            this.stage.setScene(new Scene(parent));
+            this.centerStage(stage);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Observables">
