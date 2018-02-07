@@ -47,7 +47,7 @@ public class LoginScreenController implements Initializable
     {
         String text = txtUserName.getText().toLowerCase();
         if (text.startsWith("t"))
-            System.out.println("Teacher");
+            model.changeStageTeacherView();
         else if (text.startsWith("s"))
             model.changeStageStudentView();
     }
