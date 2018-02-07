@@ -13,9 +13,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Axl
  */
-public class StudentScreenController
-        extends Controller
-        implements Initializable
+public class StudentScreenController implements Initializable
 {
 
     @FXML
@@ -34,23 +32,4 @@ public class StudentScreenController
     public void initialize(URL url, ResourceBundle rb)
     {
     }
-
-    @Override
-    public double getWidth()
-    {
-        return root.getPrefWidth();
-    }
-
-    @Override
-    public double getHeight()
-    {
-        return root.getPrefHeight();
-    }
-
-    @Override
-    public void setInnerScene(SubScene scene)
-    {
-        this.innerScene = scene;
-    }
-
 }

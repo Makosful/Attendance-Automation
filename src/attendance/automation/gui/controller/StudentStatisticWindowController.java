@@ -15,9 +15,7 @@ import javafx.scene.control.DatePicker;
  *
  * @author Axl
  */
-public class StudentStatisticWindowController
-        extends Controller
-        implements Initializable
+public class StudentStatisticWindowController implements Initializable
 {
 
     private SubScene innerScene;
@@ -45,23 +43,4 @@ public class StudentStatisticWindowController
     public void initialize(URL url, ResourceBundle rb)
     {
     }
-
-    @Override
-    public double getHeight()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public double getWidth()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setInnerScene(SubScene scene)
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

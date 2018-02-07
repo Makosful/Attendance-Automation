@@ -10,9 +10,7 @@ import javafx.scene.SubScene;
  *
  * @author Axl
  */
-public class TeacherStudentViewController
-        extends Controller
-        implements Initializable
+public class TeacherStudentViewController implements Initializable
 {
 
     private SubScene innerScene;
@@ -27,24 +25,6 @@ public class TeacherStudentViewController
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }
-
-    @Override
-    public double getHeight()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public double getWidth()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setInnerScene(SubScene scene)
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
