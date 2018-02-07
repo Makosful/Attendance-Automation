@@ -120,11 +120,50 @@ public class Model
         }
     }
 
+    /**
+     * Changes the stage to the Student Attendance screen
+     */
     public void changeStageStudentAttendance()
     {
         try
         {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentStatisticWindow.fxml"));
+            Parent parent = loader.load();
+            this.stage.setScene(new Scene(parent));
+            this.centerStage(stage);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Changes the stage to the Teacher view
+     */
+    public void changeStageTeacherView()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+            Parent parent = loader.load();
+            this.stage.setScene(new Scene(parent));
+            this.centerStage(stage);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Changes the stage to the Teacher's view of the student
+     */
+    public void changeStageTeacherStudentView()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentView.fxml"));
             Parent parent = loader.load();
             this.stage.setScene(new Scene(parent));
             this.centerStage(stage);
