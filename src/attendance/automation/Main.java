@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  *
  * @author Axl
  */
-public class AttendanceAutomation extends Application
+public class Main extends Application
 {
 
     @Override

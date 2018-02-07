@@ -14,7 +14,7 @@ import javafx.scene.control.DatePicker;
  *
  * @author Axl
  */
-public class StatisticWindowController implements Initializable
+public class StudentStatisticWindowController implements Initializable
 {
 
     @FXML
@@ -39,7 +39,6 @@ public class StatisticWindowController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
     }
 
 }

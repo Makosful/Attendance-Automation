@@ -48,3 +48,11 @@
 #sub3 {
     -fx-background-color: #2d2;
 }
+
+#login {
+    -fx-background-color: #0cc;
+}
+
+#login:pressed {
+    -fx-background-color: #088;
+}
