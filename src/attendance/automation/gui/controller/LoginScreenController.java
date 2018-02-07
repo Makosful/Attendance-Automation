@@ -1,5 +1,6 @@
 package attendance.automation.gui.controller;
 
+import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ public class LoginScreenController
         implements Initializable
 {
 
+    private Model model;
+
     private SubScene innerScene;
 
     @FXML
@@ -41,7 +44,7 @@ public class LoginScreenController
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        model = Model.getInstance();
     }
 
     @Override
@@ -65,6 +68,11 @@ public class LoginScreenController
     @FXML
     private void handleLogin(ActionEvent event)
     {
+        String text = txtUserName.getText().toLowerCase();
+        if (text.startsWith("t"))
+            System.out.println("Teacher");
+        else if (text.startsWith("s"))
+            model.changeStageStudentView();
     }
 
 }

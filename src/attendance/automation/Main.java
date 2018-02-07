@@ -1,9 +1,7 @@
 package attendance.automation;
 
+import attendance.automation.gui.model.Model;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -13,14 +11,16 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 
+    private Model model;
+
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("gui/view/Root.fxml"));
+        model = Model.getInstance();
 
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
+        model.setStage(stage);
+        model.changeStageLogin();
+        stage = model.getStage();
         stage.show();
     }
 
