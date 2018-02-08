@@ -37,6 +37,6 @@
       <AnchorPane prefWidth="20.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <Button fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="View Student Statistics" BorderPane.alignment="CENTER" />
+      <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="View Student Statistics" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

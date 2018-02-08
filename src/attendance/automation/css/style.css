@@ -54,10 +54,16 @@
     -fx-text-fill: #fff;
 }
 
-#login {
+#backbutton:pressed {
+    -fx-background-color: #004d39;
+}
+
+#login,
+#student-statistics {
     -fx-background-color: #0cc;
 }
 
-#login:pressed {
+#login:pressed,
+#student-statistics:pressed {
     -fx-background-color: #088;
 }
