@@ -123,17 +123,13 @@ public class Model
     /**
      * Changes the stage to the Student Attendance screen
      */
-    public void changeStageStudentAttendance()
-    {
-        try
-        {
+    public void changeStageStudentAttendance() {
+        try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentStatisticWindow.fxml"));
             Parent parent = loader.load();
             this.stage.setScene(new Scene(parent));
             this.centerStage(stage);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

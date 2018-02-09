@@ -9,15 +9,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -37,6 +37,7 @@ public class LoginScreenController implements Initializable
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
+    Stage currentStage;
 
     /**
      * Initializes the controller class.
@@ -72,10 +73,23 @@ public class LoginScreenController implements Initializable
     
     private void changeStageStudentView() throws IOException
     {
-        Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+        currentStage = (Stage) btnLogin.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
         Parent parent = loader.load();
         currentStage.setScene(new Scene(parent));  
+        centerStage();
+    }
+    
+         /**
+     * Centers the window on the screen
+     *
+     * @param stage
+     */
+    private void centerStage()
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
+        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
     
     

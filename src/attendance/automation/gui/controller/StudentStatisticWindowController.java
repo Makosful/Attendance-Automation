@@ -153,13 +153,13 @@ public class StudentStatisticWindowController implements Initializable
         /**
      * Centers the window on the screen
      *
-     * @param stage
+     * @param currentStage
      */
-    private void centerStage(Stage stage)
+    private void centerStage()
     {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
+        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
     
     /**
@@ -169,25 +169,16 @@ public class StudentStatisticWindowController implements Initializable
     {
         try
         {
-            shutCurrentStage();
-            this.newStage = new Stage();
+            this.newStage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
             Parent parent = loader.load();
             this.newStage.setScene(new Scene(parent));
-            this.newStage.showAndWait();
-            this.centerStage(newStage);
+            this.newStage.show();
+            this.centerStage();
         }
         catch (IOException ex)
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    /**
-     * Shuts the current stage. Example, if user goes back, in this case.
-     */
-    public void shutCurrentStage()
-    {
-        currentStage = (Stage) anchorPane.getScene().getWindow();
-        this.currentStage.close();
     }
 }
