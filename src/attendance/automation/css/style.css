@@ -30,7 +30,8 @@
 #stats,
 #schoolstart,
 #today,
-#present {
+#present,
+#login {
     -fx-background-color: #005ce6;
     -fx-text-fill: #eee;
 }
@@ -80,10 +81,10 @@
 
 #login,
 #student-statistics {
-    -fx-background-color: #0cc;
+    -fx-background-color: #009999;
 }
 
 #login:pressed,
 #student-statistics:pressed {
-    -fx-background-color: #088;
+    -fx-background-color: #006666;
 }
