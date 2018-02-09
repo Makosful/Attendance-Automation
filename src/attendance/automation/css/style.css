@@ -31,7 +31,8 @@
 #schoolstart,
 #today,
 #present,
-#login {
+#login,
+#student-statistics {
     -fx-background-color: #005ce6;
     -fx-text-fill: #eee;
 }
