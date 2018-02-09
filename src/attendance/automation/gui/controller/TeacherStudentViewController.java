@@ -1,14 +1,20 @@
 package attendance.automation.gui.controller;
 
+import attendance.automation.Main;
 import attendance.automation.gui.model.Model;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -39,9 +45,12 @@ public class TeacherStudentViewController implements Initializable
     }
 
     @FXML
-    private void handleBackButton(ActionEvent event)
+    private void handleBackButton(ActionEvent event) throws IOException
     {
-        model.changeStageTeacherView();
+        Stage currentStage = (Stage) btnBackButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+        Parent parent = loader.load();
+        currentStage.setScene(new Scene(parent)); 
     }
 
 }

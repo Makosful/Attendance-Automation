@@ -136,7 +136,7 @@ public class Model
 
     /**
      * Changes the stage to the Teacher view
-     */
+     
     public void changeStageTeacherView()
     {
         try
@@ -151,7 +151,7 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+     */
     /**
      * Changes the stage to the Teacher's view of the student
      */

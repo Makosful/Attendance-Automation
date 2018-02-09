@@ -56,12 +56,22 @@ public class LoginScreenController implements Initializable
     {
         String text = txtUserName.getText().toLowerCase();
         if (text.startsWith("t"))
-            model.changeStageTeacherView();
+            changeStageTeacherView();
         else if (text.startsWith("s"))
             changeStageStudentView();
     }
     
-    public void changeStageStudentView() throws IOException
+    
+    
+    private void changeStageTeacherView() throws IOException
+    {
+        Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+        Parent parent = loader.load();
+        currentStage.setScene(new Scene(parent));  
+    }
+    
+    private void changeStageStudentView() throws IOException
     {
         currentStage = (Stage) btnLogin.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
