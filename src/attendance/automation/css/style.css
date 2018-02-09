@@ -3,7 +3,7 @@
 }
 
 .chart-title {
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: #fefefe;
 }
 
 .chart-legend {
@@ -11,11 +11,11 @@
 }
 
 .chart-pie-label {
-    -fx-fill: #f2f2f2;
+    -fx-fill: #fefefe;
 }
 
 .label {
-    -fx-text-fill: #f2f2f2;
+    -fx-text-fill: #fefefe;
 }
 
 #absent {
@@ -34,7 +34,7 @@
 #login,
 #student-statistics {
     -fx-background-color: #005ce6;
-    -fx-text-fill: #eee;
+    -fx-text-fill: #fefefe;
 }
 
 #stats:pressed,
@@ -52,7 +52,7 @@
 }
 
 .checkbox-container{
-    -fx-background-color: #eaeaea;
+    -fx-background-color: #fefefe;
 }
 
 .checkboxes {
@@ -73,7 +73,7 @@
 
 #backbutton {
     -fx-background-color: #009973;
-    -fx-text-fill: #fff;
+    -fx-text-fill: #fefefe;
 }
 
 #backbutton:pressed {
@@ -88,4 +88,8 @@
 #login:pressed,
 #student-statistics:pressed {
     -fx-background-color: #006666;
+}
+
+.radio-button {
+    -fx-text-fill: #fefefe;
 }
