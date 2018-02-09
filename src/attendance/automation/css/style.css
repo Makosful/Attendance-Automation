@@ -1,10 +1,17 @@
-#present {
-    -fx-background-color: #0d0;
+.background {
+    -fx-background-color: #616161;
+}
+
+.chart-title {
+    -fx-text-fill: #f2f2f2;
+}
+
+.chart-legend {
     -fx-text-fill: #000;
 }
 
-#present:pressed {
-    -fx-background-color: #0a0;
+.label {
+    -fx-text-fill: #f2f2f2;
 }
 
 #absent {
@@ -18,15 +25,24 @@
 
 #stats,
 #schoolstart,
-#today {
-    -fx-background-color: #59F;
+#today,
+#present {
+    -fx-background-color: #005ce6;
     -fx-text-fill: #eee;
 }
 
 #stats:pressed,
 #schoolstart:pressed,
 #today:pressed {
-    -fx-background-color: #37d;
+    -fx-background-color: #0047b3;
+}
+
+#present {
+    -fx-background-color: #00b300;
+}
+
+#present:pressed {
+    -fx-background-color: #008000;
 }
 
 .checkbox-container{
