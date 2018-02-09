@@ -104,7 +104,7 @@ public class Model
 
     /**
      * Changes the stage to the student view screen
-     */
+    
     public void changeStageStudentView()
     {
         try
@@ -119,7 +119,7 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+     */
     /**
      * Changes the stage to the Student Attendance screen
      */
@@ -193,5 +193,4 @@ public class Model
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
-
 }
