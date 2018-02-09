@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -31,6 +33,8 @@ public class TeacherStudentViewController implements Initializable
     private ToggleGroup days;
     @FXML
     private Button btnBackButton;
+    
+    private Stage currentStage;
 
     /**
      * Initializes the controller class.
@@ -47,10 +51,24 @@ public class TeacherStudentViewController implements Initializable
     @FXML
     private void handleBackButton(ActionEvent event) throws IOException
     {
-        Stage currentStage = (Stage) btnBackButton.getScene().getWindow();
+        currentStage = (Stage) btnBackButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
         Parent parent = loader.load();
         currentStage.setScene(new Scene(parent)); 
+        centerStage();
+    }
+    
+    
+    /**
+     * Centers the window on the screen
+     *
+     * @param currentStage
+     */
+    private void centerStage()
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
+        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
 }
