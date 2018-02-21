@@ -59,7 +59,6 @@ public class StudentStatisticWindowController implements Initializable
     private CheckBox cbSDE;
     @FXML
     private CheckBox cbITO;
-    Stage newStage;
     Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
@@ -163,17 +162,17 @@ public class StudentStatisticWindowController implements Initializable
     }
     
     /**
-     * Changes the newStage to the student view screen
+     * Changes the currentStage to the student view screen
      */
     public void changeStageStudentView()
     {
         try
         {
-            this.newStage = (Stage) anchorPane.getScene().getWindow();
+            this.currentStage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
             Parent parent = loader.load();
-            this.newStage.setScene(new Scene(parent));
-            this.newStage.show();
+            this.currentStage.setScene(new Scene(parent));
+            this.currentStage.show();
             this.centerStage();
         }
         catch (IOException ex)
