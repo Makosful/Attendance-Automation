@@ -22,6 +22,8 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
+        stage.setTitle("Automatic Attendance");
+        
         Parent root = FXMLLoader.load(getClass().getResource("gui/view/LoginScreen.fxml"));
         
         Scene scene = new Scene(root);
