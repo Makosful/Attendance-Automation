@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListView;
+
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -50,6 +52,26 @@ public class Model
                 new PieChart.Data("Present", 80),
                 new PieChart.Data("Absent", 20)
         );
+    }
+    
+        public void fillClassesList(ListView<String> lstClasses)
+    {
+        bll.fillClassesList(lstClasses);
+    }
+
+    public void fillStudentsList(ListView<String> lstStudents)
+    {
+        bll.fillStudentsList(lstStudents);
+    }
+
+    public void fillClassesChart(PieChart chrtClasses)
+    {
+        bll.fillClassesChart(chrtClasses);
+    }
+
+    public void fillStudentsChart(PieChart chrtStudents)
+    {
+        bll.fillStudentsChart(chrtStudents);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Observables">

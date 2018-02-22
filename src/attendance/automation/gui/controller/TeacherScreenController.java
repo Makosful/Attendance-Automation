@@ -60,74 +60,22 @@ public class TeacherScreenController implements Initializable
 
     private void fillClassesList()
     {
-        lstClasses.getItems().addAll(
-                "SCO 1 A",
-                "SCO 2 A",
-                "SCO 1 B",
-                "SCO 2 B",
-                "SDE 1 A",
-                "SDE 2 A",
-                "SDE 1 B",
-                "SDE 2 B",
-                "ITO 1 A",
-                "ITO 2 A",
-                "ITO 1 B",
-                "ITO 2 B"
-        );
+        model.fillClassesList(lstClasses);
     }
 
     private void fillStudentsList()
     {
-        lstStudents.getItems().addAll(
-                "Massimiliano MacCallister",
-                "Lita Sayre",
-                "Pam Giovanizio",
-                "Salmon Messruther",
-                "Alyse Roscam",
-                "Denna Shelley",
-                "Clive Shilito",
-                "Hendrik Kiezler",
-                "Lillis Berkelay",
-                "Magdalene Bielby",
-                "Ezekiel Alderwick",
-                "Kirbie Lamers",
-                "Darrell Cordall",
-                "Maggee Vorley",
-                "Janina Antalffy",
-                "Alys Breissan",
-                "Deva Riggert",
-                "Liam St. Pierre",
-                "Leonidas Grover",
-                "Viola Woodcraft",
-                "Gail Simondson",
-                "Pietro Dimitrijevic",
-                "Patty Waterhouse",
-                "Jilly Belliveau",
-                "Janaya Hector",
-                "Padraig Crehan",
-                "Amabelle Farryn",
-                "Bard Curtois",
-                "Leese Clemensen",
-                "Emmy Denekamp"
-        );
+       model.fillStudentsList(lstStudents);
     }
 
     private void fillClassesChart()
     {
-        chrtClasses.setTitle("Overall Attendance in class");
-        chrtClasses.getData().addAll(
-                new PieChart.Data("Attendance", 86),
-                new PieChart.Data("Absense", 14)
-        );
+        model.fillClassesChart(chrtClasses);
     }
 
     private void fillStudentsChart()
     {
-        chrtStudents.setTitle("Student's Overall Attendance");
-        chrtStudents.getData().addAll(
-                new PieChart.Data("Attendance", 98),
-                new PieChart.Data("Absense", 2)
-        );
+        model.fillStudentsChart(chrtStudents);
     }
 
     @FXML
