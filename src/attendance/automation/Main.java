@@ -17,8 +17,6 @@ public class Main extends Application
 
     public static Image icon;
 
-    private Model model;
-
     @Override
     public void start(Stage stage) throws Exception
     {
