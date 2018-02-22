@@ -1,9 +1,11 @@
 package attendance.automation.gui.model;
 
 import attendance.automation.bll.BLLManager;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -56,4 +58,30 @@ public class Model
         return pieChartAttendance;
     }
     //</editor-fold>
+
+    public LocalDate getStartDate() {
+       LocalDate startDate = bll.setStartDate();
+       return startDate;
+    }
+
+    public XYChart.Series getScoData() {
+        XYChart.Series series = bll.getScoData();
+        return series;
+    }
+
+    public XYChart.Series getSdeData() {
+        XYChart.Series series = bll.getSdeData();
+        return series;
+    }
+
+    public XYChart.Series getItoData() {
+        XYChart.Series series = bll.getItoData();
+        return series;
+    }
+
+    public LocalDate getFirstDayOfMonth() {
+        LocalDate firstDay = bll.getFirstDayOfMonth();
+        return firstDay;
+    }
+ 
 }

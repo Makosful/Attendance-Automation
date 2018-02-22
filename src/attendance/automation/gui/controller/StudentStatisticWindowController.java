@@ -35,9 +35,6 @@ public class StudentStatisticWindowController implements Initializable
 
     private Model model;
 
-    private final String sub1 = "Jan";
-    private final String sub2 = "Feb";
-    private final String sub3 = "Mar";
 
     @FXML
     private DatePicker dateFrom;
@@ -77,11 +74,11 @@ public class StudentStatisticWindowController implements Initializable
         chrtTotalAttendance.setData(model.getPieChartAttendance());
 
         //<editor-fold defaultstate="collapsed" desc="Bar Chart">
-        chrtClassAttendance.getData().addAll(getScoData(), getSdeData(), getItoData());
+        chrtClassAttendance.getData().addAll(model.getScoData(), model.getSdeData(), model.getItoData());
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="Date and Time">
-        LocalDate monthStart = getFirstDayOfMonth();
+        LocalDate monthStart = model.getFirstDayOfMonth();
         dateFrom.setValue(monthStart);
 
         LocalDate today = LocalDate.now();
@@ -98,7 +95,8 @@ public class StudentStatisticWindowController implements Initializable
     @FXML
     private void handleSetDateStart(ActionEvent event)
     {
-        dateFrom.setValue(LocalDate.of(2018, 1, 1));
+        dateFrom.setValue(model.getStartDate());
+        
     }
 
     @FXML
@@ -106,50 +104,8 @@ public class StudentStatisticWindowController implements Initializable
     {
         dateTo.setValue(LocalDate.now());
     }
-
-    private XYChart.Series getScoData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("SCO");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 95),
-                new XYChart.Data<>(sub2, 86),
-                new XYChart.Data<>(sub3, 91)
-        );
-        return series;
-    }
-
-    private XYChart.Series getSdeData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("SDE");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 100),
-                new XYChart.Data<>(sub2, 89),
-                new XYChart.Data<>(sub3, 96)
-        );
-        return series;
-    }
-
-    private XYChart.Series getItoData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("ITO");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 85),
-                new XYChart.Data<>(sub2, 76),
-                new XYChart.Data<>(sub3, 70)
-        );
-        return series;
-    }
-
-    private LocalDate getFirstDayOfMonth()
-    {
-        LocalDate initial = LocalDate.now();
-        return initial.withDayOfMonth(1);
-    }
     
-        /**
+    /**
      * Centers the window on the screen
      *
      * @param currentStage
