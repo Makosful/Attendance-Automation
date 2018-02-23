@@ -41,7 +41,7 @@ public class StudentScreenController implements Initializable
     private Button btnShowDetailStatistics;
     @FXML
     private AnchorPane anchorPane;
-    Stage currentStage;
+    private Stage currentStage;
 
     /**
      * Initializes the controller class.
@@ -67,13 +67,13 @@ public class StudentScreenController implements Initializable
     {
         changeStageStudentAttendance();
     }
-    
+
     /**
      * Changes the currentStage to the Student Attendance screen
      */
-    public void changeStageStudentAttendance() 
+    public void changeStageStudentAttendance()
     {
-        try 
+        try
         {
             currentStage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentStatisticWindow.fxml"));
@@ -82,13 +82,13 @@ public class StudentScreenController implements Initializable
             this.currentStage.show();
             this.centerStage();
         }
-        catch (IOException ex) 
+        catch (IOException ex)
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     /**
+
+    /**
      * Centers the window on the screen
      *
      * @param currentStage

@@ -60,27 +60,26 @@ public class LoginScreenController implements Initializable
         else if (text.startsWith("s"))
             changeStageStudentView();
     }
-    
-    
-    
+
     private void changeStageTeacherView() throws IOException
     {
-        Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+        currentStage = (Stage) btnLogin.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
         Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent));  
+        currentStage.setScene(new Scene(parent));
+        centerStage();
     }
-    
+
     private void changeStageStudentView() throws IOException
     {
         currentStage = (Stage) btnLogin.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
         Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent));  
+        currentStage.setScene(new Scene(parent));
         centerStage();
     }
-    
-         /**
+
+    /**
      * Centers the window on the screen
      *
      * @param stage
@@ -91,7 +90,5 @@ public class LoginScreenController implements Initializable
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
-    
-    
 
 }
