@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
    <left>
@@ -37,6 +38,9 @@
       <AnchorPane prefWidth="20.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="View Student Statistics" BorderPane.alignment="CENTER" />
+      <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
    </bottom>
 </BorderPane>
