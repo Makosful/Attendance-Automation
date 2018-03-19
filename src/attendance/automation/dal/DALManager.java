@@ -1,5 +1,9 @@
 package attendance.automation.dal;
 
+import attendance.automation.dal.EncryptionDAL.LogInEncryption;
+import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
+import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
+import be.User;
 import java.time.LocalDate;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
@@ -17,8 +21,28 @@ public class DALManager
     private final String sub2 = "Feb";
     private final String sub3 = "Mar";
     
+    IValidationDatabase vd;
+    LogInEncryption liEncryption;
+    
+    
     public DALManager()
     {
+        vd = new ValidationDataBase();
+    }
+    
+    public User userLogIn(String username, String password)
+    {
+        return null;
+    }
+    
+    public boolean validEmail(String email)
+    {
+        return vd.validEmail(email);
+    }
+    
+    public boolean validUsername(String username)
+    {
+        return vd.validUsername(username);
     }
     
     public void fillClassesList(ListView<String> lstClasses)

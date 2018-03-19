@@ -20,6 +20,17 @@ public class BLLManager
     {
         dal = new DALManager();
     }
+    
+    public boolean validEmail(String email)
+    {
+        return dal.validEmail(email);
+    }
+    
+    public boolean validUsername(String username)
+    {
+        return dal.validUsername(username);
+    }
+    
     public void fillClassesList(ListView<String> lstClasses)
     {
         dal.fillClassesList(lstClasses);

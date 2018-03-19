@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.dal.Encryption;
+package attendance.automation.dal.EncryptionDAL;
 
 import attendance.automation.dal.DataBaseConnector;
 import be.User;

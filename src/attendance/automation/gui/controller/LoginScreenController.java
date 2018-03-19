@@ -1,7 +1,6 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
-import attendance.automation.bll.Encryption.Encryption;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +59,12 @@ public class LoginScreenController implements Initializable
             changeStageTeacherView();
         else if (text.startsWith("s"))
             changeStageStudentView();
+        
+        
+        if(model.validUsername(txtUserName.getText()))
+        {
+            System.out.println("david");
+        }
     }
 
     private void changeStageTeacherView() throws IOException

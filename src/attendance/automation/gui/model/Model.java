@@ -54,6 +54,16 @@ public class Model
         );
     }
     
+    public boolean validEmail(String email)
+    {
+        return bll.validEmail(email);
+    }
+    
+    public boolean validUsername(String username)
+    {
+        return bll.validUsername(username);
+    }
+    
         public void fillClassesList(ListView<String> lstClasses)
     {
         bll.fillClassesList(lstClasses);

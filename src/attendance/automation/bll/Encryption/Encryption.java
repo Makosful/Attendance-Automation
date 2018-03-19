@@ -36,7 +36,6 @@ public class Encryption
         } 
         catch (NoSuchAlgorithmException ex) 
         {
-
             Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

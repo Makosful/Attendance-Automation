@@ -26,9 +26,9 @@ public class ValidationDataBase implements IValidationDatabase
     {
         try(Connection con = dbConnector.getConnection())
         {
-            String sql = "SELECT * FROM Users where username = ?";
+            String sql = "SELECT * FROM Users where LOWER (username) = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, username.toLowerCase());
             
             ResultSet rs = preparedStatement.executeQuery();
             
