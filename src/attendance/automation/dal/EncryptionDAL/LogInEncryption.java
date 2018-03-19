@@ -5,6 +5,7 @@
  */
 package attendance.automation.dal.EncryptionDAL;
 
+import attendance.automation.dal.DALException;
 import attendance.automation.dal.DataBaseConnector;
 import be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,7 @@ public class LogInEncryption
 {
     private DataBaseConnector dbConnection = new DataBaseConnector();
     
-    public User userLogIn(String username, String password) throws SQLException
+    public User userLogIn(String username, String password) throws SQLException 
     {
         try(Connection con = dbConnection.getConnection())
         {
@@ -42,11 +45,10 @@ public class LogInEncryption
             user.setEmail(rs.getString("Email"));
             return user;
         } 
-        catch (SQLServerException ex)
+        catch (SQLException ex) 
         {
-            System.out.println("Username or Password is wrong");
+            throw new SQLException(ex);
         }
-        return null;
     }   
 
 }

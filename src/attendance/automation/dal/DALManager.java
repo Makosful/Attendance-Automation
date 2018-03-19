@@ -1,10 +1,14 @@
 package attendance.automation.dal;
 
+import attendance.automation.bll.BLLException;
 import attendance.automation.dal.EncryptionDAL.LogInEncryption;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
 import be.User;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
@@ -30,9 +34,16 @@ public class DALManager
         vd = new ValidationDataBase();
     }
     
-    public User userLogIn(String username, String password)
+    public User userLogIn(String username, String password) throws DALException 
     {
-        return null;
+        try
+        {
+            return liEncryption.userLogIn(username, password);
+        } 
+        catch (SQLException ex) 
+        {
+            throw new DALException("Password or username is not correct", ex);
+        }
     }
     
     public boolean validEmail(String email)

@@ -1,8 +1,12 @@
 package attendance.automation.bll;
 
 import attendance.automation.be.PasswordValidation;
+import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
+import be.User;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -29,6 +33,18 @@ public class BLLManager
     public boolean validUsername(String username)
     {
         return dal.validUsername(username);
+    }
+    
+        public User userLogIn(String username, String password) throws BLLException 
+    {
+        try 
+        {
+            return dal.userLogIn(username, password);
+        } 
+        catch (DALException ex) 
+        {
+            throw new BLLException(ex.getMessage(), ex);
+        }
     }
 
     public PasswordValidation checkPasswordStrength(String pass)

@@ -1,8 +1,12 @@
 package attendance.automation.gui.model;
 
 import attendance.automation.be.PasswordValidation;
+import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
+import be.User;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -62,6 +66,11 @@ public class Model
     public boolean validUsername(String username)
     {
         return bll.validUsername(username);
+    }
+    
+    public User userLogIn(String username, String password) throws BLLException
+    {
+        return bll.userLogIn(username, password);
     }
     
     public PasswordValidation checkPasswordstrength(String password)
