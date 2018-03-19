@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="310.0" prefWidth="189.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="302.0" prefWidth="219.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
    <children>
       <VBox alignment="CENTER" layoutX="20.0" layoutY="14.0" prefWidth="109.0" spacing="20.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0">
          <children>
