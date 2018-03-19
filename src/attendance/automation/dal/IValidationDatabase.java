@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.bll;
+package attendance.automation.dal;
 
 /**
  *
  * @author Hussain
  */
-public class Encryption {
+public interface IValidationDatabase 
+{
+    public boolean validUsername(String username);
+    
+    public boolean validEmail(String email);
     
 }

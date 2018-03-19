@@ -1,6 +1,7 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.bll.Encryption.Encryption;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
