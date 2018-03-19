@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.SignUpController">
+    <children>
+        <VBox alignment="CENTER" layoutX="14.0" layoutY="26.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane hgap="10.0" vgap="20.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="lblFName" text="First Name" GridPane.rowIndex="1" />
+                        <Label fx:id="lblLName" text="Last Name" GridPane.rowIndex="2" />
+                        <Label fx:id="lblEmail" text="Email" GridPane.rowIndex="3" />
+                        <Label fx:id="lblEmailConfirm" text="Confirm Email" GridPane.rowIndex="4" />
+                        <Label fx:id="lblPass" text="Password" GridPane.rowIndex="5" />
+                        <Label fx:id="lblPassConfirm" text="Confirm Password" GridPane.rowIndex="6" />
+                        <TextField fx:id="txtFName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtLName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtEmailConfirm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                        <PasswordField fx:id="txtPass" />
+                        <Label fx:id="lblPassError" styleClass="error" text="Password must be at leats 8 characters" visible="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <children>
+                              <TextField fx:id="txtPassConfirm" styleClass="pass2" />
+                        <Label fx:id="lblPassConfError" styleClass="error" text="Passwords do no match" visible="false" />
+                     </children>
+                  </VBox>
+                  <Label prefHeight="20.0" prefWidth="107.0" text="Username" />
+                  <TextField fx:id="txtUsername" GridPane.columnIndex="1" />
+                    </children>
+                </GridPane>
+                <ButtonBar buttonOrder="L_R">
+                    <buttons>
+                        <Button fx:id="btnSignUp" mnemonicParsing="false" onAction="#handleSignUp" styleClass="sign" text="Sign Up" ButtonBar.buttonData="LEFT" />
+                        <Button fx:id="btnCancel" layoutX="206.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="cancel" text="Cancel" ButtonBar.buttonData="RIGHT" />
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>

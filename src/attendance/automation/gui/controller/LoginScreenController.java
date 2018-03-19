@@ -27,8 +27,9 @@ import javafx.stage.Stage;
 public class LoginScreenController implements Initializable
 {
 
-    private Model model;
-
+    //<editor-fold defaultstate="collapsed" desc="FXML Variables">
+    @FXML
+    private Button btnSignup;
     @FXML
     private AnchorPane root;
     @FXML
@@ -37,7 +38,10 @@ public class LoginScreenController implements Initializable
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
-    Stage currentStage;
+    //</editor-fold>
+
+    // Objects
+    private Model model;
 
     /**
      * Initializes the controller class.
@@ -51,38 +55,13 @@ public class LoginScreenController implements Initializable
         model = Model.getInstance();
     }
 
-    @FXML
-    private void handleLogin(ActionEvent event) throws IOException
+    private void changeStage(String file) throws IOException
     {
-        String text = txtUserName.getText().toLowerCase();
-        if (text.startsWith("t"))
-            changeStageTeacherView();
-        else if (text.startsWith("s"))
-            changeStageStudentView();
-        
-        
-        if(model.validUsername(txtUserName.getText()))
-        {
-            System.out.println("david");
-        }
-    }
-
-    private void changeStageTeacherView() throws IOException
-    {
-        currentStage = (Stage) btnLogin.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + file + ".fxml"));
         Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent));
-        centerStage();
-    }
-
-    private void changeStageStudentView() throws IOException
-    {
-        currentStage = (Stage) btnLogin.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/StudentScreen.fxml"));
-        Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent));
-        centerStage();
+        stage.setScene(new Scene(parent));
+        centerStage(stage);
     }
 
     /**
@@ -90,11 +69,43 @@ public class LoginScreenController implements Initializable
      *
      * @param stage
      */
-    private void centerStage()
+    private void centerStage(Stage stage)
     {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
-        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+
+    @FXML
+    private void handleLogin(ActionEvent event)
+    {
+        try
+        {
+            String text = txtUserName.getText().toLowerCase();
+            if (text.startsWith("t"))
+                changeStage("TeacherScreen");
+            else if (text.startsWith("s"))
+                changeStage("StudentScreen");
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex.getLocalizedMessage());
+            System.out.println(ex.getStackTrace());
+        }
+    }
+
+    @FXML
+    private void handleSignUp(ActionEvent event)
+    {
+        try
+        {
+            changeStage("SignUp");
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex.getLocalizedMessage());
+            System.out.println(ex.getStackTrace());
+        }
     }
 
 }
