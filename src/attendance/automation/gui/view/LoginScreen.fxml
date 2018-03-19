@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="310.0" prefWidth="189.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
    <children>
-      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="20.0" layoutY="14.0" prefWidth="109.0" spacing="20.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0">
          <children>
             <VBox alignment="CENTER">
                <children>
@@ -31,6 +32,7 @@
                   <PasswordField fx:id="txtPassword" />
                </children>
             </VBox>
+            <CheckBox fx:id="checkBoxRememberMe" mnemonicParsing="false" text="Remember me" />
             <Button id="login" fx:id="btnLogin" mnemonicParsing="false" onAction="#handleLogin" text="Sign In">
                <font>
                   <Font size="18.0" />

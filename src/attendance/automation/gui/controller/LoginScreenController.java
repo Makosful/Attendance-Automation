@@ -13,6 +13,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -37,7 +38,12 @@ public class LoginScreenController implements Initializable
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
+    @FXML
+    private CheckBox checkBoxRememberMe;
+    
     Stage currentStage;
+
+
 
     /**
      * Initializes the controller class.
@@ -90,5 +96,6 @@ public class LoginScreenController implements Initializable
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
+
 
 }
