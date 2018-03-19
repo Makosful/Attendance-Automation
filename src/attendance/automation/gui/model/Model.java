@@ -1,5 +1,6 @@
 package attendance.automation.gui.model;
 
+import attendance.automation.be.PasswordValidation;
 import attendance.automation.bll.BLLManager;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -7,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
-
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -53,8 +53,13 @@ public class Model
                 new PieChart.Data("Absent", 20)
         );
     }
-    
-        public void fillClassesList(ListView<String> lstClasses)
+
+    public PasswordValidation checkPasswordstrength(String password)
+    {
+        return bll.checkPasswordStrength(password);
+    }
+
+    public void fillClassesList(ListView<String> lstClasses)
     {
         bll.fillClassesList(lstClasses);
     }
@@ -81,29 +86,34 @@ public class Model
     }
     //</editor-fold>
 
-    public LocalDate getStartDate() {
-       LocalDate startDate = bll.setStartDate();
-       return startDate;
+    public LocalDate getStartDate()
+    {
+        LocalDate startDate = bll.setStartDate();
+        return startDate;
     }
 
-    public XYChart.Series getScoData() {
+    public XYChart.Series getScoData()
+    {
         XYChart.Series series = bll.getScoData();
         return series;
     }
 
-    public XYChart.Series getSdeData() {
+    public XYChart.Series getSdeData()
+    {
         XYChart.Series series = bll.getSdeData();
         return series;
     }
 
-    public XYChart.Series getItoData() {
+    public XYChart.Series getItoData()
+    {
         XYChart.Series series = bll.getItoData();
         return series;
     }
 
-    public LocalDate getFirstDayOfMonth() {
+    public LocalDate getFirstDayOfMonth()
+    {
         LocalDate firstDay = bll.getFirstDayOfMonth();
         return firstDay;
     }
- 
+
 }

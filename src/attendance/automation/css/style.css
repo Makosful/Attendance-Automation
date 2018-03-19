@@ -16,6 +16,10 @@
   -fx-text-fill: #fefefe;
   -fx-font-size: 14px; }
 
+.error {
+  -fx-text-fill: #ff4444;
+  -fx-font-size: 12px; }
+
 /* Buttons */
 .button {
   -fx-padding: 5px;

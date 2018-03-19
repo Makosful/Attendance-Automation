@@ -39,8 +39,18 @@
                         <TextField fx:id="txtLName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="txtEmailConfirm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtPass" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtPassConfirm" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                              <TextField fx:id="txtPass" />
+                        <Label fx:id="lblPassError" styleClass="error" text="Password must be at leats 8 characters" visible="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                              <TextField fx:id="txtPassConfirm" styleClass="pass2" />
+                        <Label fx:id="lblPassConfError" styleClass="error" text="Passwords do no match" visible="false" />
+                     </children>
+                  </VBox>
                     </children>
                 </GridPane>
                 <ButtonBar buttonOrder="L_R">

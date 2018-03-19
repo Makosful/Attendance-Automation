@@ -1,6 +1,7 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.be.PasswordValidation;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +43,11 @@ public class SignUpController implements Initializable
     @FXML
     private Label lblPass;
     @FXML
+    private Label lblPassConfError;
+    @FXML
     private Label lblPassConfirm;
+    @FXML
+    private Label lblPassError;
     @FXML
     private TextField txtEmail;
     @FXML
@@ -58,6 +63,8 @@ public class SignUpController implements Initializable
     //</editor-fold>
 
     private Model model;
+    private boolean validPass;
+    private boolean matchingPass;
 
     /**
      * Initializes the controller class.
@@ -69,6 +76,8 @@ public class SignUpController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
+
+        setupValidationListeners();
     }
 
     private void changeStage(String file) throws IOException
@@ -120,6 +129,41 @@ public class SignUpController implements Initializable
             System.out.println(ex.getLocalizedMessage());
             System.out.println(ex.getStackTrace());
         }
+    }
+
+    private void setupValidationListeners()
+    {
+        txtPass.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            PasswordValidation pv = model.checkPasswordstrength(newValue.trim());
+            validPass = pv.isValid();
+            if (validPass)
+            {
+                lblPassError.setVisible(!validPass);
+            }
+            else
+            {
+                lblPassError.setText(pv.getMessage());
+                lblPassError.setVisible(!validPass);
+            }
+        });
+
+        txtPassConfirm.textProperty().addListener((observable,
+                                                   oldValue, newValue) ->
+        {
+            matchingPass = false;
+            if (txtPass.getText().equals(txtPassConfirm.getText()))
+            {
+                matchingPass = true;
+                lblPassConfError.setVisible(!matchingPass);
+            }
+            else
+            {
+                matchingPass = false;
+                lblPassConfError.setText("The two passwords are not identical");
+                lblPassConfError.setVisible(!matchingPass);
+            }
+        });
     }
 
 }

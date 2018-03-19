@@ -25,6 +25,10 @@ $buttonBad: #FF1111;
     -fx-text-fill: $textColor;
     -fx-font-size: 14px;
 }
+.error {
+    -fx-text-fill: lighten($buttonBad,10%);
+    -fx-font-size: 12px;
+}
 
 /* Buttons */
 .button {
