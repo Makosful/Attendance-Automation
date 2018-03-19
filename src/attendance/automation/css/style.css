@@ -1,95 +1,97 @@
-.background {
-    -fx-background-color: #616161;
-}
+.root {
+  -fx-background-color: #616161; }
 
+/* Charts */
 .chart-title {
-    -fx-text-fill: #fefefe;
-}
+  -fx-text-fill: #fefefe; }
 
 .chart-legend {
-    -fx-background-color:  #404040;
-}
+  -fx-background-color: #404040; }
 
 .chart-pie-label {
-    -fx-fill: #fefefe;
-}
+  -fx-fill: #fefefe; }
 
+/* Text */
 .label {
-    -fx-text-fill: #fefefe;
-}
+  -fx-text-fill: #fefefe;
+  -fx-font-size: 14px; }
+
+/* Buttons */
+.button {
+  -fx-padding: 5px;
+  -fx-font-size: 14px; }
+
+.sign {
+  -fx-background-color: #009999;
+  -fx-text-fill: #fefefe; }
+  .sign:hover {
+    -fx-background-color: #00cccc; }
+  .sign:pressed {
+    -fx-background-color: #006666; }
+
+.cancel {
+  -fx-background-color: #FF1111;
+  -fx-text-fill: #fefefe; }
+  .cancel:hover {
+    -fx-background-color: #ff4444; }
+  .cancel:pressed {
+    -fx-background-color: #dd0000; }
 
 #absent {
-    -fx-background-color: #f44;
-    -fx-text-fill: #fefefe;
-}
+  -fx-background-color: #FF1111;
+  -fx-text-fill: #fefefe; }
 
 #absent:pressed {
-    -fx-background-color: #b44;
-}
+  -fx-background-color: #b50f0f; }
 
 #stats,
 #schoolstart,
 #today,
 #present,
-#login,
 #student-statistics {
-    -fx-background-color: #005ce6;
-    -fx-text-fill: #fefefe;
-}
+  -fx-background-color: #005ce6;
+  -fx-text-fill: #fefefe; }
 
 #stats:pressed,
 #schoolstart:pressed,
 #today:pressed {
-    -fx-background-color: #0047b3;
-}
+  -fx-background-color: #0047b3; }
 
 #present {
-    -fx-background-color: #00b300;
-}
+  -fx-background-color: #00b300; }
 
 #present:pressed {
-    -fx-background-color: #008000;
-}
+  -fx-background-color: #008000; }
 
-.checkbox-container{
-    -fx-background-color: #fefefe;
-}
+.checkbox-container {
+  -fx-background-color: #fefefe; }
 
 .checkboxes {
-    -fx-text-fill: #222;
-}
+  -fx-text-fill: #222; }
 
 #sub1 {
-    -fx-background-color: #f8a31a;
-}
+  -fx-background-color: #f8a31a; }
 
 #sub2 {
-    -fx-background-color: #f2612d;
-}
+  -fx-background-color: #f2612d; }
 
 #sub3 {
-    -fx-background-color: #57b657;
-}
+  -fx-background-color: #57b657; }
 
 #backbutton {
-    -fx-background-color: #009973;
-    -fx-text-fill: #fefefe;
-}
+  -fx-background-color: #009973;
+  -fx-text-fill: #fefefe; }
 
 #backbutton:pressed {
-    -fx-background-color: #004d39;
-}
+  -fx-background-color: #004d39; }
 
-#login,
 #student-statistics {
-    -fx-background-color: #009999;
-}
+  -fx-background-color: #009999; }
 
-#login:pressed,
 #student-statistics:pressed {
-    -fx-background-color: #006666;
-}
+  -fx-background-color: #006666; }
 
 .radio-button {
-    -fx-text-fill: #fefefe;
-}
+  -fx-text-fill: #fefefe; }
+
+/*# sourceMappingURL=style.css.map */

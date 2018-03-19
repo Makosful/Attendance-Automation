@@ -13,9 +13,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -24,23 +23,40 @@ import javafx.stage.Stage;
  *
  * @author Axl
  */
-public class LoginScreenController implements Initializable
+public class SignUpController implements Initializable
 {
 
     //<editor-fold defaultstate="collapsed" desc="FXML Variables">
     @FXML
-    private Button btnSignup;
+    private Button btnCancel;
     @FXML
-    private AnchorPane root;
+    private Button btnSignUp;
     @FXML
-    private TextField txtUserName;
+    private Label lblEmail;
     @FXML
-    private PasswordField txtPassword;
+    private Label lblEmailConfirm;
     @FXML
-    private Button btnLogin;
+    private Label lblFName;
+    @FXML
+    private Label lblLName;
+    @FXML
+    private Label lblPass;
+    @FXML
+    private Label lblPassConfirm;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private TextField txtEmailConfirm;
+    @FXML
+    private TextField txtFName;
+    @FXML
+    private TextField txtLName;
+    @FXML
+    private TextField txtPass;
+    @FXML
+    private TextField txtPassConfirm;
     //</editor-fold>
 
-    // Objects
     private Model model;
 
     /**
@@ -58,7 +74,7 @@ public class LoginScreenController implements Initializable
     private void changeStage(String file) throws IOException
     {
 
-        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        Stage stage = (Stage) btnSignUp.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + file + ".fxml"));
         Parent parent = loader.load();
         stage.setScene(new Scene(parent));
@@ -78,15 +94,11 @@ public class LoginScreenController implements Initializable
     }
 
     @FXML
-    private void handleLogin(ActionEvent event)
+    private void handleCancel(ActionEvent event)
     {
         try
         {
-            String text = txtUserName.getText().toLowerCase();
-            if (text.startsWith("t"))
-                changeStage("TeacherScreen");
-            else if (text.startsWith("s"))
-                changeStage("StudentScreen");
+            changeStage("LoginScreen");
         }
         catch (IOException ex)
         {
@@ -98,9 +110,10 @@ public class LoginScreenController implements Initializable
     @FXML
     private void handleSignUp(ActionEvent event)
     {
+        System.out.println("You've been signed up");
         try
         {
-            changeStage("SignUp");
+            changeStage("LoginScreen");
         }
         catch (IOException ex)
         {

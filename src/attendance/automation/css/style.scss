@@ -1,0 +1,126 @@
+$textColor: #fefefe;
+$buttonSign: #009999;
+$buttonGood: #000000;
+$buttonBad: #FF1111;
+
+.root {
+    -fx-background-color: #616161;
+}
+
+/* Charts */
+.chart-title {
+    -fx-text-fill: $textColor;
+}
+
+.chart-legend {
+    -fx-background-color:  #404040;
+}
+
+.chart-pie-label {
+    -fx-fill: $textColor;
+}
+
+/* Text */
+.label {
+    -fx-text-fill: $textColor;
+    -fx-font-size: 14px;
+}
+
+/* Buttons */
+.button {
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+.sign {
+    -fx-background-color: $buttonSign;
+    -fx-text-fill: $textColor;
+    &:hover {
+        -fx-background-color: lighten($buttonSign, 10%);
+    }
+    &:pressed {
+        -fx-background-color: darken($buttonSign, 10%);
+    }
+}
+.cancel {
+    -fx-background-color: $buttonBad;
+    -fx-text-fill: $textColor;
+    &:hover {
+        -fx-background-color: lighten($buttonBad, 10%);
+    }
+    &:pressed {
+        -fx-background-color: darken($buttonBad, 10%);
+    }
+}
+
+#absent {
+    -fx-background-color: $buttonBad;
+    -fx-text-fill: $textColor;
+}
+
+#absent:pressed {
+    -fx-background-color: desaturate(darken($buttonBad, 15%), 15%);
+}
+
+#stats,
+#schoolstart,
+#today,
+#present,
+#student-statistics {
+    -fx-background-color: #005ce6;
+    -fx-text-fill: $textColor;
+}
+
+#stats:pressed,
+#schoolstart:pressed,
+#today:pressed {
+    -fx-background-color: #0047b3;
+}
+
+#present {
+    -fx-background-color: #00b300;
+}
+
+#present:pressed {
+    -fx-background-color: #008000;
+}
+
+.checkbox-container{
+    -fx-background-color: #fefefe;
+}
+
+.checkboxes {
+    -fx-text-fill: #222;
+}
+
+#sub1 {
+    -fx-background-color: #f8a31a;
+}
+
+#sub2 {
+    -fx-background-color: #f2612d;
+}
+
+#sub3 {
+    -fx-background-color: #57b657;
+}
+
+#backbutton {
+    -fx-background-color: #009973;
+    -fx-text-fill: $textColor;
+}
+
+#backbutton:pressed {
+    -fx-background-color: #004d39;
+}
+
+#student-statistics {
+    -fx-background-color: #009999;
+}
+
+#student-statistics:pressed {
+    -fx-background-color: #006666;
+}
+
+.radio-button {
+    -fx-text-fill: $textColor;
+}
