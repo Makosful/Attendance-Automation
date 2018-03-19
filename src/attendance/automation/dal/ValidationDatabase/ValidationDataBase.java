@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.dal;
+package attendance.automation.dal.ValidationDatabase;
 
+import attendance.automation.dal.DataBaseConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

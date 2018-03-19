@@ -5,15 +5,13 @@
  */
 package attendance.automation.dal.Encryption;
 
-import attendance.automation.bll.Encryption.Encryption;
 import attendance.automation.dal.DataBaseConnector;
+import be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,33 +21,32 @@ public class LogInEncryption
 {
     private DataBaseConnector dbConnection = new DataBaseConnector();
     
-    public void userLogIn(String username, String password) throws SQLException
+    public User userLogIn(String username, String password) throws SQLException
     {
         try(Connection con = dbConnection.getConnection())
         {
-            String encryptedPassword = Encryption.passwordEncryption(password);
-            String sql = "ToBeMade, ?";
+            String sql = "SELECT * FROM Users where username = ? and password = ?";
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
             
             ResultSet rs = preparedStatement.executeQuery();
             
-            if(rs.next())
-            {
-                if(rs.getString("Password").equals(encryptedPassword))
-                {
-                    System.out.println("SUCESS LOGIN");
-                }
-
-            }
+            User user = new User();
             
-            
+            user.setId(rs.getInt("ID"));
+            user.setFirstName(rs.getString("Username"));
+            user.setLastName(rs.getString("LastName"));
+            user.setUserType(rs.getString("UserType"));
+            user.setEmail(rs.getString("Email"));
+            return user;
         } 
         catch (SQLServerException ex)
         {
-            Logger.getLogger(LogInEncryption.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Username or Password is wrong");
         }
+        return null;
     }   
 
 }
