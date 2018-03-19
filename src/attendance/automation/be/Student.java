@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be;
+package attendance.automation.be;
 
 /**
  *
  * @author B
  */
-public class Teacher extends User{
-    
+public class Student extends User{
+
     private int id;
-        
-    public Teacher(int userType, String firstName, String lastName, String userName, String email, String passWord){
-        
+    
+    public Student(int userType, String firstName, String lastName, String userName, String email, String passWord){
+
         super.setUserType(userType);
         super.setFirstName(firstName);
         super.setLastName(lastName);
@@ -23,7 +23,7 @@ public class Teacher extends User{
         super.setPassword(passWord);
         
     }
-
+    
     @Override
     public int getId() {
         return id;
@@ -33,7 +33,5 @@ public class Teacher extends User{
     public void setId(int id) {
         this.id = id;
     }
-    
-    
     
 }

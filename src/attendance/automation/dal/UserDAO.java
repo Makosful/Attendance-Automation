@@ -5,7 +5,7 @@
  */
 package attendance.automation.dal;
 
-import be.User;
+import attendance.automation.be.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
