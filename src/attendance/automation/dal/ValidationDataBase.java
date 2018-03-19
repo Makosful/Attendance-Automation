@@ -5,7 +5,6 @@
  */
 package attendance.automation.dal;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,8 +66,7 @@ public class ValidationDataBase implements IValidationDatabase
             {
                 return true;
             }
-        }
-        catch (SQLException ex) 
+        } catch (SQLException ex) 
         {
             Logger.getLogger(ValidationDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
