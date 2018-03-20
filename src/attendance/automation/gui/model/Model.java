@@ -1,12 +1,19 @@
 package attendance.automation.gui.model;
 
 import attendance.automation.bll.BLLManager;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 
 /**
@@ -104,6 +111,19 @@ public class Model
     public LocalDate getFirstDayOfMonth() {
         LocalDate firstDay = bll.getFirstDayOfMonth();
         return firstDay;
+    }
+
+
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected) 
+    throws IOException, 
+    NoSuchAlgorithmException 
+    {
+            bll.storeLocalLogin(txtUserName, txtPassword, selected);
+    }
+
+    public String[] getLogInInfo() throws FileNotFoundException {
+        String[] login = bll.getLoginInfo();
+        return login;
     }
  
 }

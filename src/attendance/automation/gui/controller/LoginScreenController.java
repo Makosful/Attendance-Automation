@@ -2,8 +2,10 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
 import attendance.automation.gui.model.Model;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +57,7 @@ public class LoginScreenController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
+        checkRememberMe();
     }
 
     @FXML
@@ -65,6 +68,14 @@ public class LoginScreenController implements Initializable
             changeStageTeacherView();
         else if (text.startsWith("s"))
             changeStageStudentView();
+        
+        try {
+            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
+        } catch (IOException ex) {
+            System.out.println("Could not store the login credentials");
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Could not store the login credentials");
+        }
     }
 
     private void changeStageTeacherView() throws IOException
@@ -95,6 +106,21 @@ public class LoginScreenController implements Initializable
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
+
+
+    private void checkRememberMe() {
+        try {
+            String[] login = model.getLogInInfo();
+            if(login[0] != null)
+            {
+                txtUserName.setText(login[0]);
+                txtPassword.setText(login[1]);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Could not retrieve the login credentials");
+        }
+        
     }
 
 

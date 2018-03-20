@@ -34,7 +34,9 @@ public class StoreLocalLogin {
      */
     public static void setLoginInfo(String userName, String password) throws IOException, NoSuchAlgorithmException
     {
-        password = hashPass(password);
+        if(!userName.equals("")){
+            password = hashPass(password);
+        }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("loginInfo.txt")))
         {
             writer.write(userName);

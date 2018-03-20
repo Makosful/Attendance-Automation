@@ -1,10 +1,18 @@
 package attendance.automation.bll;
 
 import attendance.automation.dal.DALManager;
+import attendance.automation.gui.controller.LoginScreenController;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 
 /**
@@ -63,6 +71,26 @@ public class BLLManager
     public void fillStudentsChart(PieChart chrtStudents)
     {
         dal.fillStudentsChart(chrtStudents);
+    }
+
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected) 
+    throws IOException,
+    NoSuchAlgorithmException 
+    {
+        if(checkBoxSelected)
+        {
+            StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+        }
+        else
+        {
+            StoreLocalLogin.setLoginInfo("", "");
+        }
+    }
+
+    public String[] getLoginInfo() throws FileNotFoundException {
+        
+        String[] rememberLogin = StoreLocalLogin.getLoginInfo();
+        return rememberLogin;
     }
 
 }
