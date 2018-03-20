@@ -5,6 +5,8 @@ import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +62,29 @@ public class TeacherScreenController implements Initializable
         fillStudentsChart();
     }
 
+    private void centerStage(Stage stage)
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+
+    private void changeStage(String loginScreen)
+    {
+        try
+        {
+            Stage stage = (Stage) btnStudentStatistics.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + loginScreen + ".fxml"));
+            Parent parent = loader.load();
+            stage.setScene(new Scene(parent));
+            centerStage(stage);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void fillClassesList()
     {
         model.fillClassesList(lstClasses);
@@ -83,6 +108,7 @@ public class TeacherScreenController implements Initializable
     @FXML
     private void handleLogOut(ActionEvent event)
     {
+        changeStage("LoginScreen");
     }
 
     @FXML

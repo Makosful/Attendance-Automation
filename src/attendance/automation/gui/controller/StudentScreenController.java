@@ -31,9 +31,6 @@ public class StudentScreenController implements Initializable
 
     @FXML
     private Button btnLogout;
-
-    private Model model;
-
     @FXML
     private PieChart chrtStatistics;
     @FXML
@@ -44,6 +41,8 @@ public class StudentScreenController implements Initializable
     private Button btnShowDetailStatistics;
     @FXML
     private AnchorPane anchorPane;
+
+    private Model model;
     private Stage currentStage;
 
     /**
@@ -59,9 +58,33 @@ public class StudentScreenController implements Initializable
         chrtStatistics.setData(model.getPieChartAttendance());
     }
 
+    private void centerStage(Stage stage)
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+
+    private void changeStage(String loginScreen)
+    {
+        try
+        {
+            Stage stage = (Stage) btnLogout.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + loginScreen + ".fxml"));
+            Parent parent = loader.load();
+            stage.setScene(new Scene(parent));
+            centerStage(stage);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @FXML
     private void handleLogOut(ActionEvent event)
     {
+        changeStage("LoginScreen");
     }
 
     @FXML
