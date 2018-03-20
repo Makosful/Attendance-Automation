@@ -168,6 +168,11 @@ public class LoginScreenController implements Initializable
         
     }
 
+    @FXML
+    private void handleForgottenPassword(ActionEvent event) {
+        
+    }
+
 
 
 }
