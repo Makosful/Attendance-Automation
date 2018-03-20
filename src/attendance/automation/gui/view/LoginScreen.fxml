@@ -37,6 +37,7 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleForgottenPassword" text="Forgot Password?" />
          </children>
       </VBox>
    </children>
