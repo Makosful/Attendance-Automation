@@ -14,13 +14,25 @@ public class User
     private int id;
     private String firstName;
     private String lastName;
-    private String userType;
+    private boolean userType;
     private String email;
+    private String username;
+
+    public String getUsername() 
+    {
+        return username;
+    }
+
+    public void setUsername(String username) 
+    {
+        this.username = username;
+    }
     
     public User()
     {
         
     }
+    
 
     public int getId() 
     {
@@ -52,12 +64,12 @@ public class User
         this.lastName = lastName;
     }
 
-    public String getUserType() 
+    public boolean getUserType() 
     {
         return userType;
     }
 
-    public void setUserType(String userType) 
+    public void setUserType(boolean userType) 
     {
         this.userType = userType;
     }

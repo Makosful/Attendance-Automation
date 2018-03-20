@@ -32,6 +32,7 @@
                             </font>
                         </Label>
                         <PasswordField fx:id="txtPassword" />
+                  <Label fx:id="lblInfoMessage" prefHeight="20.0" prefWidth="200.0" />
                     </children>
                 </VBox>
                 <ButtonBar buttonOrder="L_R" prefHeight="40.0" prefWidth="200.0">

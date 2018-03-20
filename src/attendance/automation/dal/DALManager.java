@@ -32,6 +32,7 @@ public class DALManager
     public DALManager()
     {
         vd = new ValidationDataBase();
+        liEncryption = new LogInEncryption();
     }
     
     public User userLogIn(String username, String password) throws DALException 

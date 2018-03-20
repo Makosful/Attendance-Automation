@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -49,6 +50,8 @@ public class LoginScreenController implements Initializable
 
     // Objects
     private Model model;
+    @FXML
+    private Label lblInfoMessage;
 
     /**
      * Initializes the controller class.
@@ -102,12 +105,11 @@ public class LoginScreenController implements Initializable
         try 
         {
             User user = model.userLogIn(txtUserName.getText(), Encryption.passwordEncryption(txtPassword.getText()));
-            user.getEmail();
+            System.out.println(user.getId());
         } 
         catch (BLLException ex) 
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.show();
+            lblInfoMessage.setText("Wrong Password");
         }
     }
 

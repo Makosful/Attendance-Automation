@@ -5,16 +5,12 @@
  */
 package attendance.automation.dal.EncryptionDAL;
 
-import attendance.automation.dal.DALException;
 import attendance.automation.dal.DataBaseConnector;
 import be.User;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,27 +24,31 @@ public class LogInEncryption
     {
         try(Connection con = dbConnection.getConnection())
         {
-            String sql = "SELECT * FROM Users where username = ? and password = ?";
+            String sql = "SELECT * FROM Users where LOWER(UserName) = ? AND Password = ?";
             
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, username.toLowerCase());
             preparedStatement.setString(2, password);
             
             ResultSet rs = preparedStatement.executeQuery();
-            
+
+            rs.next();
             User user = new User();
             
-            user.setId(rs.getInt("ID"));
-            user.setFirstName(rs.getString("Username"));
+            user.setId(rs.getInt("UserID"));
+            user.setFirstName(rs.getString("FirstName"));
             user.setLastName(rs.getString("LastName"));
-            user.setUserType(rs.getString("UserType"));
+            user.setUserType(rs.getBoolean("UserType"));
             user.setEmail(rs.getString("Email"));
+            user.setUsername(rs.getString("UserName"));   
             return user;
         } 
         catch (SQLException ex) 
         {
+            System.out.println(ex.getMessage());
             throw new SQLException(ex);
         }
+//        return null;
     }   
 
 }
