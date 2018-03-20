@@ -37,6 +37,9 @@ public class Main extends Application
      */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException
     {
+        int i = 0;
+        System.out.println(i++);
+        System.out.println(i);
         launch(args);
 
         

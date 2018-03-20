@@ -32,7 +32,7 @@ public class UserDAO {
             int i = 1;
             preparedStatement.setString(i++, user.getFirstName());
             preparedStatement.setString(i++, user.getLastName());
-            preparedStatement.setBoolean(i++, user.getUserType());
+            preparedStatement.setBoolean(i++, user.getIsStudent());
             preparedStatement.setString(i++, user.getUserName());
             preparedStatement.setString(i++, user.getPassword());
             preparedStatement.setString(i++, user.getEmail());

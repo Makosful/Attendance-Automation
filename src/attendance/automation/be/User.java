@@ -17,7 +17,7 @@ public abstract class User {
     private String userName;
     private String email;
     private String passWord;
-    private boolean userType;
+    private boolean isStudent;
 
    
 
@@ -64,12 +64,12 @@ public abstract class User {
         this.passWord = password;
     }
 
-    public boolean getUserType() {
-        return userType;
+    public boolean getIsStudent() {
+        return isStudent;
     }
 
-    public void setUserType(boolean UserType) {
-        this.userType = UserType;
+    public void setIsStudent(boolean UserType) {
+        this.isStudent = UserType;
     }
     
 

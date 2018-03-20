@@ -15,7 +15,7 @@ public class Teacher extends User{
         
     public Teacher(boolean userType, String firstName, String lastName, String userName, String email, String passWord){
         
-        super.setUserType(userType);
+        super.setIsStudent(userType);
         super.setFirstName(firstName);
         super.setLastName(lastName);
         super.setUserName(userName);
