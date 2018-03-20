@@ -4,7 +4,7 @@ import attendance.automation.bll.BLLException;
 import attendance.automation.dal.EncryptionDAL.LogInEncryption;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
-import be.User;
+import attendance.automation.be.User;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;

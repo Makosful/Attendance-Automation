@@ -3,7 +3,7 @@ package attendance.automation.bll;
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
-import be.User;
+import attendance.automation.be.User;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;

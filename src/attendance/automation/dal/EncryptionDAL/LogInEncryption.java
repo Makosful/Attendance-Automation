@@ -6,7 +6,7 @@
 package attendance.automation.dal.EncryptionDAL;
 
 import attendance.automation.dal.DataBaseConnector;
-import be.User;
+import attendance.automation.be.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

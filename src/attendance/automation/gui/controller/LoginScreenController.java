@@ -5,7 +5,7 @@ import attendance.automation.bll.BLLException;
 import attendance.automation.bll.Encryption.Encryption;
 import attendance.automation.dal.EncryptionDAL.LogInEncryption;
 import attendance.automation.gui.model.Model;
-import be.User;
+import attendance.automation.be.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

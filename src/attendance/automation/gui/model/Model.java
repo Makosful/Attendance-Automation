@@ -3,7 +3,7 @@ package attendance.automation.gui.model;
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
-import be.User;
+import attendance.automation.be.User;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
