@@ -5,6 +5,8 @@
  */
 package attendance.automation.dal.EncryptionDAL;
 
+import attendance.automation.be.Student;
+import attendance.automation.be.Teacher;
 import attendance.automation.dal.DataBaseConnector;
 import attendance.automation.be.User;
 import java.sql.Connection;
@@ -33,14 +35,27 @@ public class LogInEncryption
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.next();
-            User user = new User();
-            
-            user.setId(rs.getInt("UserID"));
-            user.setFirstName(rs.getString("FirstName"));
-            user.setLastName(rs.getString("LastName"));
-            user.setUserType(rs.getBoolean("UserType"));
-            user.setEmail(rs.getString("Email"));
-            user.setUsername(rs.getString("UserName"));   
+            User user = null;
+            if(rs.getBoolean("UserType")){
+                user = new Student(rs.getBoolean("UserType"),
+                                        rs.getString("FirstName"), 
+                                        rs.getString("LastName"), 
+                                        rs.getString("UserName"),
+                                        rs.getString("Email"),
+                                        rs.getString("Password"));
+                user.setId(rs.getInt("UserID"));  
+            }
+            else
+            {
+                user = new Teacher(rs.getBoolean("UserType"),
+                                        rs.getString("FirstName"), 
+                                        rs.getString("LastName"), 
+                                        rs.getString("UserName"),
+                                        rs.getString("Email"),
+                                        rs.getString("Password"));
+                user.setId(rs.getInt("UserID"));
+            }
+ 
             return user;
         } 
         catch (SQLException ex) 

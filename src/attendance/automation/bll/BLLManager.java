@@ -4,12 +4,14 @@ import attendance.automation.be.PasswordValidation;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
 import attendance.automation.be.User;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+
 
 /**
  *
@@ -118,6 +120,7 @@ public class BLLManager
         dal.fillStudentsChart(chrtStudents);
     }
 
+
     /**
      * Checks of the given password contains any lowercase letters
      *
@@ -176,6 +179,35 @@ public class BLLManager
             }
         }
         return false;
+    }
+    
+    /**
+     * 
+     * @param txtUserName
+     * @param txtPassword
+     * @param checkBoxSelected
+     * @throws IOException
+     * @throws NoSuchAlgorithmException 
+     */
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected) 
+    throws IOException,
+    NoSuchAlgorithmException 
+    {
+        if(checkBoxSelected)
+        {
+            StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+        }
+        else
+        {
+            StoreLocalLogin.setLoginInfo("", "");
+        }
+    }
+
+    public String[] getLoginInfo() throws FileNotFoundException {
+        
+        String[] rememberLogin = StoreLocalLogin.getLoginInfo();
+        return rememberLogin;
+
     }
 
 }

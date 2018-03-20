@@ -4,6 +4,9 @@ import attendance.automation.be.PasswordValidation;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
 import attendance.automation.be.User;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -134,5 +139,19 @@ public class Model
         LocalDate firstDay = bll.getFirstDayOfMonth();
         return firstDay;
     }
+
+
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected) 
+    throws IOException, 
+    NoSuchAlgorithmException 
+    {
+            bll.storeLocalLogin(txtUserName, txtPassword, selected);
+    }
+
+    public String[] getLogInInfo() throws FileNotFoundException {
+        String[] login = bll.getLoginInfo();
+        return login;
+    }
+ 
 
 }

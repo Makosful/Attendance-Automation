@@ -6,8 +6,10 @@ import attendance.automation.bll.Encryption.Encryption;
 import attendance.automation.dal.EncryptionDAL.LogInEncryption;
 import attendance.automation.gui.model.Model;
 import attendance.automation.be.User;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -46,12 +49,20 @@ public class LoginScreenController implements Initializable
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
+
     //</editor-fold>
 
     // Objects
     private Model model;
     @FXML
     private Label lblInfoMessage;
+
+    @FXML
+    private CheckBox checkBoxRememberMe;
+    
+    Stage currentStage;
+
+
 
     /**
      * Initializes the controller class.
@@ -63,7 +74,9 @@ public class LoginScreenController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
+        checkRememberMe();
     }
+
 
     private void changeStage(String file) throws IOException
     {
@@ -111,6 +124,14 @@ public class LoginScreenController implements Initializable
         {
             lblInfoMessage.setText("Wrong Password");
         }
+        
+        try {
+            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
+        } catch (IOException ex) {
+            System.out.println("Could not store the login credentials");
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Could not store the login credentials");
+        }
     }
 
     @FXML
@@ -126,5 +147,26 @@ public class LoginScreenController implements Initializable
             System.out.println(ex.getStackTrace());
         }
     }
+
+
+    /**
+     * Get the login credentials, if they exist add them to the textfields 
+     * else it means that the user does not want to remember the login info
+     */
+    private void checkRememberMe() {
+        try {
+            String[] login = model.getLogInInfo();
+            if(login[0] != null)
+            {
+                txtUserName.setText(login[0]);
+                txtPassword.setText(login[1]);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Could not retrieve the login credentials");
+        }
+        
+    }
+
+
 
 }

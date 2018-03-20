@@ -9,80 +9,68 @@ package attendance.automation.be;
  *
  * @author B
  */
-public class User 
-{
-    private int id;
+
+public abstract class User {
+
     private String firstName;
     private String lastName;
-    private boolean userType;
+    private String userName;
     private String email;
-    private String username;
+    private String passWord;
+    private boolean userType;
 
-    public String getUsername() 
-    {
-        return username;
-    }
+   
 
-    public void setUsername(String username) 
-    {
-        this.username = username;
-    }
+    public abstract int getId();
+    public abstract void setId(int id);
     
-    public User()
-    {
-        
-    }
-    
-
-    public int getId() 
-    {
-        return id;
-    }
-
-    public void setId(int id) 
-    {
-        this.id = id;
-    }
-
-    public String getFirstName() 
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) 
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() 
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) 
-    {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public boolean getUserType() 
-    {
-        return userType;
+    
+        public String getUserName() {
+        return userName;
     }
 
-    public void setUserType(boolean userType) 
-    {
-        this.userType = userType;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getEmail() 
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() {
+        return passWord;
+    }
+
+    public void setPassword(String password) {
+        this.passWord = password;
+    }
+
+    public boolean getUserType() {
+        return userType;
+    }
+
+    public void setUserType(boolean UserType) {
+        this.userType = UserType;
+    }
     
-    
+
 }
