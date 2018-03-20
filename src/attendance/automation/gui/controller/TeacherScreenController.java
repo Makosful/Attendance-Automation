@@ -26,8 +26,8 @@ import javafx.stage.Stage;
 public class TeacherScreenController implements Initializable
 {
 
-    private Model model;
-
+    @FXML
+    private Button btnLogout;
     @FXML
     private ListView<String> lstClasses;
     @FXML
@@ -39,8 +39,10 @@ public class TeacherScreenController implements Initializable
     @FXML
     private Button btnStudentStatistics;
 
-    
+    private Model model;
+
     private Stage currentStage;
+
     /**
      * Initializes the controller class.
      *
@@ -65,7 +67,7 @@ public class TeacherScreenController implements Initializable
 
     private void fillStudentsList()
     {
-       model.fillStudentsList(lstStudents);
+        model.fillStudentsList(lstStudents);
     }
 
     private void fillClassesChart()
@@ -79,16 +81,20 @@ public class TeacherScreenController implements Initializable
     }
 
     @FXML
+    private void handleLogOut(ActionEvent event)
+    {
+    }
+
+    @FXML
     private void handleStudentStatictics(ActionEvent event) throws IOException
-    {  
+    {
         currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentView.fxml"));
         Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent)); 
+        currentStage.setScene(new Scene(parent));
         centerStage();
     }
-    
-    
+
     /**
      * Centers the window on the screen
      *

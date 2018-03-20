@@ -41,6 +41,14 @@
   .cancel:pressed {
     -fx-background-color: #dd0000; }
 
+.logout {
+  -fx-background-color: transparent;
+  -fx-text-fill: #80bfff; }
+  .logout:hover {
+    -fx-text-fill: #b3d9ff; }
+  .logout:pressed {
+    -fx-text-fill: #4da5ff; }
+
 #absent {
   -fx-background-color: #FF1111;
   -fx-text-fill: #fefefe; }

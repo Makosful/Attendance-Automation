@@ -1,4 +1,5 @@
 $textColor: #fefefe;
+$linkColor: #80bfff;
 $buttonSign: #009999;
 $buttonGood: #000000;
 $buttonBad: #FF1111;
@@ -53,6 +54,16 @@ $buttonBad: #FF1111;
     }
     &:pressed {
         -fx-background-color: darken($buttonBad, 10%);
+    }
+}
+.logout {
+    -fx-background-color: transparent;
+    -fx-text-fill: $linkColor;
+    &:hover {
+        -fx-text-fill: lighten($linkColor, 10%);
+    }
+    &:pressed {
+        -fx-text-fill: darken($linkColor, 10%);
     }
 }
 

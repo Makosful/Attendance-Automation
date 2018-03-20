@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchorPane" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentScreenController">
     <children>
         <VBox alignment="CENTER" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,6 +53,7 @@
                 </VBox>
             </children>
         </VBox>
+      <Button fx:id="btnLogout" layoutX="-12.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

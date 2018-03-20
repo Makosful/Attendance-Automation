@@ -29,6 +29,9 @@ import javafx.stage.Stage;
 public class StudentScreenController implements Initializable
 {
 
+    @FXML
+    private Button btnLogout;
+
     private Model model;
 
     @FXML
@@ -54,6 +57,11 @@ public class StudentScreenController implements Initializable
     {
         model = Model.getInstance();
         chrtStatistics.setData(model.getPieChartAttendance());
+    }
+
+    @FXML
+    private void handleLogOut(ActionEvent event)
+    {
     }
 
     @FXML
