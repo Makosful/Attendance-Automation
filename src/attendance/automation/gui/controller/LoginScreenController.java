@@ -160,6 +160,7 @@ public class LoginScreenController implements Initializable
             {
                 txtUserName.setText(login[0]);
                 txtPassword.setText(login[1]);
+                checkBoxRememberMe.selectedProperty().setValue(Boolean.TRUE);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Could not retrieve the login credentials");
