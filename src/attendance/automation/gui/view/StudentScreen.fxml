@@ -53,7 +53,7 @@
                 </VBox>
             </children>
         </VBox>
-      <Button layoutX="-12.0" layoutY="2.0" mnemonicParsing="false" styleClass="logout" text="Logout" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="btnLogout" layoutX="-12.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
