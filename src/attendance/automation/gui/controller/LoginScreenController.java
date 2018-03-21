@@ -3,7 +3,7 @@ package attendance.automation.gui.controller;
 import attendance.automation.Main;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.Encryption.Encryption;
-import attendance.automation.dal.EncryptionDAL.LogInEncryption;
+import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.gui.model.Model;
 import attendance.automation.be.User;
 import java.io.FileNotFoundException;

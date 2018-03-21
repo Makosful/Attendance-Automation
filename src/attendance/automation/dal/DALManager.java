@@ -1,14 +1,11 @@
 package attendance.automation.dal;
 
-import attendance.automation.bll.BLLException;
-import attendance.automation.dal.EncryptionDAL.LogInEncryption;
+import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
 import attendance.automation.be.User;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
@@ -27,13 +24,13 @@ public class DALManager
     private UserDAO uDAO;
     
     IValidationDatabase vd;
-    LogInEncryption liEncryption;
+    UserLogIn liEncryption;
     
     
     public DALManager()
     {
         vd = new ValidationDataBase();
-        liEncryption = new LogInEncryption();
+        liEncryption = new UserLogIn();
         uDAO = new UserDAO();
     }
     

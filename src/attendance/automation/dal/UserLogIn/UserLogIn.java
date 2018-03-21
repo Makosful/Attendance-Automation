@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.dal.EncryptionDAL;
+package attendance.automation.dal.UserLogIn;
 
 import attendance.automation.be.Student;
 import attendance.automation.be.Teacher;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
  *
  * @author Hussain
  */
-public class LogInEncryption 
+public class UserLogIn 
 {
     private DataBaseConnector dbConnection = new DataBaseConnector();
     
