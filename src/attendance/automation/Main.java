@@ -1,8 +1,6 @@
 package attendance.automation;
 
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,14 +33,11 @@ public class Main extends Application
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException
+    public static void main(String[] args) 
     {
-        int i = 0;
-        System.out.println(i++);
-        System.out.println(i);
+        
         launch(args);
 
-        
     }
 
 }

@@ -220,9 +220,14 @@ public class BLLManager
      * @param email 
      */
     public void forgottenPassEmail(String email) {
+        String newRandomPassword = RandomPassword.generateRandomPassword();
         Email mail = new Email(email, "New password for attendance automation",
-                        "<p style='font-size:14px'>Hello here is a new password"
-                        + " for your account</p>");
+                        "<p style='font-size:14px'>Hi, here is the new password"
+                        + " for your account: </p><span style='font-size:12px; "
+                                + "border: 1px solid green; padding:4px;'>"
+                                + newRandomPassword+"</span>"
+                                + "<p style='font-size:13px'>Please remember to "
+                                + "change it after the first login</p>");
         mail.sendMail();
     }
 
