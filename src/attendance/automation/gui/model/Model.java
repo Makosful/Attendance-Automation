@@ -17,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javax.mail.MessagingException;
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -161,7 +162,7 @@ public class Model
         return login;
     }
 
-    public void forgottenPassEmail(String email) {
+    public void forgottenPassEmail(String email) throws MessagingException {
         bll.forgottenPassEmail(email);
     }
  

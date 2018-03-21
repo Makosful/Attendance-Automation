@@ -19,10 +19,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -37,6 +39,8 @@ public class ForgotPasswordController implements Initializable {
     private Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Label lblEmailStatus;
     /**
      * Initializes the controller class.
      */
@@ -47,7 +51,13 @@ public class ForgotPasswordController implements Initializable {
 
     @FXML
     private void handleSendNewPassword(ActionEvent event) {
-        model.forgottenPassEmail(txtFieldEmail.getText());
+        try {
+            model.forgottenPassEmail(txtFieldEmail.getText());
+            lblEmailStatus.setText("An email is now sent to you containing a "
+                                 + "new temporary password");
+        } catch (MessagingException ex) {
+            lblEmailStatus.setText("An error occurred while sending the email");
+        }
     }
 
     @FXML

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javax.mail.MessagingException;
 
 
 /**
@@ -220,11 +221,11 @@ public class BLLManager
      * Send a email to the user containing a new password
      * @param email 
      */
-    public void forgottenPassEmail(String email) {
+    public void forgottenPassEmail(String email) throws MessagingException {
         String newRandomPassword = RandomPassword.generateRandomPassword();
         
         Email mail = new Email(email, "New password for attendance automation",
-                        "<p style='font-size:14px'>Hi, here is the new password"
+                        "<p style='font-size:19px'>Hi, here is the new password"
                         + " for your account: </p><span style='font-size:12px; "
                                 + "border: 1px solid green; padding:4px;'>"
                                 + newRandomPassword+"</span>"

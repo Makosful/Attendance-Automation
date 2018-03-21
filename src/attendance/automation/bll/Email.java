@@ -33,7 +33,7 @@ public class Email {
    /**
     * Sends an email based on the instance variables recipient, title and message
     */
-   public static void sendMail() {    
+   public static void sendMail() throws AddressException, MessagingException {    
 
         // Our applications email info - TODO - create new email at gmail
         String fromUser = "OUR-NEW-EMAIL-FOR-ATTENDANCE-AUTOMATION@gmail.com";
@@ -57,20 +57,15 @@ public class Email {
             }
         });
  
-        try {
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromUser));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientAddress));
-            message.setSubject(titleText);
-            message.setContent("<h1>"+messageText+"</h1>", "text/html");
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(fromUser));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientAddress));
+        message.setSubject(titleText);
+        message.setContent(messageText, "text/html");
 
-            Transport.send(message);
-            System.out.println("message sent");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Transport.send(message);
+       
    }
    
    
