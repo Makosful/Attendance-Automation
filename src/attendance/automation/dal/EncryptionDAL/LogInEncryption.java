@@ -55,7 +55,7 @@ public class LogInEncryption
                                         rs.getString("Password"));
                 user.setId(rs.getInt("UserID"));
             }
- 
+            System.out.println(password+"passworddatabase");
             return user;
         } 
         catch (SQLException ex) 
