@@ -41,8 +41,7 @@ public class UserLogIn
                     rs.getString("UserName"),
                     rs.getString("Email"),
                     rs.getString("Password"));
-            user.setId(rs.getInt("UserID"));  
-                    
+            user.setId(rs.getInt("UserID"));     
             return user;
         } 
         catch (SQLException ex) 
