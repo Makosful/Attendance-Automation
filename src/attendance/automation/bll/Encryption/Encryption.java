@@ -5,6 +5,7 @@
  */
 package attendance.automation.bll.Encryption;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -22,21 +23,25 @@ public class Encryption
     {
         try 
         {
-            md = MessageDigest.getInstance("MD5");
-            byte[] passBytes = password.getBytes();
-            md.reset();
-            byte[] digested = md.digest(passBytes);
-            StringBuffer sb = new StringBuffer();
-            
-            for (int i = 0; i < digested.length; i++) 
+             md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (int i = 0; i < hash.length; i++) 
             {
-                sb.append(Integer.toHexString(0xff & digested[i]));
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) 
+                {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
             }
-            return sb.toString();
-        } 
-        catch (NoSuchAlgorithmException ex) 
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException ex)
         {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+           ex.getMessage();
+        } catch (UnsupportedEncodingException ex) 
+        {
+            ex.getMessage();
         }
         return null;
     }
