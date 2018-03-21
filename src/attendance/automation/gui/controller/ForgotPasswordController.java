@@ -103,7 +103,7 @@ public class ForgotPasswordController implements Initializable {
 
     private void addTxtFieldEmailListener() {
         txtFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
-            model.validateEmail(newValue);
+            //model.validateEmail(newValue);
         });
     }
 }
