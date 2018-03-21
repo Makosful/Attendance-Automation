@@ -182,7 +182,7 @@ public class BLLManager
     }
     
     /**
-     * 
+     * Store or remove the login credentials 
      * @param txtUserName
      * @param txtPassword
      * @param checkBoxSelected
@@ -203,11 +203,27 @@ public class BLLManager
         }
     }
 
+    /**
+     * Get the login credentials
+     * @return
+     * @throws FileNotFoundException 
+     */
     public String[] getLoginInfo() throws FileNotFoundException {
         
         String[] rememberLogin = StoreLocalLogin.getLoginInfo();
         return rememberLogin;
 
+    }
+
+    /**
+     * Send a email to the user containing a new password
+     * @param email 
+     */
+    public void forgottenPassEmail(String email) {
+        Email mail = new Email(email, "New password for attendance automation",
+                        "<p style='font-size:14px'>Hello here is a new password"
+                        + " for your account</p>");
+        mail.sendMail();
     }
 
 }

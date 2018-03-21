@@ -170,8 +170,15 @@ public class LoginScreenController implements Initializable
 
     @FXML
     private void handleForgottenPassword(ActionEvent event) {
-        
+        try {
+            changeStage("ForgotPassword");
+        } catch (IOException ex) 
+        {
+            System.out.println(ex.getLocalizedMessage());
+            System.out.println(ex.getStackTrace());
+        }
     }
+    
 
 
 

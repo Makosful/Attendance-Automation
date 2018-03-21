@@ -152,6 +152,10 @@ public class Model
         String[] login = bll.getLoginInfo();
         return login;
     }
+
+    public void forgottenPassEmail(String email) {
+        bll.forgottenPassEmail(email);
+    }
  
 
 }
