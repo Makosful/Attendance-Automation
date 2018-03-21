@@ -11,7 +11,7 @@ package attendance.automation.be;
  */
 public class UserFactory 
 {
-    public User makeUser(boolean userType, String firstName, String lastName, String userName, String email, String passWord)
+    public static User makeUser(boolean userType, String firstName, String lastName, String userName, String email, String passWord)
     {
         if(userType)
         {

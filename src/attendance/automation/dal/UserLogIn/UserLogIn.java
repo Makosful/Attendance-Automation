@@ -5,8 +5,6 @@
  */
 package attendance.automation.dal.UserLogIn;
 
-import attendance.automation.be.Student;
-import attendance.automation.be.Teacher;
 import attendance.automation.dal.DataBaseConnector;
 import attendance.automation.be.User;
 import attendance.automation.be.UserFactory;
@@ -21,7 +19,7 @@ import java.sql.SQLException;
  */
 public class UserLogIn 
 {
-    private DataBaseConnector dbConnection = new DataBaseConnector();
+    private final DataBaseConnector dbConnection = new DataBaseConnector();
     
     public User userLogIn(String username, String password) throws SQLException 
     {
@@ -36,15 +34,15 @@ public class UserLogIn
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.next();
-            UserFactory userFactory = new UserFactory();
             User user = null;
-            user = userFactory.makeUser(rs.getBoolean("UserType"),
-                                        rs.getString("FirstName"), 
-                                        rs.getString("LastName"), 
-                                        rs.getString("UserName"),
-                                        rs.getString("Email"),
-                                        rs.getString("Password"));
-            user.setId(rs.getInt("UserID"));      
+            user = UserFactory.makeUser(rs.getBoolean("UserType"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("UserName"),
+                    rs.getString("Email"),
+                    rs.getString("Password"));
+            user.setId(rs.getInt("UserID"));  
+                    
             return user;
         } 
         catch (SQLException ex) 
