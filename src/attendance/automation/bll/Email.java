@@ -16,7 +16,12 @@ public class Email {
    private static String recipientAddress;
    
    
-   
+   /**
+    * Set the email information, which is used in the sendMail method in this class
+    * @param recipientAddress
+    * @param titleText
+    * @param messageText 
+    */
    public Email(String recipientAddress, String titleText, String messageText)
    {
         Email.recipientAddress = recipientAddress;
@@ -25,7 +30,9 @@ public class Email {
    } 
    
    
-   
+   /**
+    * Sends an email based on the instance variables recipient, title and message
+    */
    public static void sendMail() {    
 
         // Our applications email info - TODO - create new email at gmail

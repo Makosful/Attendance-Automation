@@ -24,6 +24,7 @@ public class DALManager
     private final String sub1 = "Jan";
     private final String sub2 = "Feb";
     private final String sub3 = "Mar";
+    private UserDAO uDAO;
     
     IValidationDatabase vd;
     LogInEncryption liEncryption;
@@ -33,6 +34,7 @@ public class DALManager
     {
         vd = new ValidationDataBase();
         liEncryption = new LogInEncryption();
+        uDAO = new UserDAO();
     }
     
     public User userLogIn(String username, String password) throws DALException 
@@ -173,6 +175,15 @@ public class DALManager
     public LocalDate getFirstDayOfMonth() {
         LocalDate initial = LocalDate.now();
         return initial.withDayOfMonth(1);
+    }
+
+    /**
+     * Pass the information needed for setting a new password in the db
+     * @param password
+     * @param email 
+     */
+    public void setNewPassword(String password, String email) {
+        uDAO.setNewPassword(password, email);
     }
         
 }

@@ -4,6 +4,7 @@ import attendance.automation.be.PasswordValidation;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
 import attendance.automation.be.User;
+import attendance.automation.bll.Encryption.Encryption;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -221,6 +222,7 @@ public class BLLManager
      */
     public void forgottenPassEmail(String email) {
         String newRandomPassword = RandomPassword.generateRandomPassword();
+        
         Email mail = new Email(email, "New password for attendance automation",
                         "<p style='font-size:14px'>Hi, here is the new password"
                         + " for your account: </p><span style='font-size:12px; "
@@ -229,6 +231,9 @@ public class BLLManager
                                 + "<p style='font-size:13px'>Please remember to "
                                 + "change it after the first login</p>");
         mail.sendMail();
+        
+        String newRandomEncryptedPassword = Encryption.passwordEncryption(newRandomPassword);
+        dal.setNewPassword(newRandomEncryptedPassword, email);
     }
 
 }
