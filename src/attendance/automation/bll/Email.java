@@ -35,7 +35,7 @@ public class Email {
     */
    public static void sendMail() throws AddressException, MessagingException {    
 
-        // Our applications email info - TODO - create new email at gmail
+        // Our applications email info - TODO - create new email account at gmail
         String fromUser = "OUR-NEW-EMAIL-FOR-ATTENDANCE-AUTOMATION@gmail.com";
         String fromPass = "OUR-NEW-EMAIL-PASSWORD-FOR-ATTENDANCE-AUTOMATION";
 
