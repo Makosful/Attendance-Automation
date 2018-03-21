@@ -11,8 +11,17 @@ package attendance.automation.dal.ValidationDatabase;
  */
 public interface IValidationDatabase 
 {
+    /**
+     * Checking if the username is valid in db.
+     * @param username
+     * @return 
+     */
     public boolean validUsername(String username);
-    
+    /**
+     * Checking if the email is valid in db.
+     * @param email
+     * @return 
+     */
     public boolean validEmail(String email);
     
 }

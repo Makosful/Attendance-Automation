@@ -20,7 +20,11 @@ import java.util.logging.Logger;
 public class ValidationDataBase implements IValidationDatabase
 {
     DataBaseConnector dbConnector = new DataBaseConnector();
-    
+    /**
+     * Checks if valid in db.
+     * @param username
+     * @return 
+     */
     @Override
     public boolean validUsername(String username) 
     {
@@ -47,13 +51,17 @@ public class ValidationDataBase implements IValidationDatabase
         } 
         return false;
     }
-
+    /**
+     * Checks if valid in db.
+     * @param email
+     * @return 
+     */
     @Override
     public boolean validEmail(String email) 
     {
         try (Connection con = dbConnector.getConnection()) 
         {
-            String sql = "SELECT * FROM Users where LOWER (email= = ?";
+            String sql = "SELECT * FROM Users where LOWER (email) = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, email.toLowerCase());
 

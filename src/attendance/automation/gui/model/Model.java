@@ -62,12 +62,20 @@ public class Model
                 new PieChart.Data("Absent", 20)
         );
     }
-    
+    /**
+     * Checks if valid in database.
+     * @param email - The email to check.
+     * @return 
+     */
     public boolean validEmail(String email)
     {
         return bll.validEmail(email);
     }
-    
+    /**
+     * Checks if valid username in db.
+     * @param username - username to check.
+     * @return 
+     */
     public boolean validUsername(String username)
     {
         return bll.validUsername(username);

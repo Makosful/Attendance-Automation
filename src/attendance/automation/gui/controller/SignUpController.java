@@ -164,6 +164,36 @@ public class SignUpController implements Initializable
                 lblPassConfError.setVisible(!matchingPass);
             }
         });
+        
+        emailCheck();
+        
+    }
+    /**
+     * Checks if the email is valid in database
+     * Checks if emailConfirm textfield contains same as above, txtemail.
+     */
+    public void emailCheck()
+    {
+        txtEmail.textProperty().addListener((observable, oldValue, newValue)
+                -> 
+        {
+            if (!model.validEmail(newValue))
+            {
+                System.out.println("Email is not valid");
+            }
+        });
+
+        txtEmailConfirm.textProperty().addListener((observable, oldValue, newValue)
+                ->
+        {
+            if (txtEmailConfirm.getText().equals(txtEmail.getText()))
+            {
+                System.out.println("OK");
+            } else 
+            {
+                System.out.println("Same email");
+            }
+        });
     }
 
 }
