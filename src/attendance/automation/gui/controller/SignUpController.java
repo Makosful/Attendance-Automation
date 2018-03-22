@@ -63,6 +63,8 @@ public class SignUpController implements Initializable
     //</editor-fold>
 
     private Model model;
+    @FXML
+    private TextField txtUsername;
     private boolean validPass;
     private boolean matchingPass;
 
@@ -119,7 +121,11 @@ public class SignUpController implements Initializable
     @FXML
     private void handleSignUp(ActionEvent event)
     {
-        System.out.println("You've been signed up");
+        model.signUp(txtFName.getText(),
+                     txtLName.getText(),
+                     txtUsername.getText(),
+                     txtEmail.getText(),
+                     txtPass.getText());
         try
         {
             changeStage("LoginScreen");
@@ -164,10 +170,11 @@ public class SignUpController implements Initializable
                 lblPassConfError.setVisible(!matchingPass);
             }
         });
-        
+
         emailCheck();
-        
+
     }
+
     /**
      * Checks if the email is valid in database
      * Checks if emailConfirm textfield contains same as above, txtemail.
@@ -175,7 +182,7 @@ public class SignUpController implements Initializable
     public void emailCheck()
     {
         txtEmail.textProperty().addListener((observable, oldValue, newValue)
-                -> 
+                ->
         {
             if (!model.validEmail(newValue))
             {
@@ -189,7 +196,8 @@ public class SignUpController implements Initializable
             if (txtEmailConfirm.getText().equals(txtEmail.getText()))
             {
                 System.out.println("OK");
-            } else 
+            }
+            else
             {
                 System.out.println("Same email");
             }

@@ -1,22 +1,18 @@
 package attendance.automation.gui.model;
 
 import attendance.automation.be.PasswordValidation;
+import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
-import attendance.automation.be.User;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javax.mail.MessagingException;
 
 /**
@@ -63,30 +59,42 @@ public class Model
                 new PieChart.Data("Absent", 20)
         );
     }
+
+    public void signUp(String fName, String lName, String uName,
+                       String email, String password)
+    {
+        bll.createStudent(fName, lName, uName, email, password);
+    }
+
     /**
      * Checks if valid in database.
+     *
      * @param email - The email to check.
-     * @return 
+     *
+     * @return
      */
     public boolean validEmail(String email)
     {
         return bll.validEmail(email);
     }
+
     /**
      * Checks if valid username in db.
+     *
      * @param username - username to check.
-     * @return 
+     *
+     * @return
      */
     public boolean validUsername(String username)
     {
         return bll.validUsername(username);
     }
-    
+
     public User userLogIn(String username, String password) throws BLLException
     {
         return bll.userLogIn(username, password);
     }
-    
+
     public PasswordValidation checkPasswordstrength(String password)
     {
         return bll.checkPasswordStrength(password);
@@ -149,22 +157,22 @@ public class Model
         return firstDay;
     }
 
-
-    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected) 
-    throws IOException, 
-    NoSuchAlgorithmException 
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected)
+            throws IOException,
+                   NoSuchAlgorithmException
     {
-            bll.storeLocalLogin(txtUserName, txtPassword, selected);
+        bll.storeLocalLogin(txtUserName, txtPassword, selected);
     }
 
-    public String[] getLogInInfo() throws FileNotFoundException {
+    public String[] getLogInInfo() throws FileNotFoundException
+    {
         String[] login = bll.getLoginInfo();
         return login;
     }
 
-    public void forgottenPassEmail(String email) throws MessagingException {
+    public void forgottenPassEmail(String email) throws MessagingException
+    {
         bll.forgottenPassEmail(email);
     }
- 
 
 }

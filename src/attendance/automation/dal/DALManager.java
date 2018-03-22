@@ -1,15 +1,14 @@
 package attendance.automation.dal;
 
+import attendance.automation.be.User;
 import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
-import attendance.automation.be.User;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
-
 
 /**
  *
@@ -21,41 +20,45 @@ public class DALManager
     private final String sub1 = "Jan";
     private final String sub2 = "Feb";
     private final String sub3 = "Mar";
-    private UserDAO uDAO;
-    
-    IValidationDatabase vd;
-    UserLogIn liEncryption;
-    
-    
+    private final UserDAO uDAO;
+
+    private final IValidationDatabase vd;
+    private final UserLogIn liEncryption;
+
     public DALManager()
     {
         vd = new ValidationDataBase();
         liEncryption = new UserLogIn();
         uDAO = new UserDAO();
     }
-    
-    public User userLogIn(String username, String password) throws DALException 
+
+    public void createNewUser(User user)
+    {
+        uDAO.addNewUser(user);
+    }
+
+    public User userLogIn(String username, String password) throws DALException
     {
         try
         {
             return liEncryption.userLogIn(username, password);
-        } 
-        catch (SQLException ex) 
+        }
+        catch (SQLException ex)
         {
             throw new DALException("Password or username is not correct", ex);
         }
     }
-    
+
     public boolean validEmail(String email)
     {
         return vd.validEmail(email);
     }
-    
+
     public boolean validUsername(String username)
     {
         return vd.validUsername(username);
     }
-    
+
     public void fillClassesList(ListView<String> lstClasses)
     {
         lstClasses.getItems().addAll(
@@ -128,11 +131,13 @@ public class DALManager
         );
     }
 
-    public LocalDate setStartDate() {
+    public LocalDate setStartDate()
+    {
         return LocalDate.of(2018, 1, 1);
     }
 
-    public XYChart.Series getScoData() {
+    public XYChart.Series getScoData()
+    {
         XYChart.Series series = new XYChart.Series();
         series.setName("SCO");
         series.getData().addAll(
@@ -143,7 +148,6 @@ public class DALManager
         return series;
     }
 
-    
     public XYChart.Series getSdeData()
     {
         XYChart.Series series = new XYChart.Series();
@@ -153,11 +157,12 @@ public class DALManager
                 new XYChart.Data<>(sub2, 89),
                 new XYChart.Data<>(sub3, 96)
         );
-        
+
         return series;
     }
 
-    public XYChart.Series getItoData() {
+    public XYChart.Series getItoData()
+    {
         XYChart.Series series = new XYChart.Series();
         series.setName("ITO");
         series.getData().addAll(
@@ -169,18 +174,20 @@ public class DALManager
         return series;
     }
 
-    public LocalDate getFirstDayOfMonth() {
+    public LocalDate getFirstDayOfMonth()
+    {
         LocalDate initial = LocalDate.now();
         return initial.withDayOfMonth(1);
     }
 
     /**
      * Pass the information needed for setting a new password in the db
+     *
      * @param password
-     * @param email 
+     * @param email
      */
-    public void setNewPassword(String password, String email) {
+    public void setNewPassword(String password, String email)
+    {
         uDAO.setNewPassword(password, email);
     }
-        
 }
