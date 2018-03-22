@@ -3,7 +3,7 @@ package attendance.automation.bll;
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.be.Student;
 import attendance.automation.be.User;
-import attendance.automation.bll.Encryption.Encryption;
+import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ public class BLLManager
     public void createStudent(String fName, String lName, String uName,
                               String email, String password)
     {
-        String pass = Encryption.passwordEncryption(password);
+        String pass = Hash.passwordHashing(password);
         User student = new Student(true, fName, lName, uName, email, pass);
         dal.createNewUser(student);
     }
@@ -247,7 +247,7 @@ public class BLLManager
                                + "change it after the first login</p>");
         mail.sendMail();
 
-        String newRandomEncryptedPassword = Encryption.passwordEncryption(newRandomPassword);
+        String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
         dal.setNewPassword(newRandomEncryptedPassword, email);
     }
 
