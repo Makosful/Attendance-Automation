@@ -1,9 +1,12 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.dal.DALManager;
+import attendance.automation.dal.StudentDAO;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +60,11 @@ public class StudentScreenController implements Initializable
         model = Model.getInstance();
         chrtStatistics.setData(model.getPieChartAttendance());
 
-        checkWifi();
+        try {
+            checkWifi();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void centerStage(Stage stage)
@@ -83,7 +90,7 @@ public class StudentScreenController implements Initializable
         }
     }
 
-    private void checkWifi()
+    private void checkWifi() throws SQLException
     {
         boolean present = model.isAtSchool("EASV");
         if (present)

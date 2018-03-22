@@ -113,7 +113,7 @@ public class LoginScreenController implements Initializable
             System.out.println(ex.getStackTrace());
         }
         try 
-        {
+        {     
             if(textFieldsFilled())
             {
             User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText())); 
