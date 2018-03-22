@@ -38,6 +38,11 @@ public class DALManager
         uDAO = new UserDAO();
     }
 
+    public void changePassword(User user, String pass)
+    {
+        uDAO.setNewPassword(pass, user.getEmail());
+    }
+
     public void createNewUser(User user)
     {
         uDAO.addNewUser(user);
