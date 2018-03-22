@@ -15,11 +15,11 @@ public class UserFactory
     {
         if(userType)
         {
-            return new Teacher(userType, firstName, lastName, userName, email, passWord);
+            return new Student(userType, firstName, lastName, userName, email, passWord);
         }
         else
         {
-            return new Student(userType, firstName, lastName, userName, email, passWord);
+            return new Teacher(userType, firstName, lastName, userName, email, passWord);
         }
     }
 }

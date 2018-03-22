@@ -117,7 +117,7 @@ public class LoginScreenController implements Initializable
         }
         try 
         {
-            User user = model.userLogIn(txtUserName.getText(), Hash.passwordEncryption(txtPassword.getText())); 
+            User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText())); 
             System.out.println(user.getEmail());
         } 
         catch (BLLException ex) 

@@ -8,8 +8,6 @@ package attendance.automation.bll.Hashing;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +17,7 @@ public class Hash
 {
     private static MessageDigest md;
     
-    public static String passwordEncryption(String password)
+    public static String passwordHashing(String password)
     {
         try 
         {
@@ -36,7 +34,8 @@ public class Hash
                 hexString.append(hex);
             }
             return hexString.toString();
-        } catch (NoSuchAlgorithmException ex)
+        } 
+        catch (NoSuchAlgorithmException ex)
         {
            ex.getMessage();
         } catch (UnsupportedEncodingException ex) 

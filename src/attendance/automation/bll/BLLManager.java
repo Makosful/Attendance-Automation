@@ -233,7 +233,7 @@ public class BLLManager
                                 + "change it after the first login</p>");
         mail.sendMail();
         
-        String newRandomEncryptedPassword = Hash.passwordEncryption(newRandomPassword);
+        String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
         dal.setNewPassword(newRandomEncryptedPassword, email);
     }
 
