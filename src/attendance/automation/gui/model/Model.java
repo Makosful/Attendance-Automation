@@ -60,6 +60,18 @@ public class Model
         );
     }
 
+    public boolean isAtSchool(String wifi)
+    {
+        try
+        {
+            return bll.isConnectedToWifi(wifi);
+        }
+        catch (BLLException ex)
+        {
+            return false;
+        }
+    }
+
     public void signUp(String fName, String lName, String uName,
                        String email, String password)
     {
@@ -170,9 +182,10 @@ public class Model
         return login;
     }
 
-    public void forgottenPassEmail(String email) throws MessagingException
+    public boolean forgottenPassEmail(String email) throws MessagingException
     {
-        bll.forgottenPassEmail(email);
+        boolean emailExistsInDB = bll.forgottenPassEmail(email);
+        return emailExistsInDB;
     }
 
 }

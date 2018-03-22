@@ -1,11 +1,18 @@
 package attendance.automation.dal;
 
 import attendance.automation.be.User;
+import attendance.automation.be.Wifi;
 import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -185,8 +192,60 @@ public class DALManager
      * @param password
      * @param email
      */
-    public void setNewPassword(String password, String email) 
+    public void setNewPassword(String password, String email)
     {
         uDAO.setNewPassword(password, email);
-    }     
+    }
+
+    /**
+     * Gets a list of all visible WIFI signals within range
+     *
+     * @return
+     *
+     * @throws DALException
+     */
+    public List<Wifi> getWifi() throws DALException
+    {
+
+        try
+        {
+            List<Wifi> results = new ArrayList();
+            Runtime runtime = Runtime.getRuntime();
+            Process process = runtime.exec("netsh wlan show networks");
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+
+            br.readLine(); // Skips the first line
+            br.readLine(); // Skips interface name
+            br.readLine(); // Skips number of available wifis
+            br.readLine(); // Skips the fourth line
+            while ((line = br.readLine()) != null)
+            {
+                String ssid = line;
+                ssid = ssid.substring(9);
+
+                String type = br.readLine();
+                type = type.substring(30);
+
+                String auth = br.readLine();
+                auth = auth.substring(30);
+
+                String encr = br.readLine();
+                encr = encr.substring(30);
+
+                Wifi wifi = new Wifi(ssid, type, auth, encr);
+                results.add(wifi);
+
+                br.readLine(); // Clears the empty line between entries
+            }
+
+            return results;
+        }
+        catch (IOException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
+    }
 }
