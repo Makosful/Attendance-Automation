@@ -1,5 +1,6 @@
 package attendance.automation.gui.model;
 
+import attendance.automation.Main;
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
@@ -8,11 +9,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import javax.mail.MessagingException;
 
 /**
@@ -39,9 +46,10 @@ public class Model
     }
     //</editor-fold>
 
-    BLLManager bll;
+    private final BLLManager bll;
 
     private final ObservableList<PieChart.Data> pieChartAttendance;
+    private User user;
 
     /**
      * Singleton constructor. Prevents new instances of this class being made
@@ -58,6 +66,27 @@ public class Model
                 new PieChart.Data("Present", 80),
                 new PieChart.Data("Absent", 20)
         );
+    }
+
+    /**
+     * Opens the Change Password window
+     */
+    public void changePassword()
+    {
+        openWindow("ChangePassword");
+    }
+
+    /**
+     * Changes the current user's password
+     *
+     * @param newPass
+     * @param curPass
+     *
+     * @throws attendance.automation.bll.BLLException
+     */
+    public void changePassword(String newPass, String curPass) throws BLLException
+    {
+        bll.changePassword(user, newPass, curPass);
     }
 
     public boolean isAtSchool(String wifi)
@@ -104,7 +133,8 @@ public class Model
 
     public User userLogIn(String username, String password) throws BLLException
     {
-        return bll.userLogIn(username, password);
+        user = bll.userLogIn(username, password);
+        return user;
     }
 
     public PasswordValidation checkPasswordstrength(String password)
@@ -186,6 +216,26 @@ public class Model
     {
         boolean emailExistsInDB = bll.forgottenPassEmail(email);
         return emailExistsInDB;
+    }
+
+    private void openWindow(String fxml)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("gui/view/" + fxml + ".fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.showAndWait();
+            stage.setResizable(false);
+            stage.centerOnScreen();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

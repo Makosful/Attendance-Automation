@@ -14,17 +14,20 @@ import java.sql.SQLException;
  *
  * @author B
  */
-public class UserDAO {
+public class UserDAO
+{
+
     private DataBaseConnector db;
-    
+
     public UserDAO()
     {
         db = new DataBaseConnector();
     }
-    
+
     /**
      * Add a new user (both sudent/teacher)
-     * @param user 
+     *
+     * @param user
      */
     public void addNewUser(User user)
     {
@@ -41,19 +44,19 @@ public class UserDAO {
             preparedStatement.setString(i++, user.getPassword());
             preparedStatement.setString(i++, user.getEmail());
             preparedStatement.executeUpdate();
-            
+
         }
-        catch(SQLException ex)
+        catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
     }
-    
-    
+
     /**
      * Update the users password using the emailaddress as identification
+     *
      * @param password
-     * @param email 
+     * @param email
      */
     public void setNewPassword(String password, String email)
     {
@@ -62,16 +65,16 @@ public class UserDAO {
         {
             String sql = "UPDATE Users set Password = ? WHERE Email = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            
+
             preparedStatement.setString(1, password);
             preparedStatement.setString(2, email);
             preparedStatement.executeUpdate();
-            
+
         }
-        catch(SQLException ex)
+        catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
     }
-    
+
 }

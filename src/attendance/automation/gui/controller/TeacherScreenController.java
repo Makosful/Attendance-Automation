@@ -29,6 +29,8 @@ public class TeacherScreenController implements Initializable
 {
 
     @FXML
+    private Button btnChangePassword;
+    @FXML
     private Button btnLogout;
     @FXML
     private ListView<String> lstClasses;
@@ -103,6 +105,12 @@ public class TeacherScreenController implements Initializable
     private void fillStudentsChart()
     {
         model.fillStudentsChart(chrtStudents);
+    }
+
+    @FXML
+    private void handleChangePassword(ActionEvent event)
+    {
+        model.changePassword();
     }
 
     @FXML

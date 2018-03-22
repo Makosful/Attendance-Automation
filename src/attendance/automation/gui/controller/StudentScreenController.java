@@ -33,6 +33,8 @@ public class StudentScreenController implements Initializable
 {
 
     @FXML
+    private Button btnChangePassword;
+    @FXML
     private Button btnLogout;
     @FXML
     private PieChart chrtStatistics;
@@ -98,6 +100,12 @@ public class StudentScreenController implements Initializable
             System.out.println("You are present");
             lblAttendance.setText("Present");
         }
+    }
+
+    @FXML
+    private void handleChangePassword(ActionEvent event)
+    {
+        model.changePassword();
     }
 
     @FXML

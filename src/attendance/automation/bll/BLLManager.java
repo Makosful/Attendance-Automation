@@ -31,6 +31,16 @@ public class BLLManager
         dal = new DALManager();
     }
 
+    public void changePassword(User user, String newPass, String curPass) throws BLLException
+    {
+        System.out.println(user.getUserName());
+        newPass = Hash.passwordHashing(newPass);
+        curPass = Hash.passwordHashing(curPass);
+        user = userLogIn(user.getUserName(), curPass);
+        dal.changePassword(user, newPass);
+
+    }
+
     public void createStudent(String fName, String lName, String uName,
                               String email, String password)
     {
@@ -259,25 +269,26 @@ public class BLLManager
      *
      * @param email
      */
-    public boolean forgottenPassEmail(String email) throws MessagingException {
-        
+    public boolean forgottenPassEmail(String email) throws MessagingException
+    {
+
         boolean emailInDB = dal.validEmail(email);
-        if(!emailInDB)
+        if (!emailInDB)
         {
-            
+
             String newRandomPassword = RandomPassword.generateRandomPassword();
             Email mail = new Email(email, "New password for attendance automation",
-                            "<p style='font-size:19px'>Hi, here is the new password"
-                            + " for your account: </p><span style='font-size:12px; "
-                                    + "border: 1px solid green; padding:4px;'>"
-                                    + newRandomPassword+"</span>"
-                                    + "<p style='font-size:13px'>Please remember to "
-                                    + "change it after the first login</p>");
+                                   "<p style='font-size:19px'>Hi, here is the new password"
+                                   + " for your account: </p><span style='font-size:12px; "
+                                   + "border: 1px solid green; padding:4px;'>"
+                                   + newRandomPassword + "</span>"
+                                   + "<p style='font-size:13px'>Please remember to "
+                                   + "change it after the first login</p>");
             mail.sendMail();
 
             String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
             dal.setNewPassword(newRandomEncryptedPassword, email);
-            
+
             return true;
         }
         else
