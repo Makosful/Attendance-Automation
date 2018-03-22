@@ -21,7 +21,7 @@ public class DALManager
     private final String sub1 = "Jan";
     private final String sub2 = "Feb";
     private final String sub3 = "Mar";
-    private UserDAO uDAO;
+    private final UserDAO uDAO;
     
     IValidationDatabase vd;
     UserLogIn liEncryption;
@@ -179,8 +179,8 @@ public class DALManager
      * @param password
      * @param email 
      */
-    public void setNewPassword(String password, String email) {
+    public void setNewPassword(String password, String email) 
+    {
         uDAO.setNewPassword(password, email);
-    }
-        
+    }     
 }

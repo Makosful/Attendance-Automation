@@ -6,6 +6,8 @@ import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +62,8 @@ public class SignUpController implements Initializable
     private TextField txtPass;
     @FXML
     private TextField txtPassConfirm;
+    @FXML
+    private TextField txtUsername;
     //</editor-fold>
 
     private Model model;
@@ -166,6 +170,7 @@ public class SignUpController implements Initializable
         });
         
         emailCheck();
+        usernameCheck();
         
     }
     /**
@@ -174,24 +179,66 @@ public class SignUpController implements Initializable
      */
     public void emailCheck()
     {
-        txtEmail.textProperty().addListener((observable, oldValue, newValue)
-                -> 
+        txtEmail.focusedProperty().addListener(new ChangeListener<Boolean>() 
         {
-            if (!model.validEmail(newValue))
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
             {
-                System.out.println("Email is not valid");
+                if(!newValue)
+                {
+                    if(model.validEmail(txtEmail.getText()))
+                    {
+                        System.out.println("Email is valid");
+                    }
+                    else
+                    {
+                        System.out.println("Email not valid");
+                    }
+                }
+            }
+        });
+        
+        txtEmailConfirm.focusedProperty().addListener(new ChangeListener<Boolean>() 
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) 
+            {
+                if (!newValue) 
+                {
+                    if (txtEmailConfirm.getText().equals(txtEmail.getText()))
+                    {
+                        System.out.println("Email is same");
+                    } 
+                    else
+                    {
+                        System.out.println("Email not same");
+                    }
+                }
             }
         });
 
-        txtEmailConfirm.textProperty().addListener((observable, oldValue, newValue)
-                ->
+    }
+    /**
+     * Checks if the username is valid.
+     */
+    public void usernameCheck()
+    {
+        txtUsername.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
-            if (txtEmailConfirm.getText().equals(txtEmail.getText()))
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) 
             {
-                System.out.println("OK");
-            } else 
-            {
-                System.out.println("Same email");
+                if(!newValue)
+                {
+                    if (model.validUsername(txtUsername.getText()))
+                    {
+                        System.out.println("valid");
+                    }
+                    else
+                    {
+                        System.out.println("username is not valid");
+                    }
+                }
             }
         });
     }

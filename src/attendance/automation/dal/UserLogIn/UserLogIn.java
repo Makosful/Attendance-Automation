@@ -7,7 +7,7 @@ package attendance.automation.dal.UserLogIn;
 
 import attendance.automation.dal.DataBaseConnector;
 import attendance.automation.be.User;
-import attendance.automation.be.UserFactory;
+import attendance.automation.dal.UserFactory.UserFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
