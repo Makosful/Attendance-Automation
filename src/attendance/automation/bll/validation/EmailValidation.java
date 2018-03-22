@@ -20,16 +20,9 @@ public class EmailValidation extends AbstractValidation{
          
         if(input.isEmpty())
         {
-            super.validationMessage = "Feltet er tomt. Skriv venligt din email adresse ovenover";
+            super.validationMessage = "The textfield is empty. Please write your emailaddress";
             return false;
             
-        }
-        
-        boolean emailInDB = dal.validEmail(input);
-        if(emailInDB)
-        {
-            validationMessage = "The email does not exist for any users";
-            return false;
         }
 
         return true;

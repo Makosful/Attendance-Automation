@@ -234,7 +234,7 @@ public class BLLManager
      *
      * @param email
      */
-    public void forgottenPassEmail(String email) throws MessagingException {
+    public boolean forgottenPassEmail(String email) throws MessagingException {
         
         boolean emailInDB = dal.validEmail(email);
         if(!emailInDB)
@@ -252,7 +252,12 @@ public class BLLManager
 
             String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
             dal.setNewPassword(newRandomEncryptedPassword, email);
-
+            
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
     }

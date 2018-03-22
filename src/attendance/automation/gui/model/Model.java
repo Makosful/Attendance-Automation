@@ -170,9 +170,10 @@ public class Model
         return login;
     }
 
-    public void forgottenPassEmail(String email) throws MessagingException
+    public boolean forgottenPassEmail(String email) throws MessagingException
     {
-        bll.forgottenPassEmail(email);
+        boolean success = bll.forgottenPassEmail(email);
+        return success;
     }
 
 }

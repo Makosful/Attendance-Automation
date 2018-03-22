@@ -64,9 +64,16 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     private void handleSendNewPassword(ActionEvent event) {
         try {
-            model.forgottenPassEmail(txtFieldEmail.getText());
-            lblEmailStatus.setText("An email is now sent to you containing a "
-                                 + "new temporary password");
+            boolean success = model.forgottenPassEmail(txtFieldEmail.getText());
+            if(success)
+            {
+                lblEmailStatus.setText("An email is now sent to you containing a "
+                                     + "new temporary password");
+            }
+            else
+            {
+                lblEmailStatus.setText("The given email does not exist");
+            }
         } catch (MessagingException ex) {
             lblEmailStatus.setText("An error occurred while sending the email");
         }
@@ -119,9 +126,13 @@ public class ForgotPasswordController implements Initializable {
     private void addTxtFieldValidationListener(TextField txtField, Label label, IValidation validation) {
         
         txtField.textProperty().addListener((observable, oldValue, newValue) -> {
-                validation.inputValidation(newValue);
-                label.setText(validation.getValidationMessage());
-
+                if(!validation.inputValidation(newValue)){
+                    label.setText(validation.getValidationMessage());
+                }
+                else
+                {
+                    label.setText("");
+                }
         });
     }
 }
