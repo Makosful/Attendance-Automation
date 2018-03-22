@@ -3,23 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.bll.Encryption;
+package attendance.automation.bll.Hashing;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Hussain
  */
-public class Encryption 
+public class Hash 
 {
     private static MessageDigest md;
     
-    public static String passwordEncryption(String password)
+    public static String passwordHashing(String password)
     {
         try 
         {
@@ -36,7 +34,8 @@ public class Encryption
                 hexString.append(hex);
             }
             return hexString.toString();
-        } catch (NoSuchAlgorithmException ex)
+        } 
+        catch (NoSuchAlgorithmException ex)
         {
            ex.getMessage();
         } catch (UnsupportedEncodingException ex) 

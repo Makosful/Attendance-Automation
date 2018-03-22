@@ -1,10 +1,11 @@
 package attendance.automation.bll;
 
 import attendance.automation.be.PasswordValidation;
+import attendance.automation.be.Student;
+import attendance.automation.be.User;
+import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
-import attendance.automation.be.User;
-import attendance.automation.bll.Encryption.Encryption;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +15,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javax.mail.MessagingException;
 
-
 /**
  *
  * @author Axl
@@ -22,30 +22,38 @@ import javax.mail.MessagingException;
 public class BLLManager
 {
 
-    DALManager dal;
+    private final DALManager dal;
 
     public BLLManager()
     {
         dal = new DALManager();
     }
-    
+
+    public void createStudent(String fName, String lName, String uName,
+                              String email, String password)
+    {
+        String pass = Hash.passwordHashing(password);
+        User student = new Student(true, fName, lName, uName, email, pass);
+        dal.createNewUser(student);
+    }
+
     public boolean validEmail(String email)
     {
         return dal.validEmail(email);
     }
-    
+
     public boolean validUsername(String username)
     {
         return dal.validUsername(username);
     }
-    
-        public User userLogIn(String username, String password) throws BLLException 
+
+    public User userLogIn(String username, String password) throws BLLException
     {
-        try 
+        try
         {
             return dal.userLogIn(username, password);
-        } 
-        catch (DALException ex) 
+        }
+        catch (DALException ex)
         {
             throw new BLLException(ex.getMessage(), ex);
         }
@@ -122,7 +130,6 @@ public class BLLManager
         dal.fillStudentsChart(chrtStudents);
     }
 
-
     /**
      * Checks of the given password contains any lowercase letters
      *
@@ -182,20 +189,22 @@ public class BLLManager
         }
         return false;
     }
-    
+
     /**
-     * Store or remove the login credentials 
+     * Store or remove the login credentials
+     *
      * @param txtUserName
      * @param txtPassword
      * @param checkBoxSelected
+     *
      * @throws IOException
-     * @throws NoSuchAlgorithmException 
+     * @throws NoSuchAlgorithmException
      */
-    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected) 
-    throws IOException,
-    NoSuchAlgorithmException 
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected)
+            throws IOException,
+                   NoSuchAlgorithmException
     {
-        if(checkBoxSelected)
+        if (checkBoxSelected)
         {
             StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
         }
@@ -207,11 +216,14 @@ public class BLLManager
 
     /**
      * Get the login credentials
+     *
      * @return
-     * @throws FileNotFoundException 
+     *
+     * @throws FileNotFoundException
      */
-    public String[] getLoginInfo() throws FileNotFoundException {
-        
+    public String[] getLoginInfo() throws FileNotFoundException
+    {
+
         String[] rememberLogin = StoreLocalLogin.getLoginInfo();
         return rememberLogin;
 
@@ -219,7 +231,8 @@ public class BLLManager
 
     /**
      * Send a email to the user containing a new password
-     * @param email 
+     *
+     * @param email
      */
     public void forgottenPassEmail(String email) throws MessagingException {
         
@@ -237,10 +250,11 @@ public class BLLManager
                                     + "change it after the first login</p>");
             mail.sendMail();
 
-            String newRandomEncryptedPassword = Encryption.passwordEncryption(newRandomPassword);
+            String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
             dal.setNewPassword(newRandomEncryptedPassword, email);
 
         }
+
     }
 
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
+<AnchorPane id="AnchorPane" fx:id="root" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.LoginScreenController">
     <children>
         <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -22,7 +22,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="txtUserName" />
+                        <TextField fx:id="txtUserName" onAction="#handleLogin" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
@@ -32,7 +32,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <PasswordField fx:id="txtPassword" />
+                        <PasswordField fx:id="txtPassword" onAction="#handleLogin" />
                   <Label fx:id="lblInfoMessage" prefHeight="20.0" prefWidth="200.0" />
                     </children>
                 </VBox>
