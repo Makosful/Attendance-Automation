@@ -1,6 +1,8 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.be.Student;
+import attendance.automation.be.User;
 import attendance.automation.dal.DALManager;
 import attendance.automation.dal.StudentDAO;
 import attendance.automation.gui.model.Model;
@@ -49,6 +51,7 @@ public class StudentScreenController implements Initializable
 
     private Model model;
     private Stage currentStage;
+    private Student student;
 
     /**
      * Initializes the controller class.
@@ -156,5 +159,10 @@ public class StudentScreenController implements Initializable
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
+
+    void setUser(User user) {
+        student = (Student) user;
+        System.out.println(student.getLastName());
     }
 }

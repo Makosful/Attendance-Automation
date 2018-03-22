@@ -83,6 +83,36 @@ public class LoginScreenController implements Initializable
         stage.setScene(new Scene(parent));
         centerStage(stage);
     }
+    
+    /**
+     * Change the stage to either studentScreenController or TeacherScrennController
+     * passing the specific user who just logged in 
+     * @param file
+     * @param user
+     * @throws IOException 
+     */
+    private void changeStageUser(String file, User user) throws IOException
+    {
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + file + ".fxml"));
+        Parent parent = loader.load();
+        
+        if(user.getIsStudent())
+        {
+            StudentScreenController controller;
+            controller = loader.getController();
+            controller.setUser(user);
+        }
+        else
+        {
+            TeacherScreenController controller;
+            controller = loader.getController();
+            controller.setUser(user);
+        }
+        
+        stage.setScene(new Scene(parent));
+        centerStage(stage);
+    }
 
     /**
      * Centers the window on the screen
@@ -104,6 +134,7 @@ public class LoginScreenController implements Initializable
         
         try
         {
+            User user = null;
             String text = txtUserName.getText().toLowerCase();
             if (text.startsWith("t"))
                 changeStage("TeacherScreen");
@@ -126,7 +157,7 @@ public class LoginScreenController implements Initializable
                 if(user.getIsStudent())
                 {
                     try { 
-                        changeStage("StudentScreen");
+                        changeStageUser("StudentScreen", user);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }
@@ -134,7 +165,7 @@ public class LoginScreenController implements Initializable
                 else
                 {
                     try {
-                        changeStage("TeacherScreen");
+                        changeStageUser("TeacherScreen", user);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }

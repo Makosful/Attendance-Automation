@@ -1,6 +1,7 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.be.User;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -139,5 +140,9 @@ public class TeacherScreenController implements Initializable
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
+
+    void setUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
