@@ -56,6 +56,8 @@ public class StudentScreenController implements Initializable
     {
         model = Model.getInstance();
         chrtStatistics.setData(model.getPieChartAttendance());
+
+        checkWifi();
     }
 
     private void centerStage(Stage stage)
@@ -78,6 +80,16 @@ public class StudentScreenController implements Initializable
         catch (IOException ex)
         {
             Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void checkWifi()
+    {
+        boolean present = model.isAtSchool("EASV");
+        if (present)
+        {
+            System.out.println("You are present");
+            lblAttendance.setText("Present");
         }
     }
 
