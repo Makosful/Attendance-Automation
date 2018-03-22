@@ -53,29 +53,38 @@ public class ForgotPasswordController implements Initializable {
         
             model = Model.getInstance();
             
-        try {    
-            IValidation emailValidation = ValidationFactory.createValidation(ValidationFactory.validationType.email);
-            addTxtFieldValidationListener(txtFieldEmail, lblEmailStatus, emailValidation);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        
     }    
 
     @FXML
     private void handleSendNewPassword(ActionEvent event) {
-        try {
-            boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
-            if(emailExistsInDB)
+        try {    
+            IValidation emailValidation = ValidationFactory.createValidation(ValidationFactory.validationType.email);
+            if(!emailValidation.inputValidation(txtFieldEmail.getText()))
             {
-                lblEmailStatus.setText("An email is now sent to you containing a "
-                                     + "new temporary password");
+                lblEmailStatus.setText(emailValidation.getValidationMessage());
             }
             else
             {
-                lblEmailStatus.setText("The given email does not exist");
+                lblEmailStatus.setText("");
+            
+                try {
+                    boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
+                    if(emailExistsInDB)
+                    {
+                        lblEmailStatus.setText("An email is now sent to you containing a "
+                                             + "new temporary password");
+                    }
+                    else
+                    {
+                        lblEmailStatus.setText("The given email does not exist");
+                    }
+                } catch (MessagingException ex) {
+                    lblEmailStatus.setText("An error occurred while sending the email");
+                }
             }
-        } catch (MessagingException ex) {
-            lblEmailStatus.setText("An error occurred while sending the email");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -122,12 +131,14 @@ public class ForgotPasswordController implements Initializable {
      * @param txtField
      * @param label
      * @param validation 
-     */
+    addTxtFieldValidationListener(txtFieldEmail, lblEmailStatus, emailValidation);
     private void addTxtFieldValidationListener(TextField txtField, Label label, IValidation validation) {
         
         txtField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!validation.inputValidation(newValue)){
+                if(!validation.inputValidation(newValue))
+                {
                     label.setText(validation.getValidationMessage());
+                    
                 }
                 else
                 {
@@ -135,4 +146,5 @@ public class ForgotPasswordController implements Initializable {
                 }
         });
     }
+    */
 }

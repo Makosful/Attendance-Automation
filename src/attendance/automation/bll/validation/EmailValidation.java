@@ -5,6 +5,8 @@
  */
 package attendance.automation.bll.validation;
 import attendance.automation.dal.DALManager;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -16,15 +18,25 @@ public class EmailValidation extends AbstractValidation{
     DALManager dal = new DALManager();
     
     @Override
-    public boolean inputValidation(String input) {
+    public boolean inputValidation(String mail) {
          
-        if(input.isEmpty())
+        if(mail.isEmpty())
         {
             super.validationMessage = "The textfield is empty. Please write your emailaddress";
             return false;
             
         }
-
+        
+        Pattern p = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+                                    
+        Matcher m = p.matcher(mail);
+        if(!m.find())
+        {
+            super.validationMessage = "Emailaddress is not valid";
+            return false;
+        }
+        
+        
         return true;
 
     }
