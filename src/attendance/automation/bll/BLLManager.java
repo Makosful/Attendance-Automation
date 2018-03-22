@@ -22,7 +22,7 @@ import javax.mail.MessagingException;
 public class BLLManager
 {
 
-    DALManager dal;
+    private final DALManager dal;
 
     public BLLManager()
     {
@@ -32,7 +32,8 @@ public class BLLManager
     public void createStudent(String fName, String lName, String uName,
                               String email, String password)
     {
-        User student = new Student(true, fName, lName, uName, email, password);
+        String pass = Encryption.passwordEncryption(password);
+        User student = new Student(true, fName, lName, uName, email, pass);
         dal.createNewUser(student);
     }
 
