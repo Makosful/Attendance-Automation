@@ -2,7 +2,7 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
 import attendance.automation.bll.BLLException;
-import attendance.automation.bll.Encryption.Encryption;
+import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.gui.model.Model;
 import attendance.automation.be.User;
@@ -117,7 +117,7 @@ public class LoginScreenController implements Initializable
         }
         try 
         {
-            User user = model.userLogIn(txtUserName.getText(), Encryption.passwordEncryption(txtPassword.getText())); 
+            User user = model.userLogIn(txtUserName.getText(), Hash.passwordEncryption(txtPassword.getText())); 
             System.out.println(user.getEmail());
         } 
         catch (BLLException ex) 

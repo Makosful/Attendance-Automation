@@ -4,7 +4,7 @@ import attendance.automation.be.PasswordValidation;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
 import attendance.automation.be.User;
-import attendance.automation.bll.Encryption.Encryption;
+import attendance.automation.bll.Hashing.Hash;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -233,7 +233,7 @@ public class BLLManager
                                 + "change it after the first login</p>");
         mail.sendMail();
         
-        String newRandomEncryptedPassword = Encryption.passwordEncryption(newRandomPassword);
+        String newRandomEncryptedPassword = Hash.passwordEncryption(newRandomPassword);
         dal.setNewPassword(newRandomEncryptedPassword, email);
     }
 

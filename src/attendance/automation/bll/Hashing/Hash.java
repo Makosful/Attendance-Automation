@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package attendance.automation.bll.Encryption;
+package attendance.automation.bll.Hashing;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Hussain
  */
-public class Encryption 
+public class Hash 
 {
     private static MessageDigest md;
     
