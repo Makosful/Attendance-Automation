@@ -60,6 +60,18 @@ public class Model
         );
     }
 
+    public boolean isAtSchool(String wifi)
+    {
+        try
+        {
+            return bll.isConnectedToWifi(wifi);
+        }
+        catch (BLLException ex)
+        {
+            return false;
+        }
+    }
+
     public void signUp(String fName, String lName, String uName,
                        String email, String password)
     {

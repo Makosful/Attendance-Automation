@@ -31,20 +31,11 @@ public class DALManager
     private final IValidationDatabase vd;
     private final UserLogIn liEncryption;
 
-    public DALManager() throws DALException
+    public DALManager()
     {
         vd = new ValidationDataBase();
         liEncryption = new UserLogIn();
         uDAO = new UserDAO();
-
-        for (Wifi w : getWifi())
-        {
-            if (w.getSsid().equalsIgnoreCase("EASV"))
-            {
-                System.out.println("You're connected to the school");
-                return;
-            }
-        }
     }
 
     public void createNewUser(User user)

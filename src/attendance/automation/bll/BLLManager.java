@@ -3,6 +3,7 @@ package attendance.automation.bll;
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.be.Student;
 import attendance.automation.be.User;
+import attendance.automation.be.Wifi;
 import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
@@ -10,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -35,6 +37,29 @@ public class BLLManager
         String pass = Hash.passwordHashing(password);
         User student = new Student(true, fName, lName, uName, email, pass);
         dal.createNewUser(student);
+    }
+
+    /**
+     * Checks if machine is connected to a certain wifi network
+     *
+     * @param wifi
+     *
+     * @return
+     *
+     * @throws BLLException
+     */
+    public boolean isConnectedToWifi(String wifi) throws BLLException
+    {
+        try
+        {
+            List<Wifi> wifiList = dal.getWifi();
+            return wifiList.stream().anyMatch((w)
+                    -> (w.getSsid().equalsIgnoreCase(wifi)));
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     public boolean validEmail(String email)
