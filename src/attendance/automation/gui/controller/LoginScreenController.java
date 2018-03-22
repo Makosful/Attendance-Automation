@@ -3,7 +3,6 @@ package attendance.automation.gui.controller;
 import attendance.automation.Main;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.Hashing.Hash;
-import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.gui.model.Model;
 import attendance.automation.be.User;
 import java.io.FileNotFoundException;
@@ -11,8 +10,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,13 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -117,12 +114,21 @@ public class LoginScreenController implements Initializable
         }
         try 
         {
+            if(textFieldsFilled())
+            {
             User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText())); 
             System.out.println(user.getEmail());
+            }
+            else
+            {
+                lblInfoMessage.setText("Fill all fields");
+            }
         } 
         catch (BLLException ex) 
         {
-            lblInfoMessage.setText("Wrong Password");
+                    lblInfoMessage.setWrapText(true);
+        lblInfoMessage.setTextAlignment(TextAlignment.JUSTIFY);
+            lblInfoMessage.setText(ex.getMessage());
         }
         
         try {
@@ -131,6 +137,21 @@ public class LoginScreenController implements Initializable
             System.out.println("Could not store the login credentials");
         } catch (NoSuchAlgorithmException ex) {
             System.out.println("Could not store the login credentials");
+        }
+    }
+    /**
+     * Checks if textfields are empty or not for login.
+     * @return 
+     */
+    public boolean textFieldsFilled()
+    {
+        if(txtUserName.getText().isEmpty() || txtPassword.getText().isEmpty())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -169,7 +190,8 @@ public class LoginScreenController implements Initializable
     }
 
     @FXML
-    private void handleForgottenPassword(ActionEvent event) {
+    private void handleForgottenPassword(ActionEvent event) 
+    {
         try {
             changeStage("ForgotPassword");
         } catch (IOException ex) 

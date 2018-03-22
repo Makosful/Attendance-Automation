@@ -82,6 +82,8 @@ public class SignUpController implements Initializable
         model = Model.getInstance();
 
         setupValidationListeners();
+        
+        
     }
 
     private void changeStage(String file) throws IOException
