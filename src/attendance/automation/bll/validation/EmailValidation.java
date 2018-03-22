@@ -17,6 +17,11 @@ public class EmailValidation extends AbstractValidation{
     
     DALManager dal = new DALManager();
     
+    /**
+     * Validate a given emailaddress
+     * @param mail
+     * @return 
+     */
     @Override
     public boolean inputValidation(String mail) {
          

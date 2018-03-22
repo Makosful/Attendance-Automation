@@ -16,6 +16,12 @@ public class ValidationFactory {
         email
     }
     
+    /**
+     * Creates new validation objects
+     * @param validationType
+     * @return
+     * @throws Exception 
+     */
     public static IValidation createValidation(validationType validationType) throws Exception
     {
         switch(validationType)
