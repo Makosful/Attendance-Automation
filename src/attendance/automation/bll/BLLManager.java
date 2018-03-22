@@ -234,21 +234,32 @@ public class BLLManager
      *
      * @param email
      */
-    public void forgottenPassEmail(String email) throws MessagingException
-    {
-        String newRandomPassword = RandomPassword.generateRandomPassword();
+    public boolean forgottenPassEmail(String email) throws MessagingException {
+        
+        boolean emailInDB = dal.validEmail(email);
+        if(!emailInDB)
+        {
+            
+            String newRandomPassword = RandomPassword.generateRandomPassword();
+            Email mail = new Email(email, "New password for attendance automation",
+                            "<p style='font-size:19px'>Hi, here is the new password"
+                            + " for your account: </p><span style='font-size:12px; "
+                                    + "border: 1px solid green; padding:4px;'>"
+                                    + newRandomPassword+"</span>"
+                                    + "<p style='font-size:13px'>Please remember to "
+                                    + "change it after the first login</p>");
+            mail.sendMail();
 
-        Email mail = new Email(email, "New password for attendance automation",
-                               "<p style='font-size:19px'>Hi, here is the new password"
-                               + " for your account: </p><span style='font-size:12px; "
-                               + "border: 1px solid green; padding:4px;'>"
-                               + newRandomPassword + "</span>"
-                               + "<p style='font-size:13px'>Please remember to "
-                               + "change it after the first login</p>");
-        mail.sendMail();
+            String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
+            dal.setNewPassword(newRandomEncryptedPassword, email);
+            
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
-        String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
-        dal.setNewPassword(newRandomEncryptedPassword, email);
     }
 
 }

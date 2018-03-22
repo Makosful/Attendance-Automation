@@ -6,6 +6,8 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.bll.validation.IValidation;
+import attendance.automation.bll.validation.ValidationFactory;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -48,17 +50,30 @@ public class ForgotPasswordController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        model = Model.getInstance();
         
-        addTxtFieldEmailListener();
+            model = Model.getInstance();
+            
+        try {    
+            IValidation emailValidation = ValidationFactory.createValidation(ValidationFactory.validationType.email);
+            addTxtFieldValidationListener(txtFieldEmail, lblEmailStatus, emailValidation);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }    
 
     @FXML
     private void handleSendNewPassword(ActionEvent event) {
         try {
-            model.forgottenPassEmail(txtFieldEmail.getText());
-            lblEmailStatus.setText("An email is now sent to you containing a "
-                                 + "new temporary password");
+            boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
+            if(emailExistsInDB)
+            {
+                lblEmailStatus.setText("An email is now sent to you containing a "
+                                     + "new temporary password");
+            }
+            else
+            {
+                lblEmailStatus.setText("The given email does not exist");
+            }
         } catch (MessagingException ex) {
             lblEmailStatus.setText("An error occurred while sending the email");
         }
@@ -101,9 +116,23 @@ public class ForgotPasswordController implements Initializable {
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    private void addTxtFieldEmailListener() {
-        txtFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
-            //model.validateEmail(newValue);
+    
+    /**
+     * 
+     * @param txtField
+     * @param label
+     * @param validation 
+     */
+    private void addTxtFieldValidationListener(TextField txtField, Label label, IValidation validation) {
+        
+        txtField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!validation.inputValidation(newValue)){
+                    label.setText(validation.getValidationMessage());
+                }
+                else
+                {
+                    label.setText("");
+                }
         });
     }
 }
