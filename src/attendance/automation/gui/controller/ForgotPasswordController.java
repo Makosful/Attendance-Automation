@@ -64,8 +64,8 @@ public class ForgotPasswordController implements Initializable {
     @FXML
     private void handleSendNewPassword(ActionEvent event) {
         try {
-            boolean success = model.forgottenPassEmail(txtFieldEmail.getText());
-            if(success)
+            boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
+            if(emailExistsInDB)
             {
                 lblEmailStatus.setText("An email is now sent to you containing a "
                                      + "new temporary password");

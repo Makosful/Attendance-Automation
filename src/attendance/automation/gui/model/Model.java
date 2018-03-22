@@ -172,8 +172,8 @@ public class Model
 
     public boolean forgottenPassEmail(String email) throws MessagingException
     {
-        boolean success = bll.forgottenPassEmail(email);
-        return success;
+        boolean emailExistsInDB = bll.forgottenPassEmail(email);
+        return emailExistsInDB;
     }
 
 }
