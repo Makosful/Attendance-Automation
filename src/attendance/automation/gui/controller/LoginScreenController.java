@@ -99,6 +99,9 @@ public class LoginScreenController implements Initializable
     @FXML
     private void handleLogin(ActionEvent event)
     {
+        //for the "remember me" checkbox
+        rememberMe();
+        
         try
         {
             String text = txtUserName.getText().toLowerCase();
@@ -112,12 +115,30 @@ public class LoginScreenController implements Initializable
             System.out.println(ex.getLocalizedMessage());
             System.out.println(ex.getStackTrace());
         }
+        
+        
         try 
         {     
             if(textFieldsFilled())
             {
-            User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText())); 
-            System.out.println(user.getEmail());
+                User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText())); 
+                System.out.println(user.getEmail());
+                if(user.getIsStudent())
+                {
+                    try { 
+                        changeStage("StudentScreen");
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+                else
+                {
+                    try {
+                        changeStage("TeacherScreen");
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
             }
             else
             {
@@ -126,19 +147,15 @@ public class LoginScreenController implements Initializable
         } 
         catch (BLLException ex) 
         {
-                    lblInfoMessage.setWrapText(true);
-        lblInfoMessage.setTextAlignment(TextAlignment.JUSTIFY);
+            lblInfoMessage.setWrapText(true);
+            lblInfoMessage.setTextAlignment(TextAlignment.JUSTIFY);
             lblInfoMessage.setText(ex.getMessage());
-        }
+        } 
         
-        try {
-            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
-        } catch (IOException ex) {
-            System.out.println("Could not store the login credentials");
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Could not store the login credentials");
-        }
     }
+   
+    
+    
     /**
      * Checks if textfields are empty or not for login.
      * @return 
@@ -155,6 +172,7 @@ public class LoginScreenController implements Initializable
         }
     }
 
+    
     @FXML
     private void handleSignUp(ActionEvent event)
     {
@@ -170,6 +188,20 @@ public class LoginScreenController implements Initializable
     }
 
 
+    /**
+     * Remembers the users login credentials, for the "remember me" checkbox
+     */
+    private void rememberMe() {
+        try {
+            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
+        } catch (IOException ex) {
+            System.out.println("Could not store the login credentials");
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Could not store the login credentials");
+        }
+    }
+    
+    
     /**
      * Get the login credentials, if they exist add them to the textfields 
      * else it means that the user does not want to remember the login info
@@ -188,6 +220,7 @@ public class LoginScreenController implements Initializable
         }
         
     }
+    
 
     @FXML
     private void handleForgottenPassword(ActionEvent event) 

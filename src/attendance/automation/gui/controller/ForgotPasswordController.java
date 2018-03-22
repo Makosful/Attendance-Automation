@@ -80,6 +80,7 @@ public class ForgotPasswordController implements Initializable {
                         lblEmailStatus.setText("The given email does not exist");
                     }
                 } catch (MessagingException ex) {
+                    System.out.println(ex.getMessage());
                     lblEmailStatus.setText("An error occurred while sending the email");
                 }
             }
