@@ -123,7 +123,11 @@ public class SignUpController implements Initializable
     @FXML
     private void handleSignUp(ActionEvent event)
     {
-        System.out.println("You've been signed up");
+        model.signUp(txtFName.getText(),
+                     txtLName.getText(),
+                     txtUsername.getText(),
+                     txtEmail.getText(),
+                     txtPass.getText());
         try
         {
             changeStage("LoginScreen");
@@ -168,11 +172,11 @@ public class SignUpController implements Initializable
                 lblPassConfError.setVisible(!matchingPass);
             }
         });
-        
+
         emailCheck();
         usernameCheck();
-        
     }
+
     /**
      * Checks if the email is valid in database
      * Checks if emailConfirm textfield contains same as above, txtemail.
