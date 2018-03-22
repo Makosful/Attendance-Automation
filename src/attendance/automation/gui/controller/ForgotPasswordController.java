@@ -35,18 +35,22 @@ public class ForgotPasswordController implements Initializable {
 
     @FXML
     private TextField txtFieldEmail;
-    private Model model;
-    private Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private Label lblEmailStatus;
+    
+    private Model model;
+    private Stage currentStage;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
+        
+        addTxtFieldEmailListener();
     }    
 
     @FXML
@@ -95,5 +99,11 @@ public class ForgotPasswordController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
+
+    private void addTxtFieldEmailListener() {
+        txtFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            //model.validateEmail(newValue);
+        });
     }
 }
