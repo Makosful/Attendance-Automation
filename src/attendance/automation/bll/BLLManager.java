@@ -72,6 +72,18 @@ public class BLLManager
         }
     }
 
+    public void registerAttendance(User user) throws BLLException
+    {
+        try
+        {
+            dal.registerAttendance(user);
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
     public boolean validEmail(String email)
     {
         return dal.validEmail(email);
