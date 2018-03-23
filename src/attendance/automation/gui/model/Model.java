@@ -101,6 +101,11 @@ public class Model
         }
     }
 
+    public void registerPresent() throws BLLException
+    {
+        bll.registerAttendance(user);
+    }
+
     public void signUp(String fName, String lName, String uName,
                        String email, String password)
     {

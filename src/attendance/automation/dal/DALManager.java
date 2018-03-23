@@ -30,12 +30,14 @@ public class DALManager
     private final UserDAO uDAO;
     private final IValidationDatabase vd;
     private final UserLogIn liEncryption;
+    private final StudentDAO sDAO;
 
     public DALManager()
     {
         vd = new ValidationDataBase();
         liEncryption = new UserLogIn();
         uDAO = new UserDAO();
+        sDAO = new StudentDAO();
     }
 
     public void changePassword(User user, String pass)
@@ -46,6 +48,18 @@ public class DALManager
     public void createNewUser(User user)
     {
         uDAO.addNewUser(user);
+    }
+
+    public void registerAttendance(User user) throws DALException
+    {
+        try
+        {
+            sDAO.registerAttendance(user.getId(), true);
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     public User userLogIn(String username, String password) throws DALException

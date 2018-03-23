@@ -3,8 +3,7 @@ package attendance.automation.gui.controller;
 import attendance.automation.Main;
 import attendance.automation.be.Student;
 import attendance.automation.be.User;
-import attendance.automation.dal.DALManager;
-import attendance.automation.dal.StudentDAO;
+import attendance.automation.bll.BLLException;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
@@ -65,9 +64,12 @@ public class StudentScreenController implements Initializable
         model = Model.getInstance();
         chrtStatistics.setData(model.getPieChartAttendance());
 
-        try {
+        try
+        {
             checkWifi();
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -100,8 +102,7 @@ public class StudentScreenController implements Initializable
         boolean present = model.isAtSchool("EASV");
         if (present)
         {
-            System.out.println("You are present");
-            lblAttendance.setText("Present");
+            registerPresent();
         }
     }
 
@@ -120,7 +121,7 @@ public class StudentScreenController implements Initializable
     @FXML
     private void handleRegisterPresent(ActionEvent event)
     {
-        lblAttendance.setText("Present");
+        registerPresent();
     }
 
     @FXML
@@ -161,7 +162,21 @@ public class StudentScreenController implements Initializable
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    void setUser(User user) {
+    private void registerPresent()
+    {
+        try
+        {
+            model.registerPresent();
+            lblAttendance.setText("Present");
+        }
+        catch (BLLException ex)
+        {
+            // Do not register attendance, nor change the label to present
+        }
+    }
+
+    void setUser(User user)
+    {
         student = (Student) user;
         System.out.println(student.getLastName());
     }
