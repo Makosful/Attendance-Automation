@@ -2,9 +2,13 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.be.PasswordValidation;
 import attendance.automation.bll.BLLException;
+import attendance.automation.bll.validation.IValidation;
+import attendance.automation.bll.validation.ValidationFactory;
 import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,39 +34,46 @@ public class ChangePasswordController implements Initializable
     private PasswordField txtPassCur;
     @FXML
     private PasswordField txtPassNew;
-
+    private IValidation passwordValidation;
     private Model model;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        model = Model.getInstance();
+        try {
+            passwordValidation = ValidationFactory.createValidation(ValidationFactory.validationType.password);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage()); 
+        }
+        
+            model = Model.getInstance();
+            
+            txtPassNew.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+               
+                
+                if (!passwordValidation.inputValidation(newValue))
+                {
+                    txtPassNew.setStyle("-fx-border-color: red; -fx-border-width:2px;");
+                }
+                else
+                {
+                    txtPassNew.setStyle("-fx-border-color: green; -fx-border-width:2px;");
+                }
+            });
+            
+            txtPassCon.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if (txtPassNew.getText().equals(newValue))
+                {
+                    txtPassCon.setStyle("-fx-border-color: green; -fx-border-width:2px;");
+                }
+                else
+                {
+                    txtPassCon.setStyle("-fx-border-color: red; -fx-border-width:2px;");
+                }
+            });
 
-        txtPassNew.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            PasswordValidation pv = model.checkPasswordstrength(newValue);
-
-            if (!pv.isValid())
-            {
-                txtPassNew.setStyle("-fx-border-color: red; -fx-border-width:2px;");
-            }
-            else
-            {
-                txtPassNew.setStyle("-fx-border-color: green; -fx-border-width:2px;");
-            }
-        });
-
-        txtPassCon.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (txtPassNew.getText().equals(newValue))
-            {
-                txtPassCon.setStyle("-fx-border-color: green; -fx-border-width:2px;");
-            }
-            else
-            {
-                txtPassCon.setStyle("-fx-border-color: red; -fx-border-width:2px;");
-            }
-        });
     }
 
     @FXML
@@ -75,8 +86,8 @@ public class ChangePasswordController implements Initializable
     @FXML
     private void handleChangePass(ActionEvent event)
     {
-        if (model.checkPasswordstrength(txtPassNew.getText()).isValid()
-            || txtPassNew.getText().equals(txtPassCon.getText()))
+        if (passwordValidation.inputValidation(txtPassNew.getText())
+        || txtPassNew.getText().equals(txtPassCon.getText()))
         {
             try
             {

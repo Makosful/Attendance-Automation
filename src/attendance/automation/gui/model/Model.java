@@ -142,10 +142,6 @@ public class Model
         return user;
     }
 
-    public PasswordValidation checkPasswordstrength(String password)
-    {
-        return bll.checkPasswordStrength(password);
-    }
 
     public void fillClassesList(ListView<String> lstClasses)
     {
