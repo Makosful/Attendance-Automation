@@ -14,7 +14,7 @@
 /* Text */
 .label {
   -fx-text-fill: #fefefe;
-  -fx-font-size: 17px; }
+  -fx-font-size: 14px; }
 
 .error {
   -fx-text-fill: #ff4444;
@@ -114,16 +114,5 @@
 }
 
 .table-view .column-header .label { -fx-text-fill: black; }
-
-#requestChange
-{
-    -fx-text-fill:white;
-    -fx-background-color: #005ce6;
-}
-
-#requestChange:pressed 
-{
-  -fx-background-color: #004d39; 
-}
 
 /*# sourceMappingURL=style.css.map */
