@@ -87,8 +87,7 @@ public class BLLManager
 
             for (Student s : list)
             {
-                double p = getAveragePercentage(s.getId());
-                System.out.println(s.getFirstName() + " - " + p);
+                double p = getAveragePercentage(s.getId()) * 100;
                 DecimalFormat df = new DecimalFormat("##.##");
                 String ps = df.format(p);
                 students.add(new LoadedStudent(s.getFirstName(),

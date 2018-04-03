@@ -61,14 +61,15 @@ public class StudentDAO
 
             while (rs.next())
             {
-                students.add(new Student(
+                Student s = new Student(
                         rs.getBoolean("UserType"),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
                         rs.getString("UserName"),
                         rs.getString("Email"),
-                        rs.getString("Password")
-                ));
+                        rs.getString("Password"));
+                s.setId(rs.getInt("UserId"));
+                students.add(s);
             }
             return students;
         }
