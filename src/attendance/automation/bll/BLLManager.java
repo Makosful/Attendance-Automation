@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,14 +85,16 @@ public class BLLManager
                                           = FXCollections.observableArrayList();
             ArrayList<Student> list = dal.loadStudents();
 
-            String att = "";
-
-            list.forEach((s) ->
+            for (Student s : list)
             {
+                double p = getAveragePercentage(s.getId());
+                System.out.println(s.getFirstName() + " - " + p);
+                DecimalFormat df = new DecimalFormat("##.##");
+                String ps = df.format(p);
                 students.add(new LoadedStudent(s.getFirstName(),
                                                s.getLastName(),
-                                               att));
-            });
+                                               ps + "%"));
+            }
 
             return students;
         }
@@ -262,7 +265,7 @@ public class BLLManager
 
     }
 
-    public double GetAveragePercentage(int UserID) throws BLLException
+    public double getAveragePercentage(int UserID) throws BLLException
     {
         try
         {

@@ -296,7 +296,7 @@ public class DALManager
                 System.out.println(attendedDays);
             }
 
-            avgAmount = (attendedDays / totalDays) * 100;
+            avgAmount = (attendedDays / totalDays);
             System.out.println(avgAmount);
         }
         return avgAmount;
