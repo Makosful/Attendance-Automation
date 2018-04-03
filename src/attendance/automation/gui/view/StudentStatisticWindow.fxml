@@ -57,8 +57,8 @@
                                         </Label>
                                         <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" onAction="#handleSetDateStart" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
                                         <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" onAction="#handleSetDateToday" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <JFXDatePicker fx:id="dateFrom" GridPane.columnIndex="1" />
-                              <JFXDatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXDatePicker fx:id="dateFrom" defaultColor="WHITE" GridPane.columnIndex="1" />
+                              <JFXDatePicker fx:id="dateTo" defaultColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>

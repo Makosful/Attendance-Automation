@@ -31,7 +31,7 @@
             <Label text="Class" textFill="WHITE" GridPane.rowIndex="1" />
             <Label text="Message" textFill="WHITE" GridPane.rowIndex="2" />
             <Label text="Date" textFill="WHITE" />
-            <JFXDatePicker fx:id="datePicker" defaultColor="#0079ff" prefHeight="28.0" prefWidth="174.0" GridPane.columnIndex="1" />
+            <JFXDatePicker fx:id="datePicker" defaultColor="WHITE" prefHeight="28.0" prefWidth="174.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtFieldMessage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="74.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="65.0" prefWidth="86.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
