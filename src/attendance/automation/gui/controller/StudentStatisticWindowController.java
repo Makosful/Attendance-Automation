@@ -2,6 +2,7 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
 import attendance.automation.gui.model.Model;
+import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,10 +37,7 @@ public class StudentStatisticWindowController implements Initializable
     private Model model;
 
 
-    @FXML
-    private DatePicker dateFrom;
-    @FXML
-    private DatePicker dateTo;
+
     @FXML
     private Button btnSetDateStart;
     @FXML
@@ -61,6 +59,10 @@ public class StudentStatisticWindowController implements Initializable
     private AnchorPane anchorPane;
     @FXML
     private Button requestChange;
+    @FXML
+    private JFXDatePicker dateFrom;
+    @FXML
+    private JFXDatePicker dateTo;
 
     /**
      * Initializes the controller class.

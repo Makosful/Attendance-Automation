@@ -14,7 +14,7 @@
 /* Text */
 .label {
   -fx-text-fill: #fefefe;
-  -fx-font-size: 14px; }
+  -fx-font-size: 17px; }
 
 .error {
   -fx-text-fill: #ff4444;

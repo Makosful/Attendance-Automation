@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -45,8 +45,6 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" />
-                                        <DatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label text="From">
                                             <font>
                                                 <Font size="14.0" />
@@ -59,6 +57,8 @@
                                         </Label>
                                         <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" onAction="#handleSetDateStart" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
                                         <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" onAction="#handleSetDateToday" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <JFXDatePicker fx:id="dateFrom" GridPane.columnIndex="1" />
+                              <JFXDatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>
