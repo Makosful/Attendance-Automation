@@ -5,42 +5,72 @@
  */
 package attendance.automation.dal;
 
+import attendance.automation.be.Student;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author B
  */
-public class StudentDAO {
+public class StudentDAO
+{
+
     private DataBaseConnector db;
-    
+
     public StudentDAO()
     {
         db = new DataBaseConnector();
     }
+
     /**
      * Registers whether the student is in school or not.
+     *
      * @param userID
      * @param attendance
+     *
      * @throws SQLServerException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void registerAttendance(int userID, boolean attendance) throws SQLServerException, SQLException
     {
-       try(Connection con = db.getConnection())
-       {
-           String sql = "INSERT INTO StudentAttendance VALUES(?, ?, getDate())";         
-           PreparedStatement pstmt = con.prepareStatement(sql);           
-           pstmt.setInt(1, userID);
-           pstmt.setBoolean(2, attendance);
-           
-           pstmt.executeUpdate();
-       }
+        try (Connection con = db.getConnection())
+        {
+            String sql = "INSERT INTO StudentAttendance VALUES(?, ?, getDate())";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, userID);
+            pstmt.setBoolean(2, attendance);
+
+            pstmt.executeUpdate();
+        }
     }
 
-    
+    public ArrayList<Student> getAllStudents() throws SQLException
+    {
+        try (Connection con = db.getConnection())
+        {
+            ArrayList<Student> students = new ArrayList();
+
+            String sql = "SELECT * FROM Users WHERE UserType = 1";
+            ResultSet rs = con.createStatement().executeQuery(sql);
+
+            while (rs.next())
+            {
+                students.add(new Student(
+                        rs.getBoolean("UserType"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("UserName"),
+                        rs.getString("Email"),
+                        rs.getString("Password")
+                ));
+            }
+            return students;
+        }
+    }
+
 }

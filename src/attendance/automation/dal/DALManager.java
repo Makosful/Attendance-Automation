@@ -50,6 +50,18 @@ public class DALManager
         uDAO.addNewUser(user);
     }
 
+    public ArrayList loadStudents() throws DALException
+    {
+        try
+        {
+            return sDAO.getAllStudents();
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
     public void registerAttendance(User user) throws DALException
     {
         try

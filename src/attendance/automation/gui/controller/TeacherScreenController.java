@@ -1,6 +1,7 @@
 package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
+import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -34,10 +40,17 @@ public class TeacherScreenController implements Initializable
     @FXML
     private Button btnLogout;
     @FXML
+    private TableView<LoadedStudent> tblStudents;
+    @FXML
+    private TableColumn<LoadedStudent, String> clmAtt;
+    @FXML
+    private TableColumn<LoadedStudent, String> clmFName;
+    @FXML
+    private TableColumn<LoadedStudent, String> clmLName;
+    @FXML
     private ListView<String> lstClasses;
     @FXML
     private PieChart chrtClasses;
-    @FXML
     private ListView<String> lstStudents;
     @FXML
     private PieChart chrtStudents;
@@ -47,6 +60,7 @@ public class TeacherScreenController implements Initializable
     private Model model;
 
     private Stage currentStage;
+    private ObservableList<LoadedStudent> students;
 
     /**
      * Initializes the controller class.
@@ -59,8 +73,12 @@ public class TeacherScreenController implements Initializable
     {
         model = Model.getInstance();
 
+        students = FXCollections.observableArrayList();
+
         fillClassesList();
-        fillStudentsList();
+//        fillStudentsList();
+        setupStudentTable();
+        fillStudentsTable();
         fillClassesChart();
         fillStudentsChart();
     }
@@ -108,6 +126,11 @@ public class TeacherScreenController implements Initializable
         model.fillStudentsChart(chrtStudents);
     }
 
+    private void fillStudentsTable()
+    {
+        tblStudents.setItems(model.getStudents());
+    }
+
     @FXML
     private void handleChangePassword(ActionEvent event)
     {
@@ -142,7 +165,15 @@ public class TeacherScreenController implements Initializable
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    void setUser(User user) {
+    private void setupStudentTable()
+    {
+        clmFName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        clmLName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        clmAtt.setCellValueFactory(new PropertyValueFactory<>("attendance"));
+    }
+
+    public void setUser(User user)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

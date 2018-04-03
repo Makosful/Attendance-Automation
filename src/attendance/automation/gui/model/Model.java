@@ -1,7 +1,7 @@
 package attendance.automation.gui.model;
 
 import attendance.automation.Main;
-import attendance.automation.be.PasswordValidation;
+import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
@@ -49,6 +49,7 @@ public class Model
     private final BLLManager bll;
 
     private final ObservableList<PieChart.Data> pieChartAttendance;
+    private final ObservableList<LoadedStudent> students;
     private User user;
 
     /**
@@ -66,6 +67,9 @@ public class Model
                 new PieChart.Data("Present", 80),
                 new PieChart.Data("Absent", 20)
         );
+
+        students = FXCollections.observableArrayList();
+        loadStudents(students);
     }
 
     /**
@@ -87,6 +91,11 @@ public class Model
     public void changePassword(String newPass, String curPass) throws BLLException
     {
         bll.changePassword(user, newPass, curPass);
+    }
+
+    public ObservableList<LoadedStudent> getStudents()
+    {
+        return students;
     }
 
     public boolean isAtSchool(String wifi)
@@ -141,7 +150,6 @@ public class Model
         user = bll.userLogIn(username, password);
         return user;
     }
-
 
     public void fillClassesList(ListView<String> lstClasses)
     {
@@ -217,6 +225,18 @@ public class Model
     {
         boolean emailExistsInDB = bll.forgottenPassEmail(email);
         return emailExistsInDB;
+    }
+
+    private void loadStudents(ObservableList<LoadedStudent> list)
+    {
+        try
+        {
+            list.addAll(bll.loadStudent());
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void openWindow(String fxml)

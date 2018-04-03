@@ -1,6 +1,6 @@
 package attendance.automation.bll;
 
-import attendance.automation.be.PasswordValidation;
+import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.Student;
 import attendance.automation.be.User;
 import attendance.automation.be.Wifi;
@@ -11,7 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -72,6 +75,31 @@ public class BLLManager
         }
     }
 
+    public ObservableList<LoadedStudent> loadStudent() throws BLLException
+    {
+        try
+        {
+            ObservableList<LoadedStudent> students
+                                          = FXCollections.observableArrayList();
+            ArrayList<Student> list = dal.loadStudents();
+
+            String att = "";
+
+            list.forEach((s) ->
+            {
+                students.add(new LoadedStudent(s.getFirstName(),
+                                               s.getLastName(),
+                                               att));
+            });
+
+            return students;
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
     public void registerAttendance(User user) throws BLLException
     {
         try
@@ -106,7 +134,6 @@ public class BLLManager
         }
     }
 
-    
     public void fillClassesList(ListView<String> lstClasses)
     {
         dal.fillClassesList(lstClasses);
@@ -200,6 +227,10 @@ public class BLLManager
      * Send a email to the user containing a new password
      *
      * @param email
+     *
+     * @return
+     *
+     * @throws javax.mail.MessagingException
      */
     public boolean forgottenPassEmail(String email) throws MessagingException
     {
