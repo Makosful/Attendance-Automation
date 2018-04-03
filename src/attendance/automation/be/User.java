@@ -5,6 +5,8 @@
  */
 package attendance.automation.be;
 
+import java.util.List;
+
 /**
  *
  * @author B
@@ -18,6 +20,8 @@ public abstract class User {
     private String email;
     private String passWord;
     private boolean isStudent;
+    private List<String> classes;
+    
     
    
     /**
@@ -31,6 +35,24 @@ public abstract class User {
      * @param id 
      */
     public abstract void setId(int id);
+    /**
+     * Adding classes to a student's class list.
+     * @param studentClass 
+     */
+    
+    public void setClass(String userClass)
+    {
+        classes.add(userClass);
+    }
+    
+    /**
+     * Getting the student's classes.
+     * @return 
+     */
+    public List<String> getClasses()
+    {
+        return classes;
+    }
     
     /**
      * Get the first name of this user
@@ -44,7 +66,8 @@ public abstract class User {
      * Set the firstname of this specific user
      * @param firstName 
      */
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) 
+    {
         this.firstName = firstName;
     }
 

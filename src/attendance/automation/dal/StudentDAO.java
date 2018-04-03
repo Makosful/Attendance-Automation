@@ -41,6 +41,25 @@ public class StudentDAO {
            pstmt.executeUpdate();
        }
     }
+    
+    public void sendAttendanceChange(int studentID, int classID, String message, Date date) throws SQLServerException, SQLException
+    {
+        try(Connection con = db.getConnection())
+        {
+            String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, studentID);
+            pstmt.setInt(2, classID);
+            pstmt.setString(3, message);
+            pstmt.setDate(4, new java.sql.Date(date.getTime()));
+            pstmt.executeUpdate();
+        }
+    }
+    
+    public void changeStudentAttendance()
+    {
+        
+    }
 
     
 }
