@@ -10,6 +10,7 @@ import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -261,4 +262,15 @@ public class BLLManager
 
     }
 
+    public double GetAveragePercentage(int UserID) throws BLLException
+    {
+        try
+        {
+            return dal.GetAttendancePercentage(UserID);
+        }
+        catch (SQLException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
 }

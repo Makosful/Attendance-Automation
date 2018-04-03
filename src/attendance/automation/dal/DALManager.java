@@ -279,4 +279,26 @@ public class DALManager
             throw new DALException(ex.getLocalizedMessage(), ex);
         }
     }
+
+    public double GetAttendancePercentage(int UserID) throws SQLException
+    {
+        ArrayList<Boolean> n = sDAO.registerAverageAttendance(UserID);
+
+        double totalDays = n.size();
+        double attendedDays = 0;
+        double avgAmount = 0;
+
+        for (Boolean b : n)
+        {
+            if (b)
+            {
+                attendedDays++;
+                System.out.println(attendedDays);
+            }
+
+            avgAmount = (attendedDays / totalDays) * 100;
+            System.out.println(avgAmount);
+        }
+        return avgAmount;
+    }
 }

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -72,10 +73,10 @@ public class StudentDAO
             return students;
         }
     }
-    
+
     public void sendAttendanceChange(int studentID, int classID, String message, Date date) throws SQLServerException, SQLException
     {
-        try(Connection con = db.getConnection())
+        try (Connection con = db.getConnection())
         {
             String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -86,10 +87,33 @@ public class StudentDAO
             pstmt.executeUpdate();
         }
     }
-    
+
     public void changeStudentAttendance()
     {
-        
+
     }
 
+    public ArrayList<Boolean> registerAverageAttendance(int userID) throws SQLServerException, SQLException
+    {
+        ArrayList<Boolean> avgList = new ArrayList<>();
+
+        try (Connection con = db.getConnection())
+        {
+
+            String sql = "SELECT * FROM StudentAttendance WHERE UserID = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, userID);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next())
+            {
+                avgList.add(rs.getBoolean("Attended"));
+            }
+        }
+        catch (Exception e)
+        {
+        }
+        return avgList;
+    }
 }
