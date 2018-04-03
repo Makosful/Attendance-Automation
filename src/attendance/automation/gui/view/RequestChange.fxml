@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.RequestChangeController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="attendance.automation.gui.controller.RequestChangeController">
     <stylesheets>
-        <URL value="@/attendance/automation/css/style.css"/>
+        <URL value="@/attendance/automation/css/style.css" />
     </stylesheets>
+   <children>
+      <GridPane alignment="TOP_RIGHT" layoutX="57.0" layoutY="66.0" prefHeight="304.0" prefWidth="531.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.4000244140625" minWidth="10.0" prefWidth="100.4000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.79998779296875" minWidth="10.0" prefWidth="431.5999755859375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="72.79999389648438" minHeight="10.0" prefHeight="59.19999389648437" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="96.60001220703126" minHeight="10.0" prefHeight="64.80000610351563" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="181.59998779296876" minHeight="10.0" prefHeight="181.59998779296876" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Class" textFill="WHITE" GridPane.rowIndex="1" />
+            <Label text="Message" textFill="WHITE" GridPane.rowIndex="2" />
+            <Label text="Date" textFill="WHITE" />
+            <JFXDatePicker fx:id="datePicker" defaultColor="#0079ff" prefHeight="28.0" prefWidth="174.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtFieldMessage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="74.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox prefHeight="65.0" prefWidth="86.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <HBox prefHeight="65.0" prefWidth="216.0">
+                     <children>
+                        <ListView fx:id="listViewAllClasses" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="65.0" prefWidth="212.0">
+                     <children>
+                        <ListView fx:id="listViewSelectedClasses" prefHeight="65.0" prefWidth="270.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <Label layoutX="46.0" layoutY="26.0" text="Request change of attendace status" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

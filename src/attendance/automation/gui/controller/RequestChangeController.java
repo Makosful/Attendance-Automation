@@ -5,9 +5,13 @@
  */
 package attendance.automation.gui.controller;
 
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -15,6 +19,15 @@ import javafx.fxml.Initializable;
  * @author B
  */
 public class RequestChangeController implements Initializable {
+
+    @FXML
+    private TextField txtFieldMessage;
+    @FXML
+    private ListView<?> listViewAllClasses;
+    @FXML
+    private ListView<?> listViewSelectedClasses;
+    @FXML
+    private JFXDatePicker datePicker;
 
     /**
      * Initializes the controller class.
