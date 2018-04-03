@@ -113,4 +113,6 @@
     -fx-text-fill:darkred;
 }
 
+.table-view .column-header .label { -fx-text-fill: black; }
+
 /*# sourceMappingURL=style.css.map */
