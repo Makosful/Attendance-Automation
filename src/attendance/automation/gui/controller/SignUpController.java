@@ -2,10 +2,14 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
 import attendance.automation.be.PasswordValidation;
+import attendance.automation.bll.validation.IValidation;
+import attendance.automation.bll.validation.ValidationFactory;
 import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -69,6 +73,16 @@ public class SignUpController implements Initializable
     private Model model;
     private boolean validPass;
     private boolean matchingPass;
+    @FXML
+    private Label lblUsernameValidation;
+    @FXML
+    private Label lblFNameValidation;
+    @FXML
+    private Label lblLNameValidation;
+    @FXML
+    private Label lblEmailValidation;
+    @FXML
+    private Label lblEmailConfirmValid;
 
     /**
      * Initializes the controller class.
@@ -143,110 +157,189 @@ public class SignUpController implements Initializable
 
     private void setupValidationListeners()
     {
-        txtPass.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            PasswordValidation pv = model.checkPasswordstrength(newValue.trim());
-            validPass = pv.isValid();
-            if (validPass)
-            {
-                lblPassError.setVisible(!validPass);
-            }
-            else
-            {
-                lblPassError.setText(pv.getMessage());
-                lblPassError.setVisible(!validPass);
-            }
-        });
+        try {
+            
+            passwordCheck();
+            usernameCheck();
+            emailCheck();
+            
+            IValidation passwordValidation = ValidationFactory.createValidation(ValidationFactory.validationType.password);
+            
+            IValidation firstNameValidation = ValidationFactory.createValidation(ValidationFactory.validationType.firstAndLastName);
+            
+            IValidation lastNameValidation = ValidationFactory.createValidation(ValidationFactory.validationType.firstAndLastName);
 
-        txtPassConfirm.textProperty().addListener((observable,
-                                                   oldValue, newValue) ->
-        {
-            matchingPass = false;
-            if (txtPass.getText().equals(txtPassConfirm.getText()))
-            {
-                matchingPass = true;
-                lblPassConfError.setVisible(!matchingPass);
-            }
-            else
-            {
-                matchingPass = false;
-                lblPassConfError.setText("The two passwords are not identical");
-                lblPassConfError.setVisible(!matchingPass);
-            }
-        });
-
-        emailCheck();
-        usernameCheck();
+            isValid(txtPass, lblPassError, passwordValidation);
+            
+            isValid(txtFName, lblFNameValidation, firstNameValidation);
+            
+            isValid(txtLName, lblLNameValidation, lastNameValidation);
+            
+          
+        } catch (Exception ex) {
+           ex.getMessage();
+        }
     }
 
-    /**
-     * Checks if the email is valid in database
-     * Checks if emailConfirm textfield contains same as above, txtemail.
-     */
-    public void emailCheck()
+    private void passwordCheck() 
     {
-        txtEmail.focusedProperty().addListener(new ChangeListener<Boolean>() 
+        txtPass.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) 
             {
                 if(!newValue)
                 {
-                    if(model.validEmail(txtEmail.getText()))
+
+                    if (txtPass.getText().equals(txtPassConfirm.getText()))
                     {
-                        System.out.println("Email is valid");
+                        lblPassConfError.setText("");
                     }
                     else
                     {
-                        System.out.println("Email not valid");
+                        lblPassConfError.setText("The two passwords are not identical");
                     }
                 }
             }
         });
         
-        txtEmailConfirm.focusedProperty().addListener(new ChangeListener<Boolean>() 
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) 
-            {
-                if (!newValue) 
-                {
-                    if (txtEmailConfirm.getText().equals(txtEmail.getText()))
-                    {
-                        System.out.println("Email is same");
-                    } 
-                    else
-                    {
-                        System.out.println("Email not same");
-                    }
-                }
-            }
-        });
-
     }
-    /**
-     * Checks if the username is valid.
-     */
-    public void usernameCheck()
-    {
-        txtUsername.focusedProperty().addListener(new ChangeListener<Boolean>()
+
+   
+    private boolean isValid(TextField txtField, Label label, IValidation validation) {
+        
+        txtField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) 
             {
                 if(!newValue)
                 {
-                    if (model.validUsername(txtUsername.getText()))
+                    System.out.println(validation.getValidationMessage());
+                    if(!validation.inputValidation(txtField.getText()))
                     {
-                        System.out.println("valid");
+                        label.setText(validation.getValidationMessage());
+                        
                     }
                     else
                     {
-                        System.out.println("username is not valid");
+                       label.setText("");
+                       
                     }
+           
                 }
             }
         });
+        
+        return label.getText().isEmpty();
     }
+    
+    /**
+     * Checks if the email is valid in database
+     * Checks if emailConfirm textfield contains same as above, txtemail.
+     */
+    public boolean emailCheck()
+    {
+        try {
+            txtEmail.focusedProperty().addListener(new ChangeListener<Boolean>()
+            {
+
+                
+                IValidation emailValidation = ValidationFactory.createValidation(ValidationFactory.validationType.email);
+   
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+                {
+                    if(!newValue)
+                    {
+                        if(!model.validEmail(txtEmail.getText()))
+                        {
+                            lblEmailValidation.setText("Email is not valid");
+                        }
+                        else if(!emailValidation.inputValidation(txtEmail.getText()))
+                        {
+                            lblEmailValidation.setText(emailValidation.getValidationMessage()); 
+                        }
+                        else
+                        {
+                            lblEmailValidation.setText("");
+                        }
+                    }
+                }
+            });
+            
+            txtEmailConfirm.focusedProperty().addListener(new ChangeListener<Boolean>() 
+            {
+                @Override 
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+                {
+                    if (!newValue)
+                    {
+                        if (txtEmailConfirm.getText().equals(txtEmail.getText()))
+                        {
+                            lblEmailConfirmValid.setText("");
+                        }
+                        else
+                        {
+                            lblEmailConfirmValid.setText("Email not same");
+                        }
+                    }
+                }
+            });
+            
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        if(lblEmailValidation.getText().isEmpty()
+        && lblEmailConfirmValid.getText().isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    /**
+     * Checks if the username is valid.
+     */
+    public boolean usernameCheck()
+    {
+        try {
+            IValidation usernameValidation = ValidationFactory.createValidation(ValidationFactory.validationType.username);
+            
+            txtUsername.focusedProperty().addListener(new ChangeListener<Boolean>() 
+            {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+                {
+                    if(!newValue)
+                    {
+                        if (model.validUsername(txtUsername.getText()))
+                        {
+                            lblUsernameValidation.setText("");
+                        }
+                        else if(!usernameValidation.inputValidation(txtUsername.getText()))
+                        {
+                            lblUsernameValidation.setText(usernameValidation.getValidationMessage()); 
+                        }
+                        else
+                        {
+                            lblUsernameValidation.setText("username is not valid");
+                        }
+                    }
+                }
+            });
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return lblUsernameValidation.getText().isEmpty();
+    }
+    
+    
 
 }

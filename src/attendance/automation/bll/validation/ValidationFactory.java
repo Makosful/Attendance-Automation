@@ -5,6 +5,8 @@
  */
 package attendance.automation.bll.validation;
 
+import static attendance.automation.bll.validation.ValidationFactory.validationType.firstAndLastName;
+
 /**
  *
  * @author B
@@ -13,7 +15,7 @@ public class ValidationFactory {
     
     public enum validationType
     {
-        email
+        email, password, username, firstAndLastName
     }
     
     /**
@@ -28,7 +30,13 @@ public class ValidationFactory {
         {
             case email:
                  return new EmailValidation();
-     
+            case password:
+                return new PassValidation();
+            case username:
+                return new UsernameValidation();
+            case firstAndLastName:
+                return new firstAndLastName();
+                
             default: 
                 throw new Exception("Unknown validation type submitted to ValidationFactory");
         }
