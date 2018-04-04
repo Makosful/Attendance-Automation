@@ -1,10 +1,6 @@
 package attendance.automation.bll;
 
-import attendance.automation.be.LoadedStudent;
-import attendance.automation.be.NotificationMessage;
-import attendance.automation.be.Student;
-import attendance.automation.be.User;
-import attendance.automation.be.Wifi;
+import attendance.automation.be.*;
 import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
@@ -16,8 +12,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -45,7 +39,7 @@ public class BLLManager
         try
         {
             ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user);
+            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user.getId());
 
             int attend = 0;
             int abs = 0;
@@ -161,7 +155,8 @@ public class BLLManager
                 double p = getAveragePercentage(s.getId()) * 100;
                 DecimalFormat df = new DecimalFormat("##.##");
                 String ps = df.format(p);
-                students.add(new LoadedStudent(s.getFirstName(),
+                students.add(new LoadedStudent(s.getId(),
+                                               s.getFirstName(),
                                                s.getLastName(),
                                                ps + "%"));
             }
@@ -206,11 +201,6 @@ public class BLLManager
         {
             throw new BLLException(ex.getMessage(), ex);
         }
-    }
-
-    public void fillClassesList(ListView<String> lstClasses)
-    {
-        dal.fillClassesList(lstClasses);
     }
 
     public void fillClassesListCombo(ComboBox<String> comboClasses)
@@ -351,27 +341,55 @@ public class BLLManager
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
-    
+
     public List<NotificationMessage> allNotifications() throws BLLException
     {
-        try 
+        try
         {
             return dal.allNotifications();
-        } 
-        catch (DALException ex) 
+        }
+        catch (DALException ex)
         {
             throw new BLLException(ex.getMessage(), ex);
         }
     }
-    
+
     public void getUser(User user) throws BLLException
     {
-        try 
+        try
         {
             dal.getUser(user);
-        } catch (DALException ex)
+        }
+        catch (DALException ex)
         {
             throw new BLLException(ex.getMessage(), ex);
         }
+    }
+
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) throws BLLException
+    {
+        ArrayList<LoadedStudent> newStudents = new ArrayList<>();
+        for (LoadedStudent s : students)
+        {
+            try
+            {
+                ArrayList<Boolean> bool = dal.attendanceTimeFrame(fromDate, toDate, s.getId());
+                double d = calculateAverage(bool) * 100;
+                newStudents.add(new LoadedStudent(s.getId(), s.getFirstName(), s.getLastName(), d + "%"));
+            }
+            catch (DALException ex)
+            {
+                throw new BLLException(ex.getLocalizedMessage(), ex);
+            }
+        }
+        students.setAll(newStudents);
+    }
+
+    private double calculateAverage(ArrayList<Boolean> bool)
+    {
+        double size = bool.size();
+        double sum = 0;
+        sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
+        return sum / size;
     }
 }

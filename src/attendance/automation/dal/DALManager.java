@@ -6,7 +6,6 @@ import attendance.automation.be.Wifi;
 import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +14,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
@@ -47,11 +44,11 @@ public class DALManager
         tDAO = new TeacherDAO();
     }
 
-    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws DALException
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, int id) throws DALException
     {
         try
         {
-            return sDAO.attendanceTimeFrame(from, to, user);
+            return sDAO.attendanceTimeFrame(from, to, id);
         }
         catch (SQLException ex)
         {
@@ -125,24 +122,6 @@ public class DALManager
     public boolean validUsername(String username)
     {
         return vd.validUsername(username);
-    }
-
-    public void fillClassesList(ListView<String> lstClasses)
-    {
-        lstClasses.getItems().addAll(
-                "SCO 1 A",
-                "SCO 2 A",
-                "SCO 1 B",
-                "SCO 2 B",
-                "SDE 1 A",
-                "SDE 2 A",
-                "SDE 1 B",
-                "SDE 2 B",
-                "ITO 1 A",
-                "ITO 2 A",
-                "ITO 1 B",
-                "ITO 2 B"
-        );
     }
 
     public void fillClassesListCombo(ComboBox<String> comboClasses)
@@ -348,25 +327,26 @@ public class DALManager
         }
         return avgAmount;
     }
-    
+
     public List<NotificationMessage> allNotifications() throws DALException
     {
-        try 
+        try
         {
             return tDAO.allNotifications();
-        } 
+        }
         catch (SQLException ex)
         {
             throw new DALException("Failed to get messages", ex);
         }
     }
-    
+
     public void getUser(User user) throws DALException
     {
-        try 
+        try
         {
             tDAO.getUser(user);
-        } catch (SQLException ex) 
+        }
+        catch (SQLException ex)
         {
             throw new DALException("Couldn't get user", ex);
         }

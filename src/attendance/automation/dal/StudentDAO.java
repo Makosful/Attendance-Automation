@@ -140,7 +140,7 @@ public class StudentDAO
         return attendance;
     }
 
-    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user)
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, int id)
             throws SQLException
     {
         ArrayList<Boolean> att = new ArrayList<>();
@@ -149,7 +149,7 @@ public class StudentDAO
             int i = 1;
             String sql = "SELECT * FROM StudentAttendance WHERE UserID = ? AND Date BETWEEN ? and ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(i++, user.getId());
+            stmt.setInt(i++, id);
             stmt.setDate(i++, java.sql.Date.valueOf(from));
             stmt.setDate(i++, java.sql.Date.valueOf(to));
             ResultSet rs = stmt.executeQuery();

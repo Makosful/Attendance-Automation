@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,23 +14,80 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
-    <left>
-        <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Classes" />
-                <ListView fx:id="lstClasses" prefHeight="300.0" prefWidth="200.0" />
-                <PieChart fx:id="chrtClasses" prefHeight="160.0" prefWidth="250.0" title="Overall Attendance in class" />
-            </children>
-        </VBox>
-    </left>
+<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <right>
+    <center>
+        <AnchorPane prefWidth="20.0" BorderPane.alignment="CENTER" />
+    </center>
+    <bottom>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+<<<<<<< HEAD
+                  <Button fx:id="btnLogout" layoutY="-1.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" />
+                  <Button id="student-statistics" fx:id="btnStudentStatistics" layoutX="391.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </Button>
+                  <Button id="btn-hover" fx:id="btnChangePassword" layoutX="54.0" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" />
+            </children>
+        </AnchorPane>
+    </bottom>
+   <left>
+      <VBox prefWidth="250.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox fx:id="comboClasses" prefWidth="250.0" promptText="Select Class">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></ComboBox>
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="fromDatepicker" defaultColor="#80bfff" onAction="#SetFromDatepicker" promptText="From..." showWeekNumbers="true" />
+                  <Button id="btn-hover" fx:id="btnDatepickerSemesterStart" mnemonicParsing="false" onAction="#btnSetDatepickerToSemesterStart" prefWidth="175.0" text="Semester Start">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="toDatepicker" defaultColor="#80bfff" onAction="#SetToDatepicker" promptText="To..." showWeekNumbers="true" />
+                  <Button id="btn-hover" fx:id="btnDatepickerToday" mnemonicParsing="false" onAction="#btnSetDatepickerToToday" prefWidth="175.0" text="Todays date">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+=======
+                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <buttons>
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" ButtonBar.buttonData="LEFT" />
+                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
+                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </AnchorPane>
+    </bottom>
+   <right>
         <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Students" />
             <TableView fx:id="tblStudents" prefHeight="300.0">
               <columns>
                 <TableColumn fx:id="clmFName" prefWidth="75.0" text="First Name" />
@@ -38,30 +95,29 @@
                 <TableColumn fx:id="clmAtt" prefWidth="75.0" text="Attendance" />
               </columns>
             </TableView>
-                <PieChart fx:id="chrtStudents" prefHeight="160.0" prefWidth="250.0" title="Student's Overall Attendance" />
-            <Button mnemonicParsing="false" onAction="#MessageController" prefHeight="30.0" prefWidth="197.0" text="Midlertidig sted knap" />
                 <HBox alignment="CENTER" spacing="20.0" />
             </children>
         </VBox>
-    </right>
-    <center>
-        <AnchorPane prefWidth="20.0" BorderPane.alignment="CENTER" />
-    </center>
-    <bottom>
-        <AnchorPane BorderPane.alignment="CENTER">
+   </right>
+   <left>
+        <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <buttons>
-                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
-                    </buttons>
-                </ButtonBar>
+            <ComboBox fx:id="comboClasses" onAction="#comboFillClasses" prefWidth="250.0" promptText="Select Class..." />
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="fromDatePicker" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
+                  <Button fx:id="btnDatePickerSemesterStart" mnemonicParsing="false" onAction="#setFromDatePickerToSemesterStart" prefHeight="30.0" text="Semester start" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="toDatePicker" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
+                  <Button fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#MessageController" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
             </children>
-        </AnchorPane>
-    </bottom>
+        </VBox>
+>>>>>>> 69c15ec1b6011e4dae98f4705b5feb6015053b16
+   </left>
 </BorderPane>

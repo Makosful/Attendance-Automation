@@ -179,15 +179,9 @@ public class Model
         return user;
     }
 
-    public void fillClassesList(ListView<String> lstClasses)
-    {
-        bll.fillClassesList(lstClasses);
-    }
-
     public void fillClassesListCombo(ComboBox<String> comboClasses)
     {
         bll.fillClassesListCombo(comboClasses);
-
     }
 
     public void fillStudentsList(ListView<String> lstStudents)
@@ -290,9 +284,21 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public List<NotificationMessage> allNotifications() throws BLLException
     {
         return bll.allNotifications();
+    }
+
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz)
+    {
+        try
+        {
+            bll.studentTimeFrame(fromDate, toDate, this.students);
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
