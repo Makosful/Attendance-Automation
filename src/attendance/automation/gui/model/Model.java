@@ -182,7 +182,6 @@ public class Model
     public void fillClassesListCombo(ComboBox<String> comboClasses)
     {
         bll.fillClassesListCombo(comboClasses);
-
     }
 
     public void fillStudentsList(ListView<String> lstStudents)
