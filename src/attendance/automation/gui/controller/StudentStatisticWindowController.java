@@ -2,7 +2,6 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.Main;
 import attendance.automation.gui.model.Model;
-import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,11 +17,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -37,7 +36,10 @@ public class StudentStatisticWindowController implements Initializable
     private Model model;
 
 
-
+    @FXML
+    private DatePicker dateFrom;
+    @FXML
+    private DatePicker dateTo;
     @FXML
     private Button btnSetDateStart;
     @FXML
@@ -57,12 +59,6 @@ public class StudentStatisticWindowController implements Initializable
     Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private Button requestChange;
-    @FXML
-    private JFXDatePicker dateFrom;
-    @FXML
-    private JFXDatePicker dateTo;
 
     /**
      * Initializes the controller class.
@@ -138,27 +134,6 @@ public class StudentStatisticWindowController implements Initializable
         catch (IOException ex)
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void btnRequestChange(ActionEvent event) {
-        try {           
-            
-            Stage primeStage = (Stage)requestChange.getScene().getWindow();
-            FXMLLoader fxLoader = new FXMLLoader(Main.class.getResource("gui/view/RequestChange.fxml"));
-            Parent root = fxLoader.load();
-            
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.initOwner(primeStage);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.showAndWait();
-           
-            
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
         }
     }
 }

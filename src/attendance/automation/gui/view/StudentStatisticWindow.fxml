@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -8,6 +7,7 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,14 +18,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
+
+<AnchorPane fx:id="anchorPane" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
         <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="TOP_RIGHT">
+                <HBox alignment="CENTER">
                     <children>
                         <VBox alignment="CENTER" spacing="10.0">
                             <children>
@@ -45,6 +46,8 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
+                                        <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" />
+                                        <DatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label text="From">
                                             <font>
                                                 <Font size="14.0" />
@@ -57,17 +60,10 @@
                                         </Label>
                                         <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" onAction="#handleSetDateStart" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
                                         <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" onAction="#handleSetDateToday" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <JFXDatePicker fx:id="dateFrom" defaultColor="WHITE" GridPane.columnIndex="1" />
-                              <JFXDatePicker fx:id="dateTo" defaultColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>
                         </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="102.0" prefWidth="264.0">
-                     <children>
-                        <Button fx:id="requestChange" mnemonicParsing="false" onAction="#btnRequestChange" text="Request Change Of Attendance" />
-                     </children>
-                  </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
