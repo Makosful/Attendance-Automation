@@ -39,7 +39,7 @@ public class BLLManager
         try
         {
             ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user);
+            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user.getId());
 
             int attend = 0;
             int abs = 0;
@@ -155,7 +155,8 @@ public class BLLManager
                 double p = getAveragePercentage(s.getId()) * 100;
                 DecimalFormat df = new DecimalFormat("##.##");
                 String ps = df.format(p);
-                students.add(new LoadedStudent(s.getFirstName(),
+                students.add(new LoadedStudent(s.getId(),
+                                               s.getFirstName(),
                                                s.getLastName(),
                                                ps + "%"));
             }
@@ -365,8 +366,30 @@ public class BLLManager
         }
     }
 
-    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students)
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) throws BLLException
     {
-        // TODO
+        ArrayList<LoadedStudent> newStudents = new ArrayList<>();
+        for (LoadedStudent s : students)
+        {
+            try
+            {
+                ArrayList<Boolean> bool = dal.attendanceTimeFrame(fromDate, toDate, s.getId());
+                double d = calculateAverage(bool) * 100;
+                newStudents.add(new LoadedStudent(s.getId(), s.getFirstName(), s.getLastName(), d + "%"));
+            }
+            catch (DALException ex)
+            {
+                throw new BLLException(ex.getLocalizedMessage(), ex);
+            }
+        }
+        students.setAll(newStudents);
+    }
+
+    private double calculateAverage(ArrayList<Boolean> bool)
+    {
+        double size = bool.size();
+        double sum = 0;
+        sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
+        return sum / size;
     }
 }

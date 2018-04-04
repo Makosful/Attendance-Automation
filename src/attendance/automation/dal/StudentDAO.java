@@ -20,11 +20,13 @@ import java.util.Date;
  *
  * @author B
  */
-public class StudentDAO {
+public class StudentDAO
+{
 
     private DataBaseConnector db;
 
-    public StudentDAO() {
+    public StudentDAO()
+    {
         db = new DataBaseConnector();
     }
 
@@ -37,8 +39,10 @@ public class StudentDAO {
      * @throws SQLServerException
      * @throws SQLException
      */
-    public void registerAttendance(int userID, boolean attendance) throws SQLServerException, SQLException {
-        try (Connection con = db.getConnection()) {
+    public void registerAttendance(int userID, boolean attendance) throws SQLServerException, SQLException
+    {
+        try (Connection con = db.getConnection())
+        {
             String sql = "INSERT INTO StudentAttendance VALUES(?, ?, getDate())";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, userID);
@@ -48,14 +52,17 @@ public class StudentDAO {
         }
     }
 
-    public ArrayList<Student> getAllStudents() throws SQLException {
-        try (Connection con = db.getConnection()) {
+    public ArrayList<Student> getAllStudents() throws SQLException
+    {
+        try (Connection con = db.getConnection())
+        {
             ArrayList<Student> students = new ArrayList();
 
             String sql = "SELECT * FROM Users WHERE UserType = 1";
             ResultSet rs = con.createStatement().executeQuery(sql);
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Student s = new Student(
                         rs.getBoolean("UserType"),
                         rs.getString("FirstName"),
@@ -70,8 +77,10 @@ public class StudentDAO {
         }
     }
 
-    public void sendAttendanceChange(int studentID, int classID, String message, Date date) throws SQLServerException, SQLException {
-        try (Connection con = db.getConnection()) {
+    public void sendAttendanceChange(int studentID, int classID, String message, Date date) throws SQLServerException, SQLException
+    {
+        try (Connection con = db.getConnection())
+        {
             String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
@@ -82,14 +91,17 @@ public class StudentDAO {
         }
     }
 
-    public void changeStudentAttendance() {
+    public void changeStudentAttendance()
+    {
 
     }
 
-    public ArrayList<Boolean> registerAverageAttendance(int userID) throws SQLServerException, SQLException {
+    public ArrayList<Boolean> registerAverageAttendance(int userID) throws SQLServerException, SQLException
+    {
         ArrayList<Boolean> avgList = new ArrayList<>();
 
-        try (Connection con = db.getConnection()) {
+        try (Connection con = db.getConnection())
+        {
 
             String sql = "SELECT * FROM StudentAttendance WHERE UserID = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -97,24 +109,30 @@ public class StudentDAO {
 
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 avgList.add(rs.getBoolean("Attended"));
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
         }
         return avgList;
     }
 
-    public ArrayList<Integer> getStudentAttendance(User user) throws SQLException {
+    public ArrayList<Integer> getStudentAttendance(User user) throws SQLException
+    {
         ArrayList<Integer> attendance = new ArrayList<>();
-        try (Connection con = db.getConnection()) {
+        try (Connection con = db.getConnection())
+        {
             int i = 1;
             String sql = "SELECT * FROM StudentAttendance WHERE UserID = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(i++, user.getId());
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int att = rs.getInt("Attended");
                 attendance.add(att);
             }
@@ -122,19 +140,22 @@ public class StudentDAO {
         return attendance;
     }
 
-    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user)
-            throws SQLException {
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, int id)
+            throws SQLException
+    {
         ArrayList<Boolean> att = new ArrayList<>();
-        try (Connection con = db.getConnection()) {
+        try (Connection con = db.getConnection())
+        {
             int i = 1;
             String sql = "SELECT * FROM StudentAttendance WHERE UserID = ? AND Date BETWEEN ? and ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(i++, user.getId());
+            stmt.setInt(i++, id);
             stmt.setDate(i++, java.sql.Date.valueOf(from));
             stmt.setDate(i++, java.sql.Date.valueOf(to));
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 boolean bool = rs.getBoolean("Attended");
                 att.add(bool);
             }

@@ -293,6 +293,13 @@ public class Model
 
     public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz)
     {
-        bll.studentTimeFrame(fromDate, toDate, this.students);
+        try
+        {
+            bll.studentTimeFrame(fromDate, toDate, this.students);
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
