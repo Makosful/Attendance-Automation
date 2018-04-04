@@ -34,6 +34,7 @@ public class StudentStatisticWindowController implements Initializable
 {
 
     private Model model;
+    Stage currentStage;
 
     @FXML
     private Button btnSetDateStart;
@@ -51,7 +52,6 @@ public class StudentStatisticWindowController implements Initializable
     private CheckBox cbSDE;
     @FXML
     private CheckBox cbITO;
-    Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -73,11 +73,7 @@ public class StudentStatisticWindowController implements Initializable
         model = Model.getInstance();
 
         chrtTotalAttendance.setData(model.getPieChartAttendance());
-
-        //<editor-fold defaultstate="collapsed" desc="Bar Chart">
-        chrtClassAttendance.getData().addAll(model.getScoData(), model.getSdeData(), model.getItoData());
-        //</editor-fold>
-
+//        chrtClassAttendance.getData().addAll(model.getScoData(), model.getSdeData(), model.getItoData());
         //<editor-fold defaultstate="collapsed" desc="Date and Time">
         LocalDate monthStart = model.getFirstDayOfMonth();
         dateFrom.setValue(monthStart);

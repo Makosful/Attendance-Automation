@@ -107,6 +107,18 @@ public class Model
         }
     }
 
+    public void loadAttendance()
+    {
+        try
+        {
+            pieChartAttendance.addAll(bll.getStudentAttendance(user));
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void registerPresent() throws BLLException
     {
         bll.registerAttendance(user);
@@ -174,21 +186,10 @@ public class Model
         bll.fillStudentsChart(chrtStudents);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Observables">
     public ObservableList<PieChart.Data> getPieChartAttendance()
     {
-        try
-        {
-            pieChartAttendance.addAll(bll.getStudentAttendance(user));
-            return pieChartAttendance;
-        }
-        catch (BLLException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return pieChartAttendance;
     }
-    //</editor-fold>
 
     public LocalDate getStartDate()
     {
