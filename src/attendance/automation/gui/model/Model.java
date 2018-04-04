@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -152,6 +153,12 @@ public class Model
         bll.fillClassesList(lstClasses);
     }
 
+    public void fillClassesListCombo(ComboBox<String> comboClasses)
+    {
+        bll.fillClassesListCombo(comboClasses);
+
+    }
+
     public void fillStudentsList(ListView<String> lstStudents)
     {
         bll.fillStudentsList(lstStudents);
@@ -263,5 +270,4 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

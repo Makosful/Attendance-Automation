@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
 /**
@@ -111,6 +112,24 @@ public class DALManager
     public void fillClassesList(ListView<String> lstClasses)
     {
         lstClasses.getItems().addAll(
+                "SCO 1 A",
+                "SCO 2 A",
+                "SCO 1 B",
+                "SCO 2 B",
+                "SDE 1 A",
+                "SDE 2 A",
+                "SDE 1 B",
+                "SDE 2 B",
+                "ITO 1 A",
+                "ITO 2 A",
+                "ITO 1 B",
+                "ITO 2 B"
+        );
+    }
+
+    public void fillClassesListCombo(ComboBox<String> comboClasses)
+    {
+        comboClasses.getItems().addAll(
                 "SCO 1 A",
                 "SCO 2 A",
                 "SCO 1 B",

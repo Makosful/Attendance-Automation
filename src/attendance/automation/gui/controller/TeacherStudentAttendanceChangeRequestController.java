@@ -5,13 +5,17 @@
  */
 package attendance.automation.gui.controller;
 
+import attendance.automation.be.NotificationMessage;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -27,6 +31,8 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private Label lblStudentName;
     @FXML
     private Label lblClass;
+    @FXML
+    private ListView<NotificationMessage> messageView;
     
     
 
@@ -38,10 +44,33 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     {
         // TODO
     } 
-    
-    public void getAllMessages()
+
+    @FXML
+    private void loadMessages(ActionEvent event) 
     {
-        
+    }
+    
+    public void listViewSetup() 
+    {
+        messageView.setCellFactory(new Callback<ListView<NotificationMessage>, ListCell<NotificationMessage>>() 
+        {
+
+            @Override
+            public ListCell<NotificationMessage> call(ListView<NotificationMessage> p) {
+
+                ListCell<NotificationMessage> cell = new ListCell<NotificationMessage>() {
+
+                    @Override
+                    protected void updateItem(NotificationMessage t, boolean bln) {
+                        super.updateItem(t, bln);
+                        if (t != null) {
+                            setText(t.getMessage());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
     }
     
 }

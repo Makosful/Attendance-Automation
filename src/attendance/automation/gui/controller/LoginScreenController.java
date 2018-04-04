@@ -129,7 +129,7 @@ public class LoginScreenController implements Initializable
 
         try
         {
-            User user = null;
+
             String text = txtUserName.getText().toLowerCase();
             if (text.startsWith("t"))
                 changeStage("TeacherScreen");

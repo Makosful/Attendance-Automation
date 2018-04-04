@@ -63,7 +63,7 @@ public class StudentScreenController implements Initializable
     {
         model = Model.getInstance();
         chrtStatistics.setData(model.getPieChartAttendance());
-
+/*
         try
         {
             checkWifi();
@@ -72,6 +72,7 @@ public class StudentScreenController implements Initializable
         {
             Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }
 
     private void centerStage(Stage stage)
