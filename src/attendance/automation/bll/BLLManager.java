@@ -1,6 +1,7 @@
 package attendance.automation.bll;
 
 import attendance.automation.be.LoadedStudent;
+import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.Student;
 import attendance.automation.be.User;
 import attendance.automation.be.Wifi;
@@ -15,6 +16,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -266,6 +269,29 @@ public class BLLManager {
             return dal.GetAttendancePercentage(UserID);
         } catch (SQLException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+    
+    public List<NotificationMessage> allNotifications() throws BLLException
+    {
+        try 
+        {
+            return dal.allNotifications();
+        } 
+        catch (DALException ex) 
+        {
+            throw new BLLException(ex.getMessage(), ex);
+        }
+    }
+    
+    public void getUser(User user) throws BLLException
+    {
+        try 
+        {
+            dal.getUser(user);
+        } catch (DALException ex)
+        {
+            throw new BLLException(ex.getMessage(), ex);
         }
     }
 }

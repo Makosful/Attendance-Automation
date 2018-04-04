@@ -7,14 +7,19 @@ package attendance.automation.gui.controller;
 
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
+import attendance.automation.bll.BLLException;
 import attendance.automation.dal.TeacherDAO;
+import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -40,6 +45,8 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     
     private User user;
     
+    private Model model;
+    
 
     /**
      * Initializes the controller class.
@@ -48,13 +55,27 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     public void initialize(URL url, ResourceBundle rb)
     {
         messageViewSetup();
+        model = Model.getInstance();
         // TODO
     } 
 
     @FXML
     private void loadMessages(ActionEvent event) throws SQLException 
     {
-
+        messageView.getItems().clear();
+        try 
+        {
+           for(NotificationMessage message : model.allNotifications())
+           {             
+               messageView.getItems().add(message);
+           }
+        } 
+        catch (BLLException ex) 
+        {
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setContentText(ex.getMessage());
+           alert.show();
+        }
     }
     
     public void messageViewSetup() 
@@ -88,9 +109,12 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             public void handle(MouseEvent event) {
 
                 NotificationMessage message = messageView.getSelectionModel().getSelectedItem();
+                if(message !=  null)
+                {
                 lblClass.setText(message.getClassID() + "");
-                lblStudentName.setText(message.getStudentID() + "");
+                lblStudentName.setText(message.getStudentName());
                 lblDate.setText("04-04-2018 - midlertidig");
+                }
 
             }
         });

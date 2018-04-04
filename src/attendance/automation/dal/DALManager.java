@@ -1,10 +1,12 @@
 package attendance.automation.dal;
 
+import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.be.Wifi;
 import attendance.automation.dal.UserLogIn.UserLogIn;
 import attendance.automation.dal.ValidationDatabase.IValidationDatabase;
 import attendance.automation.dal.ValidationDatabase.ValidationDataBase;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
@@ -32,6 +36,7 @@ public class DALManager
     private final IValidationDatabase vd;
     private final UserLogIn liEncryption;
     private final StudentDAO sDAO;
+    private final TeacherDAO tDAO;
 
     public DALManager()
     {
@@ -39,6 +44,7 @@ public class DALManager
         liEncryption = new UserLogIn();
         uDAO = new UserDAO();
         sDAO = new StudentDAO();
+        tDAO = new TeacherDAO();
     }
 
     public void changePassword(User user, String pass)
@@ -329,5 +335,28 @@ public class DALManager
             avgAmount = (attendedDays / totalDays);
         }
         return avgAmount;
+    }
+    
+    public List<NotificationMessage> allNotifications() throws DALException
+    {
+        try 
+        {
+            return tDAO.allNotifications();
+        } 
+        catch (SQLException ex)
+        {
+            throw new DALException("Failed to get messages", ex);
+        }
+    }
+    
+    public void getUser(User user) throws DALException
+    {
+        try 
+        {
+            tDAO.getUser(user);
+        } catch (SQLException ex) 
+        {
+            throw new DALException("Couldn't get user", ex);
+        }
     }
 }

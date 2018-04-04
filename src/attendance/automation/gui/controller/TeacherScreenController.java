@@ -72,7 +72,7 @@ public class TeacherScreenController implements Initializable {
 
         students = FXCollections.observableArrayList();
 
-        fillClassesList();
+        //fillClassesList();
 //        fillStudentsList();
         setupStudentTable();
         fillStudentsTable();

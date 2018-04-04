@@ -77,7 +77,7 @@ public class UserLogIn
         } 
         catch (SQLServerException ex) 
         {
-            Logger.getLogger(UserLogIn.class.getName()).log(Level.SEVERE, null, ex);
+          throw new SQLException();
         }
     }
 

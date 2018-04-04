@@ -2,6 +2,7 @@ package attendance.automation.gui.model;
 
 import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
+import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
@@ -9,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -145,6 +147,7 @@ public class Model
     public User userLogIn(String username, String password) throws BLLException
     {
         user = bll.userLogIn(username, password);
+        bll.getUser(user);
         return user;
     }
 
@@ -269,5 +272,10 @@ public class Model
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public List<NotificationMessage> allNotifications() throws BLLException
+    {
+        return bll.allNotifications();
     }
 }
