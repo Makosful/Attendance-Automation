@@ -69,6 +69,22 @@ public class Model
         loadStudents(students);
     }
 
+    public void attendanceTimeFrame(LocalDate from, LocalDate to)
+    {
+        try
+        {
+            ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
+            for (int i = 0; i < pieChartAttendance.size(); i++)
+            {
+                pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());
+            }
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Opens the Change Password window
      */

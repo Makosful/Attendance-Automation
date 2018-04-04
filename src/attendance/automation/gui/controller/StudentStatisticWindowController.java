@@ -36,6 +36,7 @@ public class StudentStatisticWindowController implements Initializable
     private Model model;
     Stage currentStage;
 
+    //<editor-fold defaultstate="collapsed" desc="FXML Variable">
     @FXML
     private Button btnSetDateStart;
     @FXML
@@ -60,6 +61,7 @@ public class StudentStatisticWindowController implements Initializable
     private JFXDatePicker dateFrom;
     @FXML
     private JFXDatePicker dateTo;
+    //</editor-fold>
 
     /**
      * Initializes the controller class.
@@ -73,14 +75,12 @@ public class StudentStatisticWindowController implements Initializable
         model = Model.getInstance();
 
         chrtTotalAttendance.setData(model.getPieChartAttendance());
-//        chrtClassAttendance.getData().addAll(model.getScoData(), model.getSdeData(), model.getItoData());
-        //<editor-fold defaultstate="collapsed" desc="Date and Time">
+
         LocalDate monthStart = model.getFirstDayOfMonth();
         dateFrom.setValue(monthStart);
 
         LocalDate today = LocalDate.now();
         dateTo.setValue(today);
-        //</editor-fold>
     }
 
     @FXML
@@ -156,5 +156,11 @@ public class StudentStatisticWindowController implements Initializable
         {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    private void updateDate(ActionEvent event)
+    {
+        model.attendanceTimeFrame(dateFrom.getValue(), dateTo.getValue());
     }
 }

@@ -41,6 +41,18 @@ public class DALManager
         sDAO = new StudentDAO();
     }
 
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws DALException
+    {
+        try
+        {
+            return sDAO.attendanceTimeFrame(from, to, user);
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
     public void changePassword(User user, String pass)
     {
         uDAO.setNewPassword(pass, user.getEmail());
