@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="attendance.automation.gui.controller.RequestChangeController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.RequestChangeController">
     <stylesheets>
         <URL value="@/attendance/automation/css/style.css" />
     </stylesheets>
@@ -31,7 +31,7 @@
             <Label text="Class" textFill="WHITE" GridPane.rowIndex="1" />
             <Label text="Message" textFill="WHITE" GridPane.rowIndex="2" />
             <Label text="Date" textFill="WHITE" />
-            <JFXDatePicker fx:id="datePicker" defaultColor="WHITE" prefHeight="28.0" prefWidth="174.0" GridPane.columnIndex="1" />
+            <JFXDatePicker fx:id="datePicker" defaultColor="#0e82ff" prefHeight="28.0" prefWidth="174.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtFieldMessage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="74.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="65.0" prefWidth="86.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
