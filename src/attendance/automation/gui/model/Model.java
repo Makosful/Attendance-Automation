@@ -238,11 +238,7 @@ public class Model {
         }
     }
 
-    public void getDatepickerDates(String fromDate, String toDate) {
-        try {
-            bll.getDatepickerDates(fromDate, toDate);
-        } catch (BLLException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz) {
+        bll.studentTimeFrame(fromDate, toDate, this.students);
     }
 }

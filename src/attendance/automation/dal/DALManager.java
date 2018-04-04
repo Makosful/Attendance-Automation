@@ -282,12 +282,4 @@ public class DALManager {
         }
         return avgAmount;
     }
-
-    public void getDatepickerDates(String fromDate, String toDate) throws DALException {
-        try {
-            sDAO.getDatepickerDates(fromDate, toDate);
-        } catch (SQLException ex) {
-            throw new DALException(ex.getLocalizedMessage(), ex);
-        }
-    }
 }

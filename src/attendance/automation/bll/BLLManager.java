@@ -287,11 +287,7 @@ public class BLLManager {
         }
     }
 
-    public void getDatepickerDates(String fromDate, String toDate) throws BLLException {
-        try {
-            dal.getDatepickerDates(fromDate, toDate);
-        } catch (DALException ex) {
-            throw new BLLException(ex.getLocalizedMessage(), ex);
-        }
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) {
+        // TODO
     }
 }

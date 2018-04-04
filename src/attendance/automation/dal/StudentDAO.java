@@ -105,26 +105,6 @@ public class StudentDAO {
         return avgList;
     }
 
-    public ArrayList<Boolean> getDatepickerDates(String fromDate, String toDate) throws SQLServerException, SQLException {
-        ArrayList<Boolean> dateRangeAttended = new ArrayList();
-
-        try (Connection con = db.getConnection()) {
-//            String sql = "SELECT * FROM StudentAttendance WHERE Date >= ? AND Date <= ?";
-            String sql = "SELECT * "
-                    + "FROM StudentAttendance "
-                    + "WHERE Date >= ? AND Date <= ?";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, fromDate);
-            pstmt.setString(2, toDate);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                dateRangeAttended.add(rs.getBoolean("Attended"));
-            }
-        }
-        return dateRangeAttended;
-    }
-
     public ArrayList<Integer> getStudentAttendance(User user) throws SQLException {
         ArrayList<Integer> attendance = new ArrayList<>();
         try (Connection con = db.getConnection()) {

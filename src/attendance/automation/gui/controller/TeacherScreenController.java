@@ -7,6 +7,7 @@ import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,7 +88,7 @@ public class TeacherScreenController implements Initializable {
         setupStudentTable();
         fillStudentsTable();
         System.out.println(fromDatepicker.getValue());
-
+        comboClasses.getSelectionModel().selectFirst();
     }
 
     private void centerStage(Stage stage) {
@@ -168,10 +169,10 @@ public class TeacherScreenController implements Initializable {
 
     private void CheckDatetimePickers() {
         if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
-            String fromDate = fromDatepicker.getValue().toString();
-            String toDate = toDatepicker.getValue().toString();
-            model.getDatepickerDates(fromDate, toDate);
-
+            LocalDate fromDate = fromDatepicker.getValue();
+            LocalDate toDate = toDatepicker.getValue();
+            String clazz = comboClasses.getSelectionModel().getSelectedItem();
+            model.studentTimeFrame(fromDate, toDate, clazz);
         } else {
             return;
         }
