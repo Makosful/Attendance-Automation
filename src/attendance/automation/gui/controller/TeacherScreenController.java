@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,8 +33,7 @@ import javafx.stage.Stage;
  *
  * @author Axl
  */
-public class TeacherScreenController implements Initializable
-{
+public class TeacherScreenController implements Initializable {
 
     @FXML
     private Button btnChangePassword;
@@ -47,12 +47,9 @@ public class TeacherScreenController implements Initializable
     private TableColumn<LoadedStudent, String> clmFName;
     @FXML
     private TableColumn<LoadedStudent, String> clmLName;
-    @FXML
     private ListView<String> lstClasses;
-    @FXML
     private PieChart chrtClasses;
     private ListView<String> lstStudents;
-    @FXML
     private PieChart chrtStudents;
     @FXML
     private Button btnStudentStatistics;
@@ -61,6 +58,8 @@ public class TeacherScreenController implements Initializable
 
     private Stage currentStage;
     private ObservableList<LoadedStudent> students;
+    @FXML
+    private ComboBox<?> comboClasses;
 
     /**
      * Initializes the controller class.
@@ -69,8 +68,7 @@ public class TeacherScreenController implements Initializable
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
 
         students = FXCollections.observableArrayList();
@@ -83,69 +81,56 @@ public class TeacherScreenController implements Initializable
         fillStudentsChart();
     }
 
-    private void centerStage(Stage stage)
-    {
+    private void centerStage(Stage stage) {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    private void changeStage(String loginScreen)
-    {
-        try
-        {
+    private void changeStage(String loginScreen) {
+        try {
             Stage stage = (Stage) btnStudentStatistics.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + loginScreen + ".fxml"));
             Parent parent = loader.load();
             stage.setScene(new Scene(parent));
             centerStage(stage);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void fillClassesList()
-    {
+    private void fillClassesList() {
         model.fillClassesList(lstClasses);
     }
 
-    private void fillStudentsList()
-    {
+    private void fillStudentsList() {
         model.fillStudentsList(lstStudents);
     }
 
-    private void fillClassesChart()
-    {
+    private void fillClassesChart() {
         model.fillClassesChart(chrtClasses);
     }
 
-    private void fillStudentsChart()
-    {
+    private void fillStudentsChart() {
         model.fillStudentsChart(chrtStudents);
     }
 
-    private void fillStudentsTable()
-    {
+    private void fillStudentsTable() {
         tblStudents.setItems(model.getStudents());
     }
 
     @FXML
-    private void handleChangePassword(ActionEvent event)
-    {
+    private void handleChangePassword(ActionEvent event) {
         model.changePassword();
     }
 
     @FXML
-    private void handleLogOut(ActionEvent event)
-    {
+    private void handleLogOut(ActionEvent event) {
         changeStage("LoginScreen");
     }
 
     @FXML
-    private void handleStudentStatictics(ActionEvent event) throws IOException
-    {
+    private void handleStudentStatictics(ActionEvent event) throws IOException {
         currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentView.fxml"));
         Parent parent = loader.load();
@@ -158,22 +143,19 @@ public class TeacherScreenController implements Initializable
      *
      * @param currentStage
      */
-    private void centerStage()
-    {
+    private void centerStage() {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    private void setupStudentTable()
-    {
+    private void setupStudentTable() {
         clmFName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         clmLName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         clmAtt.setCellValueFactory(new PropertyValueFactory<>("attendance"));
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
