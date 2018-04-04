@@ -54,18 +54,22 @@ public class TeacherScreenController implements Initializable {
 
     private Model model;
 
+    private User user;
+
     private Stage currentStage;
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
     @FXML
-    private Button btnDatepickerSemesterStart;
-    @FXML
-    private Button btnDatepickerToday;
-    @FXML
     private JFXDatePicker fromDatepicker;
     @FXML
     private JFXDatePicker toDatepicker;
+    @FXML
+    private PieChart chrtStudents;
+    @FXML
+    private Button btnDatepickerSemesterStart;
+    @FXML
+    private Button btnDatepickerToday;
 
     /**
      * Initializes the controller class.
@@ -149,7 +153,7 @@ public class TeacherScreenController implements Initializable {
     }
 
     public void setUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.user = user;
     }
 
     @FXML
@@ -170,6 +174,22 @@ public class TeacherScreenController implements Initializable {
 
         } else {
             return;
+        }
+    }
+
+    @FXML
+    private void MessageController(ActionEvent event) {
+        try {
+            currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
+            Parent parent = loader.load();
+            TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
+            attendanceRequest.setUser(user);
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+        } catch (IOException ex) {
+            System.out.println("failed 2 open window");
+            Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

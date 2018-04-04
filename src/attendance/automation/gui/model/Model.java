@@ -61,13 +61,20 @@ public class Model {
 
         // Adding mock data to the pie chart
         pieChartAttendance = FXCollections.observableArrayList();
-        pieChartAttendance.addAll(
-                new PieChart.Data("Present", 80),
-                new PieChart.Data("Absent", 20)
-        );
 
         students = FXCollections.observableArrayList();
         loadStudents(students);
+    }
+
+    public void attendanceTimeFrame(LocalDate from, LocalDate to) {
+        try {
+            ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
+            for (int i = 0; i < pieChartAttendance.size(); i++) {
+                pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());
+            }
+        } catch (BLLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -98,6 +105,14 @@ public class Model {
             return bll.isConnectedToWifi(wifi);
         } catch (BLLException ex) {
             return false;
+        }
+    }
+
+    public void loadAttendance() {
+        try {
+            pieChartAttendance.addAll(bll.getStudentAttendance(user));
+        } catch (BLLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -154,11 +169,9 @@ public class Model {
         bll.fillStudentsChart(chrtStudents);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Observables">
     public ObservableList<PieChart.Data> getPieChartAttendance() {
         return pieChartAttendance;
     }
-    //</editor-fold>
 
     public LocalDate getStartDate() {
         LocalDate startDate = bll.setStartDate();

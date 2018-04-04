@@ -11,9 +11,9 @@ package attendance.automation.be;
  */
 public class NotificationMessage 
 {
-    String message;
-    int studentID;
-    int classID;
+    private String message;
+    private int studentID;
+    private int classID;
     
     public NotificationMessage(int studentID, int classID, String message)
     {

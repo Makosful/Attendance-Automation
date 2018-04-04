@@ -20,7 +20,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -35,9 +34,9 @@ public class StudentStatisticWindowController implements Initializable
 {
 
     private Model model;
+    Stage currentStage;
 
-
-
+    //<editor-fold defaultstate="collapsed" desc="FXML Variable">
     @FXML
     private Button btnSetDateStart;
     @FXML
@@ -54,7 +53,6 @@ public class StudentStatisticWindowController implements Initializable
     private CheckBox cbSDE;
     @FXML
     private CheckBox cbITO;
-    Stage currentStage;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -63,6 +61,7 @@ public class StudentStatisticWindowController implements Initializable
     private JFXDatePicker dateFrom;
     @FXML
     private JFXDatePicker dateTo;
+    //</editor-fold>
 
     /**
      * Initializes the controller class.
@@ -77,30 +76,24 @@ public class StudentStatisticWindowController implements Initializable
 
         chrtTotalAttendance.setData(model.getPieChartAttendance());
 
-        //<editor-fold defaultstate="collapsed" desc="Bar Chart">
-        chrtClassAttendance.getData().addAll(model.getScoData(), model.getSdeData(), model.getItoData());
-        //</editor-fold>
-
-        //<editor-fold defaultstate="collapsed" desc="Date and Time">
         LocalDate monthStart = model.getFirstDayOfMonth();
         dateFrom.setValue(monthStart);
 
         LocalDate today = LocalDate.now();
         dateTo.setValue(today);
-        //</editor-fold>
     }
 
     @FXML
     private void handleBackButton(ActionEvent event)
     {
-       changeStageStudentView();
+        changeStageStudentView();
     }
 
     @FXML
     private void handleSetDateStart(ActionEvent event)
     {
         dateFrom.setValue(model.getStartDate());
-        
+
     }
 
     @FXML
@@ -108,7 +101,7 @@ public class StudentStatisticWindowController implements Initializable
     {
         dateTo.setValue(LocalDate.now());
     }
-    
+
     /**
      * Centers the window on the screen
      *
@@ -120,7 +113,7 @@ public class StudentStatisticWindowController implements Initializable
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
-    
+
     /**
      * Changes the currentStage to the student view screen
      */
@@ -142,23 +135,32 @@ public class StudentStatisticWindowController implements Initializable
     }
 
     @FXML
-    private void btnRequestChange(ActionEvent event) {
-        try {           
-            
-            Stage primeStage = (Stage)requestChange.getScene().getWindow();
+    private void btnRequestChange(ActionEvent event)
+    {
+        try
+        {
+
+            Stage primeStage = (Stage) requestChange.getScene().getWindow();
             FXMLLoader fxLoader = new FXMLLoader(Main.class.getResource("gui/view/RequestChange.fxml"));
             Parent root = fxLoader.load();
-            
+
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initOwner(primeStage);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.showAndWait();
-           
-            
-        } catch (IOException ex) {
+
+        }
+        catch (IOException ex)
+        {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    private void updateDate(ActionEvent event)
+    {
+        model.attendanceTimeFrame(dateFrom.getValue(), dateTo.getValue());
     }
 }

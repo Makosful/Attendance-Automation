@@ -6,11 +6,13 @@
 package attendance.automation.dal;
 
 import attendance.automation.be.Student;
+import attendance.automation.be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -121,5 +123,42 @@ public class StudentDAO {
             }
         }
         return dateRangeAttended;
+    }
+
+    public ArrayList<Integer> getStudentAttendance(User user) throws SQLException {
+        ArrayList<Integer> attendance = new ArrayList<>();
+        try (Connection con = db.getConnection()) {
+            int i = 1;
+            String sql = "SELECT * FROM StudentAttendance WHERE UserID = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(i++, user.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int att = rs.getInt("Attended");
+                attendance.add(att);
+            }
+        }
+        return attendance;
+    }
+
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user)
+            throws SQLException {
+        ArrayList<Boolean> att = new ArrayList<>();
+        try (Connection con = db.getConnection()) {
+            int i = 1;
+            String sql = "SELECT * FROM StudentAttendance WHERE UserID = ? AND Date BETWEEN ? and ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(i++, user.getId());
+            stmt.setDate(i++, java.sql.Date.valueOf(from));
+            stmt.setDate(i++, java.sql.Date.valueOf(to));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                boolean bool = rs.getBoolean("Attended");
+                att.add(bool);
+            }
+        }
+        return att;
     }
 }

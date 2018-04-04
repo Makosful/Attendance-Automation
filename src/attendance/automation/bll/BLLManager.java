@@ -37,7 +37,33 @@ public class BLLManager {
         dal = new DALManager();
     }
 
-    public void changePassword(User user, String newPass, String curPass) throws BLLException {
+    public ObservableList<PieChart.Data> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws BLLException {
+        try {
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user);
+
+            int attend = 0;
+            int abs = 0;
+
+            for (Boolean bool : att) {
+                if (bool) {
+                    attend++;
+                } else {
+                    abs++;
+                }
+            }
+
+            data.add(new PieChart.Data("Attendance", attend));
+            data.add(new PieChart.Data("Absence", abs));
+
+            return data;
+        } catch (DALException ex) {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public void changePassword(User user, String newPass, String curPass)
+            throws BLLException {
         System.out.println(user.getUserName());
         newPass = Hash.passwordHashing(newPass);
         curPass = Hash.passwordHashing(curPass);
@@ -51,6 +77,33 @@ public class BLLManager {
         String pass = Hash.passwordHashing(password);
         User student = new Student(true, fName, lName, uName, email, pass);
         dal.createNewUser(student);
+    }
+
+    public ObservableList<PieChart.Data> getStudentAttendance(User user) throws BLLException {
+        try {
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+            int attendance = 0;
+            int absence = 0;
+
+            ArrayList<Integer> studentAttendance = dal.getStudentAttendance(user);
+            for (Integer i : studentAttendance) {
+                switch (i) {
+                    case 0:
+                        absence++;
+                        break;
+                    case 1:
+                        attendance++;
+                        break;
+                }
+            }
+
+            data.add(new PieChart.Data("Attendance", attendance));
+            data.add(new PieChart.Data("Absence", absence));
+
+            return data;
+        } catch (DALException ex) {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     /**
