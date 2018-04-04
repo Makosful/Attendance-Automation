@@ -16,7 +16,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javax.mail.MessagingException;
 
@@ -203,9 +202,22 @@ public class BLLManager
         }
     }
 
-    public void fillClassesListCombo(ComboBox<String> comboClasses)
+    public ObservableList<String> fillClassesListCombo() throws BLLException
     {
-        dal.fillClassesListCombo(comboClasses);
+        try
+        {
+            ObservableList<String> data = FXCollections.observableArrayList();
+            ArrayList<Clazz> clazzes = dal.fillClassesListCombo();
+            clazzes.forEach((clazz) ->
+            {
+                data.add(clazz.getName());
+            });
+            return data;
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     public void fillStudentsList(ListView<String> lstStudents)

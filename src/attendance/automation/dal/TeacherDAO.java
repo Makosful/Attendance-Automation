@@ -107,6 +107,7 @@ public class TeacherDAO
             pstmt.setInt(1, studentId);
             ResultSet rs = pstmt.executeQuery();
             System.out.println("test");
+            rs.next();
             String name = rs.getString("FirstName") + " " + rs.getString("LastName"); 
             return name;
             

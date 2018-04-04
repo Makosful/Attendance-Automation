@@ -3,6 +3,7 @@ package attendance.automation.gui.controller;
 import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
+import attendance.automation.bll.BLLException;
 import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
@@ -20,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
@@ -57,16 +57,9 @@ public class TeacherScreenController implements Initializable {
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
-    @FXML
     private JFXDatePicker fromDatepicker;
-    @FXML
     private JFXDatePicker toDatepicker;
     @FXML
-    private PieChart chrtStudents;
-    @FXML
-    private Button btnDatepickerSemesterStart;
-    @FXML
-    private Button btnDatepickerToday;
     private JFXDatePicker fromDatePicker;
     @FXML
     private Button btnDatePickerSemesterStart;
@@ -91,7 +84,6 @@ public class TeacherScreenController implements Initializable {
         fillClassesList();
         setupStudentTable();
         fillStudentsTable();
-        System.out.println(fromDatepicker.getValue());
         comboClasses.getSelectionModel().selectFirst();
     }
 
@@ -114,7 +106,11 @@ public class TeacherScreenController implements Initializable {
     }
 
     private void fillClassesList() {
-        model.fillClassesListCombo(comboClasses);
+        try {
+            comboClasses.setItems(model.fillClassesListCombo());
+        } catch (BLLException ex) {
+            Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void fillStudentsTable() {
@@ -161,12 +157,10 @@ public class TeacherScreenController implements Initializable {
         this.user = user;
     }
 
-    @FXML
     private void SetFromDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
 
-    @FXML
     private void SetToDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
@@ -199,14 +193,6 @@ public class TeacherScreenController implements Initializable {
     }
 
     @FXML
-    private void btnSetDatepickerToSemesterStart(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnSetDatepickerToToday(ActionEvent event) {
-    }
-
-    @FXML
     private void setFromDatePicker(ActionEvent event) {
         CheckDatetimePickers();
     }
@@ -222,5 +208,9 @@ public class TeacherScreenController implements Initializable {
 
     @FXML
     private void setToDatePickerToTodaysDate(ActionEvent event) {
+    }
+
+    @FXML
+    private void comboFillClasses(ActionEvent event) {
     }
 }
