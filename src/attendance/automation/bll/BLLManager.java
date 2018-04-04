@@ -15,6 +15,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -113,10 +115,6 @@ public class BLLManager {
         } catch (DALException ex) {
             throw new BLLException(ex.getMessage(), ex);
         }
-    }
-
-    public void fillClassesList(ListView<String> lstClasses) {
-        dal.fillClassesList(lstClasses);
     }
 
     public void fillClassesListCombo(ComboBox<String> comboClasses) {
@@ -232,6 +230,14 @@ public class BLLManager {
         try {
             return dal.GetAttendancePercentage(UserID);
         } catch (SQLException ex) {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public void getDatepickerDates(String fromDate, String toDate) throws BLLException {
+        try {
+            dal.getDatepickerDates(fromDate, toDate);
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }

@@ -4,6 +4,7 @@ import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
 import attendance.automation.gui.model.Model;
+import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +58,14 @@ public class TeacherScreenController implements Initializable {
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
+    @FXML
+    private Button btnDatepickerSemesterStart;
+    @FXML
+    private Button btnDatepickerToday;
+    @FXML
+    private JFXDatePicker fromDatepicker;
+    @FXML
+    private JFXDatePicker toDatepicker;
 
     /**
      * Initializes the controller class.
@@ -71,9 +80,10 @@ public class TeacherScreenController implements Initializable {
         students = FXCollections.observableArrayList();
 
         fillClassesList();
-//        fillStudentsList();
         setupStudentTable();
         fillStudentsTable();
+        System.out.println(fromDatepicker.getValue());
+
     }
 
     private void centerStage(Stage stage) {
@@ -96,10 +106,6 @@ public class TeacherScreenController implements Initializable {
 
     private void fillClassesList() {
         model.fillClassesListCombo(comboClasses);
-    }
-
-    private void fillStudentsList() {
-        model.fillStudentsList(lstStudents);
     }
 
     private void fillStudentsTable() {
@@ -144,5 +150,34 @@ public class TeacherScreenController implements Initializable {
 
     public void setUser(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @FXML
+    private void SetFromDatepicker(ActionEvent event) {
+        CheckDatetimePickers();
+    }
+
+    @FXML
+    private void SetToDatepicker(ActionEvent event) {
+        CheckDatetimePickers();
+    }
+
+    private void CheckDatetimePickers() {
+        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
+            String fromDate = fromDatepicker.getValue().toString();
+            String toDate = toDatepicker.getValue().toString();
+            model.getDatepickerDates(fromDate, toDate);
+
+        } else {
+            return;
+        }
+    }
+
+    @FXML
+    private void btnSetDatepickerToSemesterStart(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnSetDatepickerToToday(ActionEvent event) {
     }
 }

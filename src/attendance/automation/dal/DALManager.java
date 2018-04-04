@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
@@ -77,23 +79,6 @@ public class DALManager {
 
     public boolean validUsername(String username) {
         return vd.validUsername(username);
-    }
-
-    public void fillClassesList(ListView<String> lstClasses) {
-        lstClasses.getItems().addAll(
-                "SCO 1 A",
-                "SCO 2 A",
-                "SCO 1 B",
-                "SCO 2 B",
-                "SDE 1 A",
-                "SDE 2 A",
-                "SDE 1 B",
-                "SDE 2 B",
-                "ITO 1 A",
-                "ITO 2 A",
-                "ITO 1 B",
-                "ITO 2 B"
-        );
     }
 
     public void fillClassesListCombo(ComboBox<String> comboClasses) {
@@ -280,5 +265,13 @@ public class DALManager {
             avgAmount = (attendedDays / totalDays);
         }
         return avgAmount;
+    }
+
+    public void getDatepickerDates(String fromDate, String toDate) throws DALException {
+        try {
+            sDAO.getDatepickerDates(fromDate, toDate);
+        } catch (SQLException ex) {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
     }
 }

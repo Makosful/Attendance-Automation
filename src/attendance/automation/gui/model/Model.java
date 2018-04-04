@@ -137,10 +137,6 @@ public class Model {
         return user;
     }
 
-    public void fillClassesList(ListView<String> lstClasses) {
-        bll.fillClassesList(lstClasses);
-    }
-
     public void fillClassesListCombo(ComboBox<String> comboClasses) {
         bll.fillClassesListCombo(comboClasses);
 
@@ -225,6 +221,14 @@ public class Model {
             stage.setResizable(false);
             stage.centerOnScreen();
         } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void getDatepickerDates(String fromDate, String toDate) {
+        try {
+            bll.getDatepickerDates(fromDate, toDate);
+        } catch (BLLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
