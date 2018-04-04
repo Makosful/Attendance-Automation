@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -137,5 +138,28 @@ public class StudentDAO
             }
         }
         return attendance;
+    }
+
+    public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, User user)
+            throws SQLException
+    {
+        ArrayList<Boolean> att = new ArrayList<>();
+        try (Connection con = db.getConnection())
+        {
+            int i = 1;
+            String sql = "SELECT * FROM StudentAttendance WHERE UserID = ? AND Date BETWEEN ? and ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(i++, user.getId());
+            stmt.setDate(i++, java.sql.Date.valueOf(from));
+            stmt.setDate(i++, java.sql.Date.valueOf(to));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                boolean bool = rs.getBoolean("Attended");
+                att.add(bool);
+            }
+        }
+        return att;
     }
 }

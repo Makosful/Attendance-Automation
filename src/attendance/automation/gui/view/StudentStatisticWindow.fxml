@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
+<AnchorPane fx:id="anchorPane" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.StudentStatisticWindowController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -57,17 +57,17 @@
                                         </Label>
                                         <Button id="schoolstart" fx:id="btnSetDateStart" mnemonicParsing="false" onAction="#handleSetDateStart" prefWidth="100.0" text="School Start" GridPane.columnIndex="2" />
                                         <Button id="today" fx:id="btnSetDateToday" mnemonicParsing="false" onAction="#handleSetDateToday" prefWidth="100.0" text="Today" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <JFXDatePicker fx:id="dateFrom" defaultColor="WHITE" GridPane.columnIndex="1" />
-                              <JFXDatePicker fx:id="dateTo" defaultColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <JFXDatePicker fx:id="dateFrom" defaultColor="WHITE" onAction="#updateDate" GridPane.columnIndex="1" />
+                                        <JFXDatePicker fx:id="dateTo" defaultColor="WHITE" onAction="#updateDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
                             </children>
                         </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="102.0" prefWidth="264.0">
-                     <children>
-                        <Button fx:id="requestChange" mnemonicParsing="false" onAction="#btnRequestChange" text="Request Change Of Attendance" />
-                     </children>
-                  </VBox>
+                        <VBox alignment="TOP_RIGHT" prefHeight="102.0" prefWidth="264.0">
+                            <children>
+                                <Button fx:id="requestChange" mnemonicParsing="false" onAction="#btnRequestChange" text="Request Change Of Attendance" />
+                            </children>
+                        </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
@@ -82,17 +82,20 @@
                                 <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" hgap="20.0" prefWrapLength="300.0" styleClass="background" vgap="10.0">
                                     <children>
                                         <CheckBox id="sub2" fx:id="cbSCO" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="SCO">
-                                 <padding>
-                                    <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
-                                 </padding></CheckBox>
+                                            <padding>
+                                                <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
+                                            </padding>
+                                        </CheckBox>
                                         <CheckBox id="sub1" fx:id="cbSDE" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="SDE">
-                                 <padding>
-                                    <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
-                                 </padding></CheckBox>
+                                            <padding>
+                                                <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
+                                            </padding>
+                                        </CheckBox>
                                         <CheckBox id="sub3" fx:id="cbITO" mnemonicParsing="false" selected="true" styleClass="checkboxes" text="ITO">
-                                 <padding>
-                                    <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
-                                 </padding></CheckBox>
+                                            <padding>
+                                                <Insets bottom="5.0" left="3.0" right="3.0" top="3.0" />
+                                            </padding>
+                                        </CheckBox>
                                     </children>
                                 </FlowPane>
                                 <BarChart fx:id="chrtClassAttendance" prefHeight="400.0" prefWidth="400.0" title="Attendance by Class" titleSide="BOTTOM">
@@ -109,6 +112,6 @@
                 </HBox>
             </children>
         </VBox>
-      <Button id="backbutton" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButton" text="&lt;-" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button id="backbutton" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButton" text="&lt;-" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>
