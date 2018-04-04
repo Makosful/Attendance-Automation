@@ -63,10 +63,6 @@ public class Model
 
         // Adding mock data to the pie chart
         pieChartAttendance = FXCollections.observableArrayList();
-        pieChartAttendance.addAll(
-                new PieChart.Data("Present", 80),
-                new PieChart.Data("Absent", 20)
-        );
 
         students = FXCollections.observableArrayList();
         loadStudents(students);
@@ -174,7 +170,16 @@ public class Model
     //<editor-fold defaultstate="collapsed" desc="Observables">
     public ObservableList<PieChart.Data> getPieChartAttendance()
     {
-        return pieChartAttendance;
+        try
+        {
+            pieChartAttendance.addAll(bll.getStudentAttendance(user));
+            return pieChartAttendance;
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     //</editor-fold>
 

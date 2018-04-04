@@ -6,6 +6,7 @@
 package attendance.automation.dal;
 
 import attendance.automation.be.Student;
+import attendance.automation.be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,5 +117,25 @@ public class StudentDAO
         {
         }
         return avgList;
+    }
+
+    public ArrayList<Integer> getStudentAttendance(User user) throws SQLException
+    {
+        ArrayList<Integer> attendance = new ArrayList<>();
+        try (Connection con = db.getConnection())
+        {
+            int i = 1;
+            String sql = "SELECT * FROM StudentAttendance WHERE UserID = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(i++, user.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                int att = rs.getInt("Attended");
+                attendance.add(att);
+            }
+        }
+        return attendance;
     }
 }

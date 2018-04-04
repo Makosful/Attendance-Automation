@@ -54,6 +54,39 @@ public class BLLManager
         dal.createNewUser(student);
     }
 
+    public ObservableList<PieChart.Data> getStudentAttendance(User user) throws BLLException
+    {
+        try
+        {
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+            int attendance = 0;
+            int absence = 0;
+
+            ArrayList<Integer> studentAttendance = dal.getStudentAttendance(user);
+            for (Integer i : studentAttendance)
+            {
+                switch (i)
+                {
+                    case 0:
+                        absence++;
+                        break;
+                    case 1:
+                        attendance++;
+                        break;
+                }
+            }
+
+            data.add(new PieChart.Data("Attendance", attendance));
+            data.add(new PieChart.Data("Absence", absence));
+
+            return data;
+        }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
+    }
+
     /**
      * Checks if machine is connected to a certain wifi network
      *
