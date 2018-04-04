@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
@@ -58,16 +57,9 @@ public class TeacherScreenController implements Initializable
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
-    @FXML
     private JFXDatePicker fromDatepicker;
-    @FXML
     private JFXDatePicker toDatepicker;
     @FXML
-    private PieChart chrtStudents;
-    @FXML
-    private Button btnDatepickerSemesterStart;
-    @FXML
-    private Button btnDatepickerToday;
     private JFXDatePicker fromDatePicker;
     @FXML
     private Button btnDatePickerSemesterStart;
@@ -118,6 +110,11 @@ public class TeacherScreenController implements Initializable
         {
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void comboFillClasses(ActionEvent event)
+    {
     }
 
     private void fillClassesList()
@@ -176,13 +173,11 @@ public class TeacherScreenController implements Initializable
         this.user = user;
     }
 
-    @FXML
     private void SetFromDatepicker(ActionEvent event)
     {
         CheckDatetimePickers();
     }
 
-    @FXML
     private void SetToDatepicker(ActionEvent event)
     {
         CheckDatetimePickers();
@@ -221,16 +216,6 @@ public class TeacherScreenController implements Initializable
             System.out.println("failed 2 open window");
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @FXML
-    private void btnSetDatepickerToSemesterStart(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void btnSetDatepickerToToday(ActionEvent event)
-    {
     }
 
     @FXML
