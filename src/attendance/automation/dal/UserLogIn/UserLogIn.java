@@ -8,10 +8,13 @@ package attendance.automation.dal.UserLogIn;
 import attendance.automation.dal.DataBaseConnector;
 import attendance.automation.be.User;
 import attendance.automation.dal.UserFactory.UserFactory;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +44,8 @@ public class UserLogIn
                     rs.getString("UserName"),
                     rs.getString("Email"),
                     rs.getString("Password"));
-            user.setId(rs.getInt("UserID"));     
+            user.setId(rs.getInt("UserID"));  
+            addClasses(user);
             return user;
         } 
         catch (SQLException ex) 
@@ -49,6 +53,32 @@ public class UserLogIn
             System.out.println(ex.getMessage());
             throw new SQLException(ex);
         }
-    }   
+    }
+    /**
+     * Gets all the class names for the specific student.
+     * @throws SQLException 
+     */
+    public void addClasses(User user) throws SQLException
+    {
+        try(Connection con = dbConnection.getConnection())
+        {
+            String sql = "SELECT ClassName FROM Classes"
+                    + " JOIN UserClass ON UserClass.ClassID = Classes.ClassID"
+                    + " JOIN Users ON users.UserID = UserClass.UserID \n" 
+                    +"WHERE Users.UserID = ?";
+
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, user.getId());
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+                user.setClass(rs.getString("ClassName"));
+            }
+        } 
+        catch (SQLServerException ex) 
+        {
+            Logger.getLogger(UserLogIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

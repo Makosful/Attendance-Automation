@@ -52,6 +52,8 @@ public class TeacherScreenController implements Initializable {
     private Button btnStudentStatistics;
 
     private Model model;
+    
+    private User user;
 
     private Stage currentStage;
     private ObservableList<LoadedStudent> students;
@@ -142,7 +144,28 @@ public class TeacherScreenController implements Initializable {
         clmAtt.setCellValueFactory(new PropertyValueFactory<>("attendance"));
     }
 
-    public void setUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setUser(User user)
+    {
+        this.user = user;
     }
+
+    @FXML
+    private void MessageController(ActionEvent event) 
+    {
+        try 
+        {
+            currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
+            Parent parent = loader.load();
+                        TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
+            attendanceRequest.setUser(user);
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+        } 
+        catch (IOException ex) 
+        {
+            System.out.println("failed 2 open window");
+            Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 }
