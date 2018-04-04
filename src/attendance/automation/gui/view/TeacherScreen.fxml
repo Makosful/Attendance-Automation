@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -50,18 +52,50 @@
     <bottom>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <buttons>
-                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
-                    </buttons>
-                </ButtonBar>
+                  <Button fx:id="btnLogout" layoutY="-1.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" />
+                  <Button id="student-statistics" fx:id="btnStudentStatistics" layoutX="391.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </Button>
+                  <Button id="btn-hover" fx:id="btnChangePassword" layoutX="54.0" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" />
             </children>
         </AnchorPane>
     </bottom>
+   <left>
+      <VBox prefWidth="250.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox fx:id="comboClasses" prefWidth="250.0" promptText="Select Class">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></ComboBox>
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="fromDatepicker" defaultColor="#80bfff" onAction="#SetFromDatepicker" promptText="From..." showWeekNumbers="true" />
+                  <Button id="btn-hover" fx:id="btnDatepickerSemesterStart" mnemonicParsing="false" onAction="#btnSetDatepickerToSemesterStart" prefWidth="175.0" text="Semester Start">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <JFXDatePicker fx:id="toDatepicker" defaultColor="#80bfff" onAction="#SetToDatepicker" promptText="To..." showWeekNumbers="true" />
+                  <Button id="btn-hover" fx:id="btnDatepickerToday" mnemonicParsing="false" onAction="#btnSetDatepickerToToday" prefWidth="175.0" text="Todays date">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
 </BorderPane>

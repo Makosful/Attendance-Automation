@@ -4,8 +4,10 @@ import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
 import attendance.automation.gui.model.Model;
+import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,13 +54,23 @@ public class TeacherScreenController implements Initializable {
     private Button btnStudentStatistics;
 
     private Model model;
-    
+
     private User user;
 
     private Stage currentStage;
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
+    @FXML
+    private JFXDatePicker fromDatepicker;
+    @FXML
+    private JFXDatePicker toDatepicker;
+    @FXML
+    private PieChart chrtStudents;
+    @FXML
+    private Button btnDatepickerSemesterStart;
+    @FXML
+    private Button btnDatepickerToday;
 
     /**
      * Initializes the controller class.
@@ -72,10 +84,16 @@ public class TeacherScreenController implements Initializable {
 
         students = FXCollections.observableArrayList();
 
+<<<<<<< HEAD
         //fillClassesList();
 //        fillStudentsList();
+=======
+        fillClassesList();
+>>>>>>> 6f0778dec83f430f46ac489160c7403eaa7673e7
         setupStudentTable();
         fillStudentsTable();
+        System.out.println(fromDatepicker.getValue());
+        comboClasses.getSelectionModel().selectFirst();
     }
 
     private void centerStage(Stage stage) {
@@ -98,10 +116,6 @@ public class TeacherScreenController implements Initializable {
 
     private void fillClassesList() {
         model.fillClassesListCombo(comboClasses);
-    }
-
-    private void fillStudentsList() {
-        model.fillStudentsList(lstStudents);
     }
 
     private void fillStudentsTable() {
@@ -144,28 +158,52 @@ public class TeacherScreenController implements Initializable {
         clmAtt.setCellValueFactory(new PropertyValueFactory<>("attendance"));
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
     @FXML
-    private void MessageController(ActionEvent event) 
-    {
-        try 
-        {
+    private void SetFromDatepicker(ActionEvent event) {
+        CheckDatetimePickers();
+    }
+
+    @FXML
+    private void SetToDatepicker(ActionEvent event) {
+        CheckDatetimePickers();
+    }
+
+    private void CheckDatetimePickers() {
+        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
+            LocalDate fromDate = fromDatepicker.getValue();
+            LocalDate toDate = toDatepicker.getValue();
+            String clazz = comboClasses.getSelectionModel().getSelectedItem();
+            model.studentTimeFrame(fromDate, toDate, clazz);
+        } else {
+            return;
+        }
+    }
+
+    @FXML
+    private void MessageController(ActionEvent event) {
+        try {
             currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
             Parent parent = loader.load();
-                        TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
+            TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
             attendanceRequest.setUser(user);
             currentStage.setScene(new Scene(parent));
             centerStage();
-        } 
-        catch (IOException ex) 
-        {
+        } catch (IOException ex) {
             System.out.println("failed 2 open window");
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
+    }
+
+    @FXML
+    private void btnSetDatepickerToSemesterStart(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnSetDatepickerToToday(ActionEvent event) {
+    }
 }
