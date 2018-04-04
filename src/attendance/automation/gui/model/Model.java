@@ -2,6 +2,7 @@ package attendance.automation.gui.model;
 
 import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
+import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
@@ -9,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -63,13 +65,25 @@ public class Model
 
         // Adding mock data to the pie chart
         pieChartAttendance = FXCollections.observableArrayList();
-        pieChartAttendance.addAll(
-                new PieChart.Data("Present", 80),
-                new PieChart.Data("Absent", 20)
-        );
 
         students = FXCollections.observableArrayList();
         loadStudents(students);
+    }
+
+    public void attendanceTimeFrame(LocalDate from, LocalDate to)
+    {
+        try
+        {
+            ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
+            for (int i = 0; i < pieChartAttendance.size(); i++)
+            {
+                pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());
+            }
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -107,6 +121,18 @@ public class Model
         catch (BLLException ex)
         {
             return false;
+        }
+    }
+
+    public void loadAttendance()
+    {
+        try
+        {
+            pieChartAttendance.addAll(bll.getStudentAttendance(user));
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -148,12 +174,13 @@ public class Model
     public User userLogIn(String username, String password) throws BLLException
     {
         user = bll.userLogIn(username, password);
+        bll.getUser(user);
         return user;
     }
 
-    public void fillClassesList(ListView<String> lstClasses)
+    public ObservableList<String> fillClassesListCombo() throws BLLException
     {
-        bll.fillClassesList(lstClasses);
+        return bll.fillClassesListCombo();
     }
 
     public void fillStudentsList(ListView<String> lstStudents)
@@ -171,12 +198,10 @@ public class Model
         bll.fillStudentsChart(chrtStudents);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Observables">
     public ObservableList<PieChart.Data> getPieChartAttendance()
     {
         return pieChartAttendance;
     }
-    //</editor-fold>
 
     public LocalDate getStartDate()
     {
@@ -268,4 +293,20 @@ public class Model
     }
 
 
+    public List<NotificationMessage> allNotifications() throws BLLException
+    {
+        return bll.allNotifications();
+    }
+
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz)
+    {
+        try
+        {
+            bll.studentTimeFrame(fromDate, toDate, this.students);
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

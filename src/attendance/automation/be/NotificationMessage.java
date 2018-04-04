@@ -11,15 +11,17 @@ package attendance.automation.be;
  */
 public class NotificationMessage 
 {
-    String message;
-    int studentID;
-    int classID;
+    private final String message;
+    private final int studentID;
+    private final int classID;
+    private final String studentName;
     
-    public NotificationMessage(int studentID, int classID, String message)
+    public NotificationMessage(int studentID, int classID, String studentName, String message)
     {
         this.studentID = studentID;
         this.classID = classID;
         this.message = message;
+        this.studentName = studentName;
     }
     /**
      * Get notification message
@@ -38,6 +40,11 @@ public class NotificationMessage
     public int getClassID() 
     {
         return classID;
+    }
+    
+    public String getStudentName()
+    {
+        return studentName;
     }
     
 }

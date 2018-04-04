@@ -62,17 +62,17 @@ public class StudentScreenController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
+        model.loadAttendance();
         chrtStatistics.setData(model.getPieChartAttendance());
-/*
-        try
-        {
-            checkWifi();
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+
+//        try
+//        {
+//            checkWifi();
+//        }
+//        catch (SQLException ex)
+//        {
+//            Logger.getLogger(StudentScreenController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void centerStage(Stage stage)
