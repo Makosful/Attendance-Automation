@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
 /**
  *
  * @author Axl
  */
-public class DALManager
-{
+public class DALManager {
 
     private final String sub1 = "Jan";
     private final String sub2 = "Feb";
@@ -32,72 +32,54 @@ public class DALManager
     private final UserLogIn liEncryption;
     private final StudentDAO sDAO;
 
-    public DALManager()
-    {
+    public DALManager() {
         vd = new ValidationDataBase();
         liEncryption = new UserLogIn();
         uDAO = new UserDAO();
         sDAO = new StudentDAO();
     }
 
-    public void changePassword(User user, String pass)
-    {
+    public void changePassword(User user, String pass) {
         uDAO.setNewPassword(pass, user.getEmail());
     }
 
-    public void createNewUser(User user)
-    {
+    public void createNewUser(User user) {
         uDAO.addNewUser(user);
     }
 
-    public ArrayList loadStudents() throws DALException
-    {
-        try
-        {
+    public ArrayList loadStudents() throws DALException {
+        try {
             return sDAO.getAllStudents();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DALException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public void registerAttendance(User user) throws DALException
-    {
-        try
-        {
+    public void registerAttendance(User user) throws DALException {
+        try {
             sDAO.registerAttendance(user.getId(), true);
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DALException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public User userLogIn(String username, String password) throws DALException
-    {
-        try
-        {
+    public User userLogIn(String username, String password) throws DALException {
+        try {
             return liEncryption.userLogIn(username, password);
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DALException("Password or username is not correct", ex);
         }
     }
 
-    public boolean validEmail(String email)
-    {
+    public boolean validEmail(String email) {
         return vd.validEmail(email);
     }
 
-    public boolean validUsername(String username)
-    {
+    public boolean validUsername(String username) {
         return vd.validUsername(username);
     }
 
-    public void fillClassesList(ListView<String> lstClasses)
-    {
+    public void fillClassesList(ListView<String> lstClasses) {
         lstClasses.getItems().addAll(
                 "SCO 1 A",
                 "SCO 2 A",
@@ -114,8 +96,24 @@ public class DALManager
         );
     }
 
-    public void fillStudentsList(ListView<String> lstStudents)
-    {
+    public void fillClassesListCombo(ComboBox<String> comboClasses) {
+        comboClasses.getItems().addAll(
+                "SCO 1 A",
+                "SCO 2 A",
+                "SCO 1 B",
+                "SCO 2 B",
+                "SDE 1 A",
+                "SDE 2 A",
+                "SDE 1 B",
+                "SDE 2 B",
+                "ITO 1 A",
+                "ITO 2 A",
+                "ITO 1 B",
+                "ITO 2 B"
+        );
+    }
+
+    public void fillStudentsList(ListView<String> lstStudents) {
         lstStudents.getItems().addAll(
                 "Massimiliano MacCallister",
                 "Lita Sayre",
@@ -150,8 +148,7 @@ public class DALManager
         );
     }
 
-    public void fillClassesChart(PieChart chrtClasses)
-    {
+    public void fillClassesChart(PieChart chrtClasses) {
         chrtClasses.setTitle("Overall Attendance in class");
         chrtClasses.getData().addAll(
                 new PieChart.Data("Attendance", 86),
@@ -159,8 +156,7 @@ public class DALManager
         );
     }
 
-    public void fillStudentsChart(PieChart chrtStudents)
-    {
+    public void fillStudentsChart(PieChart chrtStudents) {
         chrtStudents.setTitle("Student's Overall Attendance");
         chrtStudents.getData().addAll(
                 new PieChart.Data("Attendance", 98),
@@ -168,13 +164,11 @@ public class DALManager
         );
     }
 
-    public LocalDate setStartDate()
-    {
+    public LocalDate setStartDate() {
         return LocalDate.of(2018, 1, 1);
     }
 
-    public XYChart.Series getScoData()
-    {
+    public XYChart.Series getScoData() {
         XYChart.Series series = new XYChart.Series();
         series.setName("SCO");
         series.getData().addAll(
@@ -185,8 +179,7 @@ public class DALManager
         return series;
     }
 
-    public XYChart.Series getSdeData()
-    {
+    public XYChart.Series getSdeData() {
         XYChart.Series series = new XYChart.Series();
         series.setName("SDE");
         series.getData().addAll(
@@ -198,8 +191,7 @@ public class DALManager
         return series;
     }
 
-    public XYChart.Series getItoData()
-    {
+    public XYChart.Series getItoData() {
         XYChart.Series series = new XYChart.Series();
         series.setName("ITO");
         series.getData().addAll(
@@ -211,8 +203,7 @@ public class DALManager
         return series;
     }
 
-    public LocalDate getFirstDayOfMonth()
-    {
+    public LocalDate getFirstDayOfMonth() {
         LocalDate initial = LocalDate.now();
         return initial.withDayOfMonth(1);
     }
@@ -223,8 +214,7 @@ public class DALManager
      * @param password
      * @param email
      */
-    public void setNewPassword(String password, String email)
-    {
+    public void setNewPassword(String password, String email) {
         uDAO.setNewPassword(password, email);
     }
 
@@ -235,11 +225,9 @@ public class DALManager
      *
      * @throws DALException
      */
-    public List<Wifi> getWifi() throws DALException
-    {
+    public List<Wifi> getWifi() throws DALException {
 
-        try
-        {
+        try {
             List<Wifi> results = new ArrayList();
             Runtime runtime = Runtime.getRuntime();
             Process process = runtime.exec("netsh wlan show networks");
@@ -252,8 +240,7 @@ public class DALManager
             br.readLine(); // Skips interface name
             br.readLine(); // Skips number of available wifis
             br.readLine(); // Skips the fourth line
-            while ((line = br.readLine()) != null)
-            {
+            while ((line = br.readLine()) != null) {
                 String ssid = line;
                 ssid = ssid.substring(9);
 
@@ -273,25 +260,20 @@ public class DALManager
             }
 
             return results;
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             throw new DALException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public double GetAttendancePercentage(int UserID) throws SQLException
-    {
+    public double GetAttendancePercentage(int UserID) throws SQLException {
         ArrayList<Boolean> n = sDAO.registerAverageAttendance(UserID);
 
         double totalDays = n.size();
         double attendedDays = 0;
         double avgAmount = 0;
 
-        for (Boolean b : n)
-        {
-            if (b)
-            {
+        for (Boolean b : n) {
+            if (b) {
                 attendedDays++;
             }
 
