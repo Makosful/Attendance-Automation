@@ -57,7 +57,7 @@ public class LoginScreenController implements Initializable
     @FXML
     private CheckBox checkBoxRememberMe;
     
-    Stage currentStage;
+
 
 
 
@@ -133,7 +133,7 @@ public class LoginScreenController implements Initializable
         rememberMe();
         try
         {
-            User user = null;
+          
             String text = txtUserName.getText().toLowerCase();
             if (text.startsWith("t"))
                 changeStage("TeacherScreen");
