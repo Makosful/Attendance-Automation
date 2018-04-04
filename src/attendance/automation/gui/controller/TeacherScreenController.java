@@ -86,7 +86,6 @@ public class TeacherScreenController implements Initializable
         fillClassesList();
         setupStudentTable();
         fillStudentsTable();
-        System.out.println(fromDatepicker.getValue());
         comboClasses.getSelectionModel().selectFirst();
     }
 

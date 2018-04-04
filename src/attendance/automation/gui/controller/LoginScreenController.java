@@ -136,8 +136,7 @@ public class LoginScreenController implements Initializable
         }
         catch (IOException ex)
         {
-            System.out.println(ex.getLocalizedMessage());
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
         }
 
         try
