@@ -1,5 +1,6 @@
 package attendance.automation.dal;
 
+import attendance.automation.be.Clazz;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.be.Wifi;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
 /**
@@ -34,6 +34,7 @@ public class DALManager
     private final UserLogIn liEncryption;
     private final StudentDAO sDAO;
     private final TeacherDAO tDAO;
+    private final ClassDAO cDAO;
 
     public DALManager()
     {
@@ -42,6 +43,7 @@ public class DALManager
         uDAO = new UserDAO();
         sDAO = new StudentDAO();
         tDAO = new TeacherDAO();
+        cDAO = new ClassDAO();
     }
 
     public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, int id) throws DALException
@@ -124,22 +126,16 @@ public class DALManager
         return vd.validUsername(username);
     }
 
-    public void fillClassesListCombo(ComboBox<String> comboClasses)
+    public ArrayList<Clazz> fillClassesListCombo() throws DALException
     {
-        comboClasses.getItems().addAll(
-                "SCO 1 A",
-                "SCO 2 A",
-                "SCO 1 B",
-                "SCO 2 B",
-                "SDE 1 A",
-                "SDE 2 A",
-                "SDE 1 B",
-                "SDE 2 B",
-                "ITO 1 A",
-                "ITO 2 A",
-                "ITO 1 B",
-                "ITO 2 B"
-        );
+        try
+        {
+            return cDAO.getAllClasses();
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     public void fillStudentsList(ListView<String> lstStudents)

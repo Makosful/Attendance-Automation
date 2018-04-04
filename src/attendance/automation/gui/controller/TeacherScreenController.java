@@ -3,6 +3,7 @@ package attendance.automation.gui.controller;
 import attendance.automation.Main;
 import attendance.automation.be.LoadedStudent;
 import attendance.automation.be.User;
+import attendance.automation.bll.BLLException;
 import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
@@ -119,7 +120,14 @@ public class TeacherScreenController implements Initializable
 
     private void fillClassesList()
     {
-        model.fillClassesListCombo(comboClasses);
+        try
+        {
+            comboClasses.setItems(model.fillClassesListCombo());
+        }
+        catch (BLLException ex)
+        {
+            Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void fillStudentsTable()

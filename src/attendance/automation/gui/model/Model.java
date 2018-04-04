@@ -20,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -179,9 +178,9 @@ public class Model
         return user;
     }
 
-    public void fillClassesListCombo(ComboBox<String> comboClasses)
+    public ObservableList<String> fillClassesListCombo() throws BLLException
     {
-        bll.fillClassesListCombo(comboClasses);
+        return bll.fillClassesListCombo();
     }
 
     public void fillStudentsList(ListView<String> lstStudents)
