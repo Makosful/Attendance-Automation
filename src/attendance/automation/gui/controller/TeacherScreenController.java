@@ -31,8 +31,7 @@ import javafx.stage.Stage;
  *
  * @author Axl
  */
-public class TeacherScreenController implements Initializable
-{
+public class TeacherScreenController implements Initializable {
 
     @FXML
     private Button btnChangePassword;
@@ -83,8 +82,7 @@ public class TeacherScreenController implements Initializable
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         model = Model.getInstance();
 
         students = FXCollections.observableArrayList();
@@ -97,54 +95,44 @@ public class TeacherScreenController implements Initializable
         comboClasses.getSelectionModel().selectFirst();
     }
 
-    private void centerStage(Stage stage)
-    {
+    private void centerStage(Stage stage) {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    private void changeStage(String loginScreen)
-    {
-        try
-        {
+    private void changeStage(String loginScreen) {
+        try {
             Stage stage = (Stage) btnStudentStatistics.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/" + loginScreen + ".fxml"));
             Parent parent = loader.load();
             stage.setScene(new Scene(parent));
             centerStage(stage);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void fillClassesList()
-    {
+    private void fillClassesList() {
         model.fillClassesListCombo(comboClasses);
     }
 
-    private void fillStudentsTable()
-    {
+    private void fillStudentsTable() {
         tblStudents.setItems(model.getStudents());
     }
 
     @FXML
-    private void handleChangePassword(ActionEvent event)
-    {
+    private void handleChangePassword(ActionEvent event) {
         model.changePassword();
     }
 
     @FXML
-    private void handleLogOut(ActionEvent event)
-    {
+    private void handleLogOut(ActionEvent event) {
         changeStage("LoginScreen");
     }
 
     @FXML
-    private void handleStudentStatictics(ActionEvent event) throws IOException
-    {
+    private void handleStudentStatictics(ActionEvent event) throws IOException {
         currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentView.fxml"));
         Parent parent = loader.load();
@@ -157,57 +145,46 @@ public class TeacherScreenController implements Initializable
      *
      * @param currentStage
      */
-    private void centerStage()
-    {
+    private void centerStage() {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    private void setupStudentTable()
-    {
+    private void setupStudentTable() {
         clmFName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         clmLName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         clmAtt.setCellValueFactory(new PropertyValueFactory<>("attendance"));
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
     @FXML
-    private void SetFromDatepicker(ActionEvent event)
-    {
+    private void SetFromDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
 
     @FXML
-    private void SetToDatepicker(ActionEvent event)
-    {
+    private void SetToDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
 
-    private void CheckDatetimePickers()
-    {
-        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null)
-        {
+    private void CheckDatetimePickers() {
+        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
             LocalDate fromDate = fromDatepicker.getValue();
             LocalDate toDate = toDatepicker.getValue();
             String clazz = comboClasses.getSelectionModel().getSelectedItem();
             model.studentTimeFrame(fromDate, toDate, clazz);
-        }
-        else
-        {
+        } else {
             return;
         }
     }
 
     @FXML
-    private void MessageController(ActionEvent event)
-    {
-        try
-        {
+    private void MessageController(ActionEvent event) {
+        try {
             currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
             Parent parent = loader.load();
@@ -215,41 +192,35 @@ public class TeacherScreenController implements Initializable
             attendanceRequest.setUser(user);
             currentStage.setScene(new Scene(parent));
             centerStage();
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("failed 2 open window");
             Logger.getLogger(TeacherScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
-    private void btnSetDatepickerToSemesterStart(ActionEvent event)
-    {
+    private void btnSetDatepickerToSemesterStart(ActionEvent event) {
     }
 
     @FXML
-    private void btnSetDatepickerToToday(ActionEvent event)
-    {
+    private void btnSetDatepickerToToday(ActionEvent event) {
     }
 
     @FXML
-    private void setFromDatePicker(ActionEvent event)
-    {
+    private void setFromDatePicker(ActionEvent event) {
+        CheckDatetimePickers();
     }
 
     @FXML
-    private void setFromDatePickerToSemesterStart(ActionEvent event)
-    {
+    private void setFromDatePickerToSemesterStart(ActionEvent event) {
     }
 
     @FXML
-    private void setToDatepicker(ActionEvent event)
-    {
+    private void setToDatepicker(ActionEvent event) {
+        CheckDatetimePickers();
     }
 
     @FXML
-    private void setToDatePickerToTodaysDate(ActionEvent event)
-    {
+    private void setToDatePickerToTodaysDate(ActionEvent event) {
     }
 }
