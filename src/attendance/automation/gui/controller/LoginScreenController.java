@@ -131,7 +131,6 @@ public class LoginScreenController implements Initializable
     {
         //for the "remember me" checkbox
         rememberMe();
-        
         try
         {
             User user = null;
