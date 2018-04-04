@@ -258,5 +258,14 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * Get user
+     * @return 
+     */
+    public User getUser() {
+        return user;
+    }
+
 
 }

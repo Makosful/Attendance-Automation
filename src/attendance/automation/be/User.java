@@ -5,6 +5,7 @@
  */
 package attendance.automation.be;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public abstract class User {
     private String email;
     private String passWord;
     private boolean isStudent;
-    private List<String> classes;
+    private List<String> classes = new ArrayList();
     
     
    
