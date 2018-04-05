@@ -74,8 +74,10 @@ public class RequestChangeController implements Initializable {
         listViewAllClasses.setOnMouseClicked(event -> {
             int SelectedIndex = listViewAllClasses.getSelectionModel().getSelectedIndex();
             if(listViewAllClasses.getSelectionModel().isSelected(SelectedIndex)){
-                String SelectedItem = listViewAllClasses.getSelectionModel().getSelectedItem();
-                listViewSelectedClasses.getItems().add(SelectedItem);
+                String selectedItem = listViewAllClasses.getSelectionModel().getSelectedItem();
+                if(!listViewSelectedClasses.getItems().contains(selectedItem)){
+                    listViewSelectedClasses.getItems().add(selectedItem);
+                }
             }
             
         });

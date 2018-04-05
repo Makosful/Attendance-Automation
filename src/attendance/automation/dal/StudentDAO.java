@@ -207,21 +207,5 @@ public class StudentDAO
         return ids;
     }
     
-    public void insertDate() {
-        try (Connection con = db.getConnection())
-        {
-            java.util.Date today = new java.util.Date();
-            Date date = new java.sql.Date(today.getTime());
-            
-            String sql = "INSERT INTO Date (Date) VALUES(?)";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setDate(1, date);
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-    }
     
 }
