@@ -7,7 +7,6 @@ import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -16,6 +15,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.ListView;
 import javax.mail.MessagingException;
 
@@ -23,7 +23,7 @@ import javax.mail.MessagingException;
  *
  * @author Axl
  */
-public class BLLManager
+public class BLLManager implements IBLL
 {
 
     private final DALManager dal;
@@ -33,7 +33,11 @@ public class BLLManager
         dal = new DALManager();
     }
 
-    public ObservableList<PieChart.Data> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws BLLException
+    @Override
+    public ObservableList<Data> attendanceTimeFrame(LocalDate from,
+                                                    LocalDate to,
+                                                    User user)
+            throws BLLException
     {
         try
         {
@@ -66,6 +70,7 @@ public class BLLManager
         }
     }
 
+    @Override
     public void changePassword(User user, String newPass, String curPass)
             throws BLLException
     {
@@ -77,6 +82,7 @@ public class BLLManager
 
     }
 
+    @Override
     public void createStudent(String fName, String lName, String uName,
                               String email, String password)
     {
@@ -85,11 +91,12 @@ public class BLLManager
         dal.createNewUser(student);
     }
 
-    public ObservableList<PieChart.Data> getStudentAttendance(User user) throws BLLException
+    @Override
+    public ArrayList<Data> getStudentAttendance(User user) throws BLLException
     {
         try
         {
-            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+            ArrayList<Data> data = new ArrayList<>();
             int attendance = 0;
             int absence = 0;
 
@@ -127,6 +134,7 @@ public class BLLManager
      *
      * @throws BLLException
      */
+    @Override
     public boolean isConnectedToWifi(String wifi) throws BLLException
     {
         try
@@ -141,12 +149,12 @@ public class BLLManager
         }
     }
 
-    public ObservableList<LoadedStudent> loadStudent() throws BLLException
+    @Override
+    public ArrayList<LoadedStudent> loadStudent() throws BLLException
     {
         try
         {
-            ObservableList<LoadedStudent> students
-                                          = FXCollections.observableArrayList();
+            ArrayList<LoadedStudent> students = new ArrayList<>();
             ArrayList<Student> list = dal.loadStudents();
 
             for (Student s : list)
@@ -168,6 +176,7 @@ public class BLLManager
         }
     }
 
+    @Override
     public void registerAttendance(User user) throws BLLException
     {
         try
@@ -180,16 +189,19 @@ public class BLLManager
         }
     }
 
+    @Override
     public boolean validEmail(String email)
     {
         return dal.validEmail(email);
     }
 
+    @Override
     public boolean validUsername(String username)
     {
         return dal.validUsername(username);
     }
 
+    @Override
     public User userLogIn(String username, String password) throws BLLException
     {
         try
@@ -202,11 +214,12 @@ public class BLLManager
         }
     }
 
-    public ObservableList<String> fillClassesListCombo() throws BLLException
+    @Override
+    public ArrayList<String> fillClassesListCombo() throws BLLException
     {
         try
         {
-            ObservableList<String> data = FXCollections.observableArrayList();
+            ArrayList<String> data = new ArrayList<>();
             ArrayList<Clazz> clazzes = dal.fillClassesListCombo();
             clazzes.forEach((clazz) ->
             {
@@ -220,28 +233,33 @@ public class BLLManager
         }
     }
 
+    @Override
     public void fillStudentsList(ListView<String> lstStudents)
     {
         dal.fillStudentsList(lstStudents);
     }
 
+    @Override
     public LocalDate setStartDate()
     {
         LocalDate startDate = dal.setStartDate();
         return startDate;
     }
 
+    @Override
     public LocalDate getFirstDayOfMonth()
     {
         LocalDate firstDay = dal.getFirstDayOfMonth();
         return firstDay;
     }
 
+    @Override
     public void fillClassesChart(PieChart chrtClasses)
     {
         dal.fillClassesChart(chrtClasses);
     }
 
+    @Override
     public void fillStudentsChart(PieChart chrtStudents)
     {
         dal.fillStudentsChart(chrtStudents);
@@ -253,21 +271,29 @@ public class BLLManager
      * @param txtUserName
      * @param txtPassword
      * @param checkBoxSelected
+     * @throws attendance.automation.bll.BLLException
      *
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
+    @Override
     public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected)
-            throws IOException,
-                   NoSuchAlgorithmException
+            throws BLLException
     {
-        if (checkBoxSelected)
+        try
         {
-            StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+            if (checkBoxSelected)
+            {
+                StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+            }
+            else
+            {
+                StoreLocalLogin.setLoginInfo("", "");
+            }
         }
-        else
+        catch (IOException | NoSuchAlgorithmException ex)
         {
-            StoreLocalLogin.setLoginInfo("", "");
+            throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -275,15 +301,22 @@ public class BLLManager
      * Get the login credentials
      *
      * @return
+     * @throws attendance.automation.bll.BLLException
      *
      * @throws FileNotFoundException
      */
-    public String[] getLoginInfo() throws FileNotFoundException
+    @Override
+    public String[] getLoginInfo() throws BLLException
     {
-
-        String[] rememberLogin = StoreLocalLogin.getLoginInfo();
-        return rememberLogin;
-
+        try
+        {
+            String[] rememberLogin = StoreLocalLogin.getLoginInfo();
+            return rememberLogin;
+        }
+        catch (FileNotFoundException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
     }
 
     /**
@@ -292,34 +325,43 @@ public class BLLManager
      * @param email
      *
      * @return
+     * @throws attendance.automation.bll.BLLException
      *
      * @throws javax.mail.MessagingException
      */
-    public boolean forgottenPassEmail(String email) throws MessagingException
+    @Override
+    public boolean forgottenPassEmail(String email) throws BLLException
     {
 
-        boolean emailInDB = dal.validEmail(email);
-        if (!emailInDB)
+        try
         {
+            boolean emailInDB = dal.validEmail(email);
+            if (!emailInDB)
+            {
 
-            String newRandomPassword = RandomPassword.generateRandomPassword();
-            Email mail = new Email(email, "New password for attendance automation",
-                                   "<p style='font-size:19px'>Hi, here is the new password"
-                                   + " for your account: </p><span style='font-size:12px; "
-                                   + "border: 1px solid green; padding:4px;'>"
-                                   + newRandomPassword + "</span>"
-                                   + "<p style='font-size:13px'>Please remember to "
-                                   + "change it after the first login</p>");
-            mail.sendMail();
+                String newRandomPassword = RandomPassword.generateRandomPassword();
+                Email mail = new Email(email, "New password for attendance automation",
+                                       "<p style='font-size:19px'>Hi, here is the new password"
+                                       + " for your account: </p><span style='font-size:12px; "
+                                       + "border: 1px solid green; padding:4px;'>"
+                                       + newRandomPassword + "</span>"
+                                       + "<p style='font-size:13px'>Please remember to "
+                                       + "change it after the first login</p>");
+                mail.sendMail();
 
-            String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
-            dal.setNewPassword(newRandomEncryptedPassword, email);
+                String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
+                dal.setNewPassword(newRandomEncryptedPassword, email);
 
-            return true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
+        catch (MessagingException ex)
         {
-            return false;
+            throw new BLLException(ex.getLocalizedMessage(), ex);
         }
 
     }
@@ -336,6 +378,7 @@ public class BLLManager
         }
     }
 
+    @Override
     public List<NotificationMessage> allNotifications() throws BLLException
     {
         try
@@ -348,6 +391,7 @@ public class BLLManager
         }
     }
 
+    @Override
     public void getUser(User user) throws BLLException
     {
         try
@@ -360,6 +404,7 @@ public class BLLManager
         }
     }
 
+    @Override
     public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) throws BLLException
     {
         ArrayList<LoadedStudent> newStudents = new ArrayList<>();
@@ -387,7 +432,20 @@ public class BLLManager
         return sum / size;
     }
 
-    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
-        dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
+    @Override
+    public void requestAttendaceChange(int studentId,
+                                       List<String> chosenCalsses,
+                                       String message,
+                                       LocalDate date)
+            throws BLLException
+    {
+        try
+        {
+            dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
+        }
+        catch (SQLException ex)
+        {
+            throw new BLLException(ex.getLocalizedMessage(), ex);
+        }
     }
 }

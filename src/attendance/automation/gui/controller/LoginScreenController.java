@@ -5,10 +5,8 @@ import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.gui.model.Model;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,8 +76,7 @@ public class LoginScreenController implements Initializable
 
     /**
      * Change the stage to either studentScreenController or
-     * TeacherScrennController
-     * passing the specific user who just logged in
+     * TeacherScrennController passing the specific user who just logged in
      *
      * @param file
      * @param user
@@ -132,9 +129,13 @@ public class LoginScreenController implements Initializable
 
             String text = txtUserName.getText().toLowerCase();
             if (text.startsWith("t"))
+            {
                 changeStage("TeacherScreen");
+            }
             if (text.startsWith("s"))
+            {
                 changeStage("StudentScreen");
+            }
         }
         catch (IOException ex)
         {
@@ -224,19 +225,15 @@ public class LoginScreenController implements Initializable
         {
             model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
         }
-        catch (IOException ex)
-        {
-            System.out.println("Could not store the login credentials");
-        }
-        catch (NoSuchAlgorithmException ex)
+        catch (BLLException ex)
         {
             System.out.println("Could not store the login credentials");
         }
     }
 
     /**
-     * Get the login credentials, if they exist add them to the textfields
-     * else it means that the user does not want to remember the login info
+     * Get the login credentials, if they exist add them to the textfields else
+     * it means that the user does not want to remember the login info
      */
     private void checkRememberMe()
     {
@@ -250,7 +247,7 @@ public class LoginScreenController implements Initializable
                 checkBoxRememberMe.selectedProperty().setValue(Boolean.TRUE);
             }
         }
-        catch (FileNotFoundException ex)
+        catch (BLLException ex)
         {
             System.out.println("Could not retrieve the login credentials");
         }

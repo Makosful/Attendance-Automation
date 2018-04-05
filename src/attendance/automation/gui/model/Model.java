@@ -6,11 +6,8 @@ import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.bll.BLLManager;
-import java.io.FileNotFoundException;
+import attendance.automation.bll.IBLL;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import javax.mail.MessagingException;
 
 /**
  * This class will cache all data for the application while acting as the sole
@@ -35,7 +31,6 @@ public class Model
 {
 
     //<editor-fold defaultstate="collapsed" desc="Singleton">
-// Singleton instance of the model
     private static final Model INSTANCE = new Model();
 
     /**
@@ -49,7 +44,7 @@ public class Model
     }
     //</editor-fold>
 
-    private final BLLManager bll;
+    private final IBLL bll;
 
     private final ObservableList<PieChart.Data> pieChartAttendance;
     private final ObservableList<LoadedStudent> students;
@@ -181,7 +176,7 @@ public class Model
 
     public ObservableList<String> fillClassesListCombo() throws BLLException
     {
-        return bll.fillClassesListCombo();
+        return FXCollections.observableArrayList(bll.fillClassesListCombo());
     }
 
     public void fillStudentsList(ListView<String> lstStudents)
@@ -217,19 +212,18 @@ public class Model
     }
 
     public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected)
-            throws IOException,
-                   NoSuchAlgorithmException
+            throws BLLException
     {
         bll.storeLocalLogin(txtUserName, txtPassword, selected);
     }
 
-    public String[] getLogInInfo() throws FileNotFoundException
+    public String[] getLogInInfo() throws BLLException
     {
         String[] login = bll.getLoginInfo();
         return login;
     }
 
-    public boolean forgottenPassEmail(String email) throws MessagingException
+    public boolean forgottenPassEmail(String email) throws BLLException
     {
         boolean emailExistsInDB = bll.forgottenPassEmail(email);
         return emailExistsInDB;
@@ -266,15 +260,16 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Get user
-     * @return 
+     *
+     * @return
      */
-    public User getUser() {
+    public User getUser()
+    {
         return user;
     }
-
 
     public List<NotificationMessage> allNotifications() throws BLLException
     {
@@ -295,12 +290,15 @@ public class Model
 
     /**
      * To send a request to teachers for changing the attaendace status
+     *
      * @param studentId
      * @param message
      * @param chosenCalsses
-     * @param date 
+     * @param date
+     * @throws attendance.automation.bll.BLLException
      */
-    public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws BLLException
+    {
         bll.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
 }

@@ -21,20 +21,22 @@ import java.util.Scanner;
  *
  * @author B
  */
-public class StoreLocalLogin {
-    
-    
+public class StoreLocalLogin
+{
+
     /**
-     * Writes the login credentials to a txt file locally,
-     * to be used next time the user wants to login
+     * Writes the login credentials to a txt file locally, to be used next time
+     * the user wants to login
+     *
      * @param userName
      * @param password
      * @throws IOException
-     * @throws NoSuchAlgorithmException 
+     * @throws NoSuchAlgorithmException
      */
     public static void setLoginInfo(String userName, String password) throws IOException, NoSuchAlgorithmException
     {
-        if(!userName.equals("")){
+        if (!userName.equals(""))
+        {
             password = hashPass(password);
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("loginInfo.txt")))
@@ -45,47 +47,45 @@ public class StoreLocalLogin {
         }
     }
 
-    
-    
     /**
      * Get the login credentials for the user stored on this local machine
+     *
      * @return String array of login info - username and password
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public static String[] getLoginInfo() throws FileNotFoundException
     {
         File f = new File("loginInfo.txt");
         Scanner sc = new Scanner(new BufferedReader(new FileReader(f)));
-        
+
         String userName = null;
         String password = null;
-        
-        if(sc.hasNext())
+
+        if (sc.hasNext())
         {
             userName = sc.nextLine();
         }
-        if(sc.hasNext())
+        if (sc.hasNext())
         {
             password = sc.nextLine();
         }
-        
+
         String[] loginInfo = new String[2];
         loginInfo[0] = userName;
         loginInfo[1] = password;
         return loginInfo;
-        
+
     }
-    
-   
-    
+
     /**
      * One way function/hashing of password
+     *
      * @param password
      * @return
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
-    public static String hashPass(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException 
+    public static String hashPass(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -99,13 +99,16 @@ public class StoreLocalLogin {
 
             String hex = Integer.toHexString(0xff & hash[i]);
 
-            if(hex.length() == 1) hexString.append('0');
+            if (hex.length() == 1)
+            {
+                hexString.append('0');
+            }
 
             hexString.append(hex);
 
         }
 
         return hexString.toString();
-        
+
     }
 }

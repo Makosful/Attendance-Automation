@@ -26,14 +26,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
  *
  * @author B
  */
-public class ForgotPasswordController implements Initializable {
+public class ForgotPasswordController implements Initializable
+{
 
     @FXML
     private TextField txtFieldEmail;
@@ -41,59 +41,62 @@ public class ForgotPasswordController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private Label lblEmailStatus;
-    
+
     private Model model;
     private Stage currentStage;
-    
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-            model = Model.getInstance();
-            
-        
-    }    
+    public void initialize(URL url, ResourceBundle rb)
+    {
+
+        model = Model.getInstance();
+
+    }
 
     @FXML
-    private void handleSendNewPassword(ActionEvent event) {
-        try {    
+    private void handleSendNewPassword(ActionEvent event)
+    {
+        try
+        {
             IValidation emailValidation = ValidationFactory.createValidation(ValidationFactory.validationType.email);
-            if(!emailValidation.inputValidation(txtFieldEmail.getText()))
+            if (!emailValidation.inputValidation(txtFieldEmail.getText()))
             {
                 lblEmailStatus.setText(emailValidation.getValidationMessage());
             }
             else
             {
                 lblEmailStatus.setText("");
-            
-                try {
-                    boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
-                    if(emailExistsInDB)
-                    {
-                        lblEmailStatus.setText("An email is now sent to you containing a "
-                                             + "new temporary password");
-                    }
-                    else
-                    {
-                        lblEmailStatus.setText("The given email does not exist");
-                    }
-                } catch (MessagingException ex) {
-                    System.out.println(ex.getMessage());
-                    lblEmailStatus.setText("An error occurred while sending the email");
+
+                boolean emailExistsInDB = model.forgottenPassEmail(txtFieldEmail.getText());
+                if (emailExistsInDB)
+                {
+                    lblEmailStatus.setText("An email is now sent to you containing a "
+                                           + "new temporary password");
+                }
+                else
+                {
+                    lblEmailStatus.setText("The given email does not exist");
                 }
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             System.out.println(ex.getMessage());
         }
     }
 
     @FXML
-    private void handleBackButton(ActionEvent event) {
+    private void handleBackButton(ActionEvent event)
+    {
         changeStageLoginView();
     }
-    
+
     /**
      * Changes the currentStage to the login view screen
      */
@@ -113,7 +116,7 @@ public class ForgotPasswordController implements Initializable {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Centers the window on the screen
      *
@@ -126,26 +129,20 @@ public class ForgotPasswordController implements Initializable {
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
     }
 
-    
     /**
-     * 
+     *
      * @param txtField
      * @param label
-     * @param validation 
-    addTxtFieldValidationListener(txtFieldEmail, lblEmailStatus, emailValidation);
-    private void addTxtFieldValidationListener(TextField txtField, Label label, IValidation validation) {
-        
-        txtField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!validation.inputValidation(newValue))
-                {
-                    label.setText(validation.getValidationMessage());
-                    
-                }
-                else
-                {
-                    label.setText("");
-                }
-        });
-    }
-    */
+     * @param validation addTxtFieldValidationListener(txtFieldEmail,
+     * lblEmailStatus, emailValidation); private void
+     * addTxtFieldValidationListener(TextField txtField, Label label,
+     * IValidation validation) {
+     *
+     * txtField.textProperty().addListener((observable, oldValue, newValue) -> {
+     * if(!validation.inputValidation(newValue)) {
+     * label.setText(validation.getValidationMessage());
+     *
+     * }
+     * else { label.setText(""); } }); }
+     */
 }
