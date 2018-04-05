@@ -157,4 +157,9 @@
     -fx-border-color: transparent;
 }
 
+.contextMenu
+{
+  -fx-text-fill: black;
+}
+
 /*# sourceMappingURL=style.css.map */

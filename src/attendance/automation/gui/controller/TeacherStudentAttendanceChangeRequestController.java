@@ -62,28 +62,16 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         messageViewSetup();
         model = Model.getInstance();
         setupContextMenu();
-        // TODO
     } 
 
     @FXML
     private void loadMessages(ActionEvent event) throws SQLException 
     {
-        messageView.getItems().clear();
-        try 
-        {
-           for(NotificationMessage message : model.allNotifications())
-           {             
-               messageView.getItems().add(message);
-           }
-        } 
-        catch (BLLException ex) 
-        {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setContentText(ex.getMessage());
-           alert.show();
-        }
+        loadMessages();
     }
-    
+    /**
+     * Custom objects in a listview.
+     */
     public void messageViewSetup() 
     {
         messageView.setCellFactory(new Callback<ListView<NotificationMessage>, ListCell<NotificationMessage>>() 
@@ -116,6 +104,7 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             {
                 
                 NotificationMessage message = messageView.getSelectionModel().getSelectedItem();
+                cm.hide();
                 if(message !=  null)
                 {
                 lblClass.setText(message.getClassName());
@@ -126,7 +115,11 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             }
         });
     }
-    
+    /**
+     * Open contextmenu only if a message has been clicked.
+     * @param e
+     * @param message 
+     */
     public void openContextMenu(MouseEvent e, NotificationMessage message)
     {
         if(e.getButton() == MouseButton.SECONDARY)
@@ -138,7 +131,9 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             }
         }
     }
-    
+    /**
+     * Action events  and contextmenu setup.
+     */
     public void setupContextMenu()
     {
         cm = new ContextMenu();
@@ -163,12 +158,17 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         });
         cm.getItems().addAll(accept, decline);
     }
-    
+    /**
+     * Sets the current user.
+     * @param user 
+     */
     public void setUser(User user)
     {
         this.user = user;
     }
-    
+    /**
+     * Gets all the messages for the teacher.
+     */
     public void loadMessages()
     {
                 messageView.getItems().clear();
