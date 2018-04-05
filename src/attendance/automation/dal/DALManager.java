@@ -278,18 +278,25 @@ public class DALManager {
         return avgAmount;
     }
 
-    public List<NotificationMessage> allNotifications() throws DALException {
-        try {
+    public List<NotificationMessage> allNotifications() throws DALException
+    {
+        try 
+        {
             return tDAO.allNotifications();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex)
+        {
             throw new DALException("Failed to get messages", ex);
         }
     }
 
     public void getUser(User user) throws DALException {
-        try {
+        try 
+        {
             tDAO.getUser(user);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             throw new DALException("Couldn't get user", ex);
         }
     }

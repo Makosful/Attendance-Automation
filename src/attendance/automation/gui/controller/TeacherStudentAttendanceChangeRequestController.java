@@ -5,17 +5,26 @@
  */
 package attendance.automation.gui.controller;
 
+import attendance.automation.Main;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.gui.model.Model;
+import com.jfoenix.controls.JFXButton;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -25,6 +34,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -51,6 +62,9 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private ContextMenu cm;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private JFXButton loadMessages;
+    private Stage currentStage;
     
 
     /**
@@ -64,9 +78,9 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         setupContextMenu();
     } 
 
-    @FXML
-    private void loadMessages(ActionEvent event) throws SQLException 
+    private void loadMessages(ActionEvent event)
     {
+        System.out.println("jfx");
         loadMessages();
     }
     /**
@@ -102,8 +116,8 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             @Override
             public void handle(MouseEvent event) 
             {
-                
-                NotificationMessage message = messageView.getSelectionModel().getSelectedItem();
+                NotificationMessage message = null;
+                message = messageView.getSelectionModel().getSelectedItem();
                 cm.hide();
                 if(message !=  null)
                 {
@@ -171,7 +185,7 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
      */
     public void loadMessages()
     {
-                messageView.getItems().clear();
+        messageView.getItems().clear();
         try 
         {
            for(NotificationMessage message : model.allNotifications())
@@ -186,5 +200,33 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
            alert.show();
         }
     }
+
+    @FXML
+    private void backButton(ActionEvent event) 
+    {
+        try 
+        {
+            currentStage = (Stage) messageView.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+            Parent parent = loader.load();
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+        } catch (IOException ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+        }
+    }
     
+        /**
+     * Centers the window on the screen
+     *
+     * @param currentStage
+     */
+    private void centerStage()
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
+        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
 }

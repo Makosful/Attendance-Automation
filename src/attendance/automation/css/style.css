@@ -157,9 +157,14 @@
     -fx-border-color: transparent;
 }
 
-.contextMenu
+.context-menu 
 {
-  -fx-text-fill: black;
+  -fx-background-color: darkblue;
+}
+
+.menu-item .label
+{
+  -fx-text-fill: whitesmoke;
 }
 
 /*# sourceMappingURL=style.css.map */
