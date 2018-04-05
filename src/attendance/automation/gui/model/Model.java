@@ -9,6 +9,8 @@ import attendance.automation.bll.BLLManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
@@ -264,6 +266,15 @@ public class Model
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * Get user
+     * @return 
+     */
+    public User getUser() {
+        return user;
+    }
+
 
     public List<NotificationMessage> allNotifications() throws BLLException
     {
@@ -280,5 +291,16 @@ public class Model
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * To send a request to teachers for changing the attaendace status
+     * @param studentId
+     * @param message
+     * @param chosenCalsses
+     * @param date 
+     */
+    public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+        bll.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
 }

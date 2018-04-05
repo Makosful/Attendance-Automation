@@ -133,6 +133,8 @@ public class LoginScreenController implements Initializable
             String text = txtUserName.getText().toLowerCase();
             if (text.startsWith("t"))
                 changeStage("TeacherScreen");
+            if (text.startsWith("s"))
+                changeStage("StudentScreen");
         }
         catch (IOException ex)
         {

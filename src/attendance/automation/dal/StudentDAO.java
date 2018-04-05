@@ -9,12 +9,13 @@ import attendance.automation.be.Student;
 import attendance.automation.be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -41,7 +42,7 @@ public class StudentDAO
      */
     public void registerAttendance(int userID, boolean attendance) throws SQLServerException, SQLException
     {
-        try (Connection con = db.getConnection())
+        try (Connection con = db.getConnection())   
         {
             String sql = "INSERT INTO StudentAttendance VALUES(?, ?, getDate())";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -77,16 +78,17 @@ public class StudentDAO
         }
     }
 
-    public void sendAttendanceChange(int studentID, int classID, String message, Date date) throws SQLServerException, SQLException
+    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate date) throws SQLServerException, SQLException
     {
         try (Connection con = db.getConnection())
         {
+            System.out.println(date);
             String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
             pstmt.setInt(2, classID);
             pstmt.setString(3, message);
-            pstmt.setDate(4, new java.sql.Date(date.getTime()));
+            pstmt.setObject(4, date);
             pstmt.executeUpdate();
         }
     }
@@ -162,4 +164,29 @@ public class StudentDAO
         }
         return att;
     }
+
+
+
+    public ArrayList<Integer> lookUpClassIdsFromClassNames(List<String> chosenCalsses, String classes) throws SQLServerException, SQLException {
+        ArrayList<Integer> ids = new ArrayList();
+        try (Connection con = db.getConnection())
+        {
+            int i = 1;
+            String sql = "SELECT ClassID FROM Classes WHERE "+classes;
+            System.out.println(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            for(String subject : chosenCalsses){
+                stmt.setString(i++, subject);
+                
+            }
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                ids.add(rs.getInt("ClassID"));
+            }
+        }
+        return ids;
+    }
+
 }
