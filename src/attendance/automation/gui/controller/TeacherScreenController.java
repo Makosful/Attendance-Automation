@@ -213,4 +213,27 @@ public class TeacherScreenController implements Initializable {
     @FXML
     private void comboFillClasses(ActionEvent event) {
     }
+
+    @FXML
+    private void readMessages(ActionEvent event) 
+    {
+         try 
+        {
+            currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
+            Parent parent = loader.load();
+            TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
+            attendanceRequest.setUser(user);
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+            attendanceRequest.loadMessages();
+        } 
+        catch (IOException ex) 
+        {
+            System.out.println("failed 2 open window");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
+    }
 }

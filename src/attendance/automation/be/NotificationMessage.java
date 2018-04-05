@@ -13,13 +13,13 @@ public class NotificationMessage
 {
     private final String message;
     private final int studentID;
-    private final int classID;
+    private final String className;
     private final String studentName;
     
-    public NotificationMessage(int studentID, int classID, String studentName, String message)
+    public NotificationMessage(int studentID, String className, String studentName, String message)
     {
         this.studentID = studentID;
-        this.classID = classID;
+        this.className = className;
         this.message = message;
         this.studentName = studentName;
     }
@@ -37,9 +37,9 @@ public class NotificationMessage
         return studentID;
     }
 
-    public int getClassID() 
+    public String getClassName() 
     {
-        return classID;
+        return className;
     }
     
     public String getStudentName()

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class TeacherDAO 
 {
-    private DataBaseConnector dbConnector; 
+    private final DataBaseConnector dbConnector; 
     private List<Integer> classIds;
     public TeacherDAO()
     {
@@ -47,10 +47,11 @@ public class TeacherDAO
                 {
                     if (messageClassID == classIds.get(i)) 
                     {
-                        int studentID = rs.getInt("StudentID");
+                        int studentId = rs.getInt("StudentID");
                         String message = rs.getString("Message");
-                        String studentName = getStudent(studentID);
-                        NotificationMessage notificationMessage = new NotificationMessage(studentID, messageClassID, studentName,  message);
+                        String studentName = getStudentName(studentId);
+                        String className = getStudentClassName(messageClassID);
+                        NotificationMessage notificationMessage = new NotificationMessage(studentId, className, studentName,  message);
                         allNotifications.add(notificationMessage);
                     }
                 }
@@ -98,24 +99,37 @@ public class TeacherDAO
         return classIds;
     }
     
-    public String getStudent(int studentId) throws SQLException
+    public String getStudentName(int studentId) throws SQLException
     {
         try(Connection con = dbConnector.getConnection())
         {
-            String sql = "SELECT DISTINCT FirstName, LastName FROM Users JOIN AttendanceChangeRequest ON AttendanceChangeRequest.StudentID = users.UserID where StudentID = ?";
+            String sql = "SELECT DISTINCT FirstName, LastName from Users where UserID = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentId);
             ResultSet rs = pstmt.executeQuery();
-            System.out.println("test");
             rs.next();
-            String name = rs.getString("FirstName") + " " + rs.getString("LastName"); 
-            return name;
-            
+            return  rs.getString("FirstName") + " " + rs.getString("LastName");    
         } 
         catch (SQLServerException ex) 
         {
             System.out.println(ex.getMessage());
             throw new SQLException();
+        }
+    }
+    
+    public String getStudentClassName(int studentId) throws SQLException
+    {
+         try(Connection con = dbConnector.getConnection())
+        {
+            String sql = "SELECT ClassName from Classes where ClassID = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, studentId);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            return rs.getString("ClassName");
+        } catch (SQLException ex) 
+        {
+            throw new SQLException(ex.getMessage(), ex);
         }
     }
 }

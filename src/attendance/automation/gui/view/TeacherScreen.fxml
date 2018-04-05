@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
+<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -24,15 +23,16 @@
     <bottom>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ButtonBar buttonOrder="U" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <buttons>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
-                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" />
+                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" />
+                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
+                  <Button mnemonicParsing="false" onAction="#readMessages" text="Read Messages" />
                     </buttons>
                 </ButtonBar>
             </children>
