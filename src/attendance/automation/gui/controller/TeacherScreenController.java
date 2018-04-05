@@ -254,10 +254,9 @@ public class TeacherScreenController implements Initializable {
     private void addStudentAccount(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(
-                    TeacherAddStudentAccController.class.getResource("gui/view/TeacherAddStudentacc.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("gui/view/TeacherAddStudentAcc.fxml"));
             stage.setScene(new Scene(root));
-            stage.setTitle("tadaaaaa");
+            stage.setTitle("Add a student to the Database");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(
                     ((Node) event.getSource()).getScene().getWindow());
