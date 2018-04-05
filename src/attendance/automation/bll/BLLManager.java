@@ -23,34 +23,26 @@ import javax.mail.MessagingException;
  *
  * @author Axl
  */
-public class BLLManager
-{
+public class BLLManager {
 
     private final DALManager dal;
 
-    public BLLManager()
-    {
+    public BLLManager() {
         dal = new DALManager();
     }
 
-    public ObservableList<PieChart.Data> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws BLLException
-    {
-        try
-        {
+    public ObservableList<PieChart.Data> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws BLLException {
+        try {
             ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
             ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user.getId());
 
             int attend = 0;
             int abs = 0;
 
-            for (Boolean bool : att)
-            {
-                if (bool)
-                {
+            for (Boolean bool : att) {
+                if (bool) {
                     attend++;
-                }
-                else
-                {
+                } else {
                     abs++;
                 }
             }
@@ -59,16 +51,13 @@ public class BLLManager
             data.add(new PieChart.Data("Absence", abs));
 
             return data;
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
     public void changePassword(User user, String newPass, String curPass)
-            throws BLLException
-    {
+            throws BLLException {
         System.out.println(user.getUserName());
         newPass = Hash.passwordHashing(newPass);
         curPass = Hash.passwordHashing(curPass);
@@ -78,26 +67,21 @@ public class BLLManager
     }
 
     public void createStudent(String fName, String lName, String uName,
-                              String email, String password)
-    {
+            String email, String password) {
         String pass = Hash.passwordHashing(password);
         User student = new Student(true, fName, lName, uName, email, pass);
         dal.createNewUser(student);
     }
 
-    public ObservableList<PieChart.Data> getStudentAttendance(User user) throws BLLException
-    {
-        try
-        {
+    public ObservableList<PieChart.Data> getStudentAttendance(User user) throws BLLException {
+        try {
             ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
             int attendance = 0;
             int absence = 0;
 
             ArrayList<Integer> studentAttendance = dal.getStudentAttendance(user);
-            for (Integer i : studentAttendance)
-            {
-                switch (i)
-                {
+            for (Integer i : studentAttendance) {
+                switch (i) {
                     case 0:
                         absence++;
                         break;
@@ -111,9 +95,7 @@ public class BLLManager
             data.add(new PieChart.Data("Absence", absence));
 
             return data;
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
@@ -127,141 +109,110 @@ public class BLLManager
      *
      * @throws BLLException
      */
-    public boolean isConnectedToWifi(String wifi) throws BLLException
-    {
-        try
-        {
+    public boolean isConnectedToWifi(String wifi) throws BLLException {
+        try {
             List<Wifi> wifiList = dal.getWifi();
             return wifiList.stream().anyMatch((w)
                     -> (w.getSsid().equalsIgnoreCase(wifi)));
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public ObservableList<LoadedStudent> loadStudent() throws BLLException
-    {
-        try
-        {
+    public ObservableList<LoadedStudent> loadStudent() throws BLLException {
+        try {
             ObservableList<LoadedStudent> students
-                                          = FXCollections.observableArrayList();
+                    = FXCollections.observableArrayList();
             ArrayList<Student> list = dal.loadStudents();
 
-            for (Student s : list)
-            {
+            for (Student s : list) {
                 double p = getAveragePercentage(s.getId()) * 100;
                 DecimalFormat df = new DecimalFormat("##.##");
                 String ps = df.format(p);
                 students.add(new LoadedStudent(s.getId(),
-                                               s.getFirstName(),
-                                               s.getLastName(),
-                                               ps + "%"));
+                        s.getFirstName(),
+                        s.getLastName(),
+                        ps + "%"));
             }
 
             return students;
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public void registerAttendance(User user) throws BLLException
-    {
-        try
-        {
+    public void registerAttendance(User user) throws BLLException {
+        try {
             dal.registerAttendance(user);
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public boolean validEmail(String email)
-    {
+    public boolean validEmail(String email) {
         return dal.validEmail(email);
     }
 
-    public boolean validUsername(String username)
-    {
+    public boolean validUsername(String username) {
         return dal.validUsername(username);
     }
 
-    public User userLogIn(String username, String password) throws BLLException
-    {
-        try
-        {
+    public User userLogIn(String username, String password) throws BLLException {
+        try {
             return dal.userLogIn(username, password);
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getMessage(), ex);
         }
     }
 
-    public ObservableList<String> fillClassesListCombo() throws BLLException
-    {
-        try
-        {
+    public ObservableList<String> fillClassesListCombo() throws BLLException {
+        try {
             ObservableList<String> data = FXCollections.observableArrayList();
             ArrayList<Clazz> clazzes = dal.fillClassesListCombo();
-            clazzes.forEach((clazz) ->
-            {
+            clazzes.forEach((clazz)
+                    -> {
                 data.add(clazz.getName());
             });
             return data;
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public void fillStudentsList(ListView<String> lstStudents)
-    {
+    public void fillStudentsList(ListView<String> lstStudents) {
         dal.fillStudentsList(lstStudents);
     }
 
-    public LocalDate setStartDate()
-    {
+    public LocalDate setStartDate() {
         LocalDate startDate = dal.setStartDate();
         return startDate;
     }
 
-    public XYChart.Series getScoData()
-    {
+    public XYChart.Series getScoData() {
         XYChart.Series series = dal.getScoData();
         return series;
     }
 
-    public XYChart.Series getSdeData()
-    {
+    public XYChart.Series getSdeData() {
         XYChart.Series series = dal.getSdeData();
         return series;
     }
 
-    public XYChart.Series getItoData()
-    {
+    public XYChart.Series getItoData() {
         XYChart.Series series = dal.getItoData();
         return series;
     }
 
-    public LocalDate getFirstDayOfMonth()
-    {
+    public LocalDate getFirstDayOfMonth() {
         LocalDate firstDay = dal.getFirstDayOfMonth();
         return firstDay;
     }
 
-    public void fillClassesChart(PieChart chrtClasses)
-    {
+    public void fillClassesChart(PieChart chrtClasses) {
         dal.fillClassesChart(chrtClasses);
     }
 
-    public void fillStudentsChart(PieChart chrtStudents)
-    {
+    public void fillStudentsChart(PieChart chrtStudents) {
         dal.fillStudentsChart(chrtStudents);
     }
 
@@ -277,14 +228,10 @@ public class BLLManager
      */
     public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected)
             throws IOException,
-                   NoSuchAlgorithmException
-    {
-        if (checkBoxSelected)
-        {
+            NoSuchAlgorithmException {
+        if (checkBoxSelected) {
             StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
-        }
-        else
-        {
+        } else {
             StoreLocalLogin.setLoginInfo("", "");
         }
     }
@@ -296,8 +243,7 @@ public class BLLManager
      *
      * @throws FileNotFoundException
      */
-    public String[] getLoginInfo() throws FileNotFoundException
-    {
+    public String[] getLoginInfo() throws FileNotFoundException {
 
         String[] rememberLogin = StoreLocalLogin.getLoginInfo();
         return rememberLogin;
@@ -313,95 +259,77 @@ public class BLLManager
      *
      * @throws javax.mail.MessagingException
      */
-    public boolean forgottenPassEmail(String email) throws MessagingException
-    {
+    public boolean forgottenPassEmail(String email) throws MessagingException {
 
         boolean emailInDB = dal.validEmail(email);
-        if (!emailInDB)
-        {
+        if (!emailInDB) {
 
             String newRandomPassword = RandomPassword.generateRandomPassword();
             Email mail = new Email(email, "New password for attendance automation",
-                                   "<p style='font-size:19px'>Hi, here is the new password"
-                                   + " for your account: </p><span style='font-size:12px; "
-                                   + "border: 1px solid green; padding:4px;'>"
-                                   + newRandomPassword + "</span>"
-                                   + "<p style='font-size:13px'>Please remember to "
-                                   + "change it after the first login</p>");
+                    "<p style='font-size:19px'>Hi, here is the new password"
+                    + " for your account: </p><span style='font-size:12px; "
+                    + "border: 1px solid green; padding:4px;'>"
+                    + newRandomPassword + "</span>"
+                    + "<p style='font-size:13px'>Please remember to "
+                    + "change it after the first login</p>");
             mail.sendMail();
 
             String newRandomEncryptedPassword = Hash.passwordHashing(newRandomPassword);
             dal.setNewPassword(newRandomEncryptedPassword, email);
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 
     }
 
-    public double getAveragePercentage(int UserID) throws BLLException
-    {
-        try
-        {
+    public double getAveragePercentage(int UserID) throws BLLException {
+        try {
             return dal.GetAttendancePercentage(UserID);
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
     }
 
-    public List<NotificationMessage> allNotifications() throws BLLException
-    {
-        try
-        {
+    public List<NotificationMessage> allNotifications() throws BLLException {
+        try {
             return dal.allNotifications();
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getMessage(), ex);
         }
     }
 
-    public void getUser(User user) throws BLLException
-    {
-        try
-        {
+    public void getUser(User user) throws BLLException {
+        try {
             dal.getUser(user);
-        }
-        catch (DALException ex)
-        {
+        } catch (DALException ex) {
             throw new BLLException(ex.getMessage(), ex);
         }
     }
 
-    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) throws BLLException
-    {
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, ObservableList<LoadedStudent> students) throws BLLException {
         ArrayList<LoadedStudent> newStudents = new ArrayList<>();
-        for (LoadedStudent s : students)
-        {
-            try
-            {
+        for (LoadedStudent s : students) {
+            try {
                 ArrayList<Boolean> bool = dal.attendanceTimeFrame(fromDate, toDate, s.getId());
                 double d = calculateAverage(bool) * 100;
                 newStudents.add(new LoadedStudent(s.getId(), s.getFirstName(), s.getLastName(), d + "%"));
-            }
-            catch (DALException ex)
-            {
+            } catch (DALException ex) {
                 throw new BLLException(ex.getLocalizedMessage(), ex);
             }
         }
         students.setAll(newStudents);
     }
 
-    private double calculateAverage(ArrayList<Boolean> bool)
-    {
+    private double calculateAverage(ArrayList<Boolean> bool) {
         double size = bool.size();
         double sum = 0;
         sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
         return sum / size;
+    }
+
+    public void forceDatepickerToToday() {
+        dal.forceDatepickerToToday();
     }
 }

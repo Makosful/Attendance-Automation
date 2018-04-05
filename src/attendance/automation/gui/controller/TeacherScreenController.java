@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,11 +61,7 @@ public class TeacherScreenController implements Initializable {
     private JFXDatePicker fromDatepicker;
     private JFXDatePicker toDatepicker;
     @FXML
-    private JFXDatePicker fromDatePicker;
-    @FXML
     private Button btnDatePickerSemesterStart;
-    @FXML
-    private JFXDatePicker toDatePicker;
     @FXML
     private Button btnDatePickerToday;
 
@@ -208,9 +205,21 @@ public class TeacherScreenController implements Initializable {
 
     @FXML
     private void setToDatePickerToTodaysDate(ActionEvent event) {
+//        forceDatepickerToToday(); THROWS NULLPOINTER EXCEPTION
     }
 
     @FXML
     private void comboFillClasses(ActionEvent event) {
+    }
+
+    private void forceDatepickerToToday() {
+        LocalDate formattedDate = LocalDate.now();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d-MM-uuuu");
+
+        String text = formattedDate.format(formatters);
+
+        LocalDate stringToLocalDate = LocalDate.parse(text, formatters);
+
+        toDatepicker.setValue(stringToLocalDate);
     }
 }
