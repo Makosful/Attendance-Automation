@@ -8,8 +8,11 @@ import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,12 +61,14 @@ public class TeacherScreenController implements Initializable {
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
-    private JFXDatePicker fromDatepicker;
-    private JFXDatePicker toDatepicker;
     @FXML
     private Button btnDatePickerSemesterStart;
     @FXML
     private Button btnDatePickerToday;
+    @FXML
+    private JFXDatePicker fromDatePicker;
+    @FXML
+    private JFXDatePicker toDatePicker;
 
     /**
      * Initializes the controller class.
@@ -154,22 +159,13 @@ public class TeacherScreenController implements Initializable {
         this.user = user;
     }
 
-    private void SetFromDatepicker(ActionEvent event) {
-        CheckDatetimePickers();
-    }
-
-    private void SetToDatepicker(ActionEvent event) {
-        CheckDatetimePickers();
-    }
-
     private void CheckDatetimePickers() {
-        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
-            LocalDate fromDate = fromDatepicker.getValue();
-            LocalDate toDate = toDatepicker.getValue();
+        if (fromDatePicker.getValue() != null && toDatePicker.getValue() != null) {
+            LocalDate fromDate = fromDatePicker.getValue();
+            LocalDate toDate = toDatePicker.getValue();
             String clazz = comboClasses.getSelectionModel().getSelectedItem();
             model.studentTimeFrame(fromDate, toDate, clazz);
         } else {
-            return;
         }
     }
 
@@ -195,31 +191,41 @@ public class TeacherScreenController implements Initializable {
     }
 
     @FXML
-    private void setFromDatePickerToSemesterStart(ActionEvent event) {
-    }
-
-    @FXML
     private void setToDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
 
     @FXML
+    private void setFromDatePickerToSemesterStart(ActionEvent event) {
+    }
+
+    @FXML
     private void setToDatePickerToTodaysDate(ActionEvent event) {
-//        forceDatepickerToToday(); THROWS NULLPOINTER EXCEPTION
+        forceDatepickerToToday();
     }
 
     @FXML
     private void comboFillClasses(ActionEvent event) {
     }
 
+//    public static final LocalDate TODAY() {
+//        String date = new SimpleDateFormat("dd-mm-yyyy").format(Calendar.getInstance().getTime());
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        LocalDate localDate = LocalDate.parse(date, formatter);
+//        return localDate;
+//    }
     private void forceDatepickerToToday() {
-        LocalDate formattedDate = LocalDate.now();
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d-MM-uuuu");
+        Locale dk = new Locale("dk", "DK");
 
-        String text = formattedDate.format(formatters);
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", dk);
+        final String formattedDate = LocalDate.now().format(formatter);
+        System.out.println(formattedDate);
 
-        LocalDate stringToLocalDate = LocalDate.parse(text, formatters);
+        LocalDate stringToLocalDate = LocalDate.parse(formattedDate, formatter);
 
-        toDatepicker.setValue(stringToLocalDate);
+        System.out.println(stringToLocalDate);
+
+        toDatePicker.setValue(stringToLocalDate);
+
     }
 }
