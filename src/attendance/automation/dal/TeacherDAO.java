@@ -9,12 +9,15 @@ import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -128,6 +131,23 @@ public class TeacherDAO
             rs.next();
             return rs.getString("ClassName");
         } catch (SQLException ex) 
+        {
+            throw new SQLException(ex.getMessage(), ex);
+        }
+    }
+    
+    public void changeStudentAttendance(Date date, int classID, int userID) throws SQLException
+    {
+        try(Connection  con = dbConnector.getConnection())
+        {
+            String sql = "Update StudentAttendance set Attended = true where Date = ?, and ClassID = ?, and UserID = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setDate(1, date);
+            pstmt.setInt(2, classID);
+            pstmt.setInt(3, userID);
+            pstmt.executeUpdate();
+        }
+        catch (SQLException ex) 
         {
             throw new SQLException(ex.getMessage(), ex);
         }
