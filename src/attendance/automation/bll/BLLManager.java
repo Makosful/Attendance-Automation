@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
@@ -33,16 +32,35 @@ public class BLLManager implements IBLL
         dal = new DALManager();
     }
 
+    /**
+     * Contructor used for testing
+     *
+     * @param dal
+     */
+    public BLLManager(IDAL dal)
+    {
+        this.dal = dal;
+    }
+
+    /**
+     * Gets a student's attendance from a specific period
+     *
+     * @param from The start date
+     * @param to The end date
+     * @param userId
+     * @param user The user
+     * @return Returns a List with with the PieChart Data for the student's
+     * attendance
+     * @throws BLLException
+     */
     @Override
-    public ObservableList<Data> attendanceTimeFrame(LocalDate from,
-                                                    LocalDate to,
-                                                    User user)
+    public List<Data> attendancePieChartDates(LocalDate from, LocalDate to, int userId)
             throws BLLException
     {
         try
         {
-            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, user.getId());
+            ArrayList<Data> data = new ArrayList<>();
+            ArrayList<Boolean> att = dal.attendanceTimeFrame(from, to, userId);
 
             int attend = 0;
             int abs = 0;

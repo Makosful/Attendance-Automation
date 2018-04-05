@@ -70,7 +70,7 @@ public class Model
     {
         try
         {
-            ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
+            List<PieChart.Data> data = bll.attendancePieChartDates(from, to, user);
             for (int i = 0; i < pieChartAttendance.size(); i++)
             {
                 pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());

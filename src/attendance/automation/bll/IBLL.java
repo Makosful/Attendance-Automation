@@ -18,7 +18,7 @@ import javafx.scene.control.ListView;
 public interface IBLL
 {
 
-    public ObservableList<Data> attendanceTimeFrame(LocalDate from, LocalDate to, User user) throws BLLException;
+    public List<Data> attendancePieChartDates(LocalDate from, LocalDate to, int userId) throws BLLException;
 
     public void changePassword(User user, String newPass, String curPass) throws BLLException;
 
