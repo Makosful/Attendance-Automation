@@ -9,6 +9,7 @@ import attendance.automation.bll.BLLManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -304,5 +305,10 @@ public class Model
     public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException
     {
         bll.requestAttendaceChange(studentId, chosenCalsses, message, date);
+    }
+    
+    public void changeStudentAttendance(Date date, int classID, int userID) throws BLLException
+    {
+        bll.changeStudentAttendance(date, classID, userID);
     }
 }

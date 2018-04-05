@@ -28,7 +28,6 @@
                         <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" prefHeight="50.0" text="Edit Student Statistics" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="RIGHT">
                         </Button>
                         <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" text="Change Password" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="OTHER" />
-                      <Button id="btn-hover" mnemonicParsing="false" onAction="#MessageController" prefHeight="50.0" prefWidth="150.0" text="Message Controller" textAlignment="CENTER" wrapText="true" />
                   <Button id="btn-hover" mnemonicParsing="false" onAction="#readMessages" prefHeight="50.0" text="Read Messages" textAlignment="CENTER" wrapText="true" />
                     </buttons>
                 </ButtonBar>
