@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -278,23 +280,41 @@ public class DALManager {
         return avgAmount;
     }
 
-    public List<NotificationMessage> allNotifications() throws DALException {
-        try {
+    public List<NotificationMessage> allNotifications() throws DALException
+    {
+        try 
+        {
             return tDAO.allNotifications();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex)
+        {
             throw new DALException("Failed to get messages", ex);
         }
     }
 
     public void getUser(User user) throws DALException {
-        try {
+        try 
+        {
             tDAO.getUser(user);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             throw new DALException("Couldn't get user", ex);
         }
     }
 
-    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    
+    /**
+     * Inserts the students request in the database, so that a teacher can be 
+     * notified about it
+     * @param studentId
+     * @param chosenCalsses
+     * @param message
+     * @param date
+     * @throws SQLException 
+     */
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException 
+    {
         System.out.println(date);
         String classes = "";
         for (int i = 0; i < chosenCalsses.size(); i++) {
@@ -309,5 +329,54 @@ public class DALManager {
             System.out.println(id);
             sDAO.sendAttendanceChange(studentId, id, message, date);
         }
+    }
+    
+    
+    /**
+     * Change the students attendance for a specific day
+     * @param date
+     * @param classID
+     * @param userID
+     * @throws DALException 
+     */
+    public void changeStudentAttendance(Date date, int classID, int userID) throws DALException
+    {
+        try
+        {
+            tDAO.changeStudentAttendance(date, classID, userID);
+        } 
+        catch (SQLException ex)
+        {
+           throw new DALException("Failed, you are a fool.... xD", ex);
+        }
+    }
+    
+    
+    /**
+     * Get percentage of attendance for each class/subject, this method creates a
+     * sql string with criteria determining which classes/subjects statistics should 
+     * be shown for
+     * @param studentId
+     * @param chosenCalsses
+     * @param from
+     * @param to
+     * @throws DALException 
+     */
+    public void attendanceClassStatistics(int studentId, List<String> chosenCalsses, LocalDate from, LocalDate to) throws DALException
+    {
+        String classes = "";
+        for (int i = 0; i < chosenCalsses.size(); i++) {
+            if (classes.isEmpty()) {
+                classes = "ClassName = ? ";
+            } else {
+                classes += "OR ClassName = ? ";
+            }
+        }
+        try {
+            sDAO.attendanceClassStatistics(studentId, chosenCalsses, classes, from, to);
+        } catch (SQLException ex) {
+            throw new DALException(ex.getMessage());
+        }
+        
     }
 }

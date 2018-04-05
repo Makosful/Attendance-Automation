@@ -241,9 +241,9 @@ public class TeacherScreenController implements Initializable {
             attendanceRequest.setUser(user);
             currentStage.setScene(new Scene(parent));
             centerStage();
-            attendanceRequest.loadMessages();
-        } catch (IOException ex) {
-            System.out.println("failed 2 open window");
+            attendanceRequest.getMessages();
+        } catch (IOException ex)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(ex.getMessage());
             alert.show();

@@ -161,4 +161,14 @@
     -fx-border-color: transparent;
 }
 
+.context-menu 
+{
+  -fx-background-color: darkblue;
+}
+
+.menu-item .label
+{
+  -fx-text-fill: whitesmoke;
+}
+
 /*# sourceMappingURL=style.css.map */

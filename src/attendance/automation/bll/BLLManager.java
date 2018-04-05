@@ -7,11 +7,14 @@ import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -390,5 +393,16 @@ public class BLLManager
     public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException
     {
         dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
+    }
+    
+    public void changeStudentAttendance(Date date, int classID, int userID) throws BLLException
+    {
+        try 
+        {
+            dal.changeStudentAttendance(date, classID, userID);
+        } catch (DALException ex) 
+        {
+            throw new BLLException(ex.getMessage(), ex);
+        }
     }
 }
