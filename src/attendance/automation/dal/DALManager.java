@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -360,20 +361,22 @@ public class DALManager {
      * @param chosenCalsses
      * @param from
      * @param to
+     * @return 
      * @throws DALException 
      */
-    public void attendanceClassStatistics(int studentId, List<String> chosenCalsses, LocalDate from, LocalDate to) throws DALException
+    public HashMap attendanceClassStatistics(int studentId, List<String> chosenCalsses, LocalDate from, LocalDate to) throws DALException
     {
         String classes = "";
         for (int i = 0; i < chosenCalsses.size(); i++) {
             if (classes.isEmpty()) {
-                classes = "ClassName = ? ";
+                classes = " AND Classes.ClassName = ? ";
             } else {
-                classes += "OR ClassName = ? ";
+                classes += "OR Classes.ClassName = ? ";
             }
         }
         try {
-            sDAO.attendanceClassStatistics(studentId, chosenCalsses, classes, from, to);
+            HashMap clazzes = sDAO.attendanceClassStatistics(studentId, chosenCalsses, classes, from, to);
+            return clazzes;
         } catch (SQLException ex) {
             throw new DALException(ex.getMessage());
         }

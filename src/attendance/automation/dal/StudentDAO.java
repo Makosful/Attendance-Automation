@@ -214,7 +214,7 @@ public class StudentDAO
         try (Connection con = db.getConnection())
         {
        
-            String sql = "SELECT Classes.ClassName, 100*P.Present/T.Total AS Procent " 
+            String sql = "SELECT Classes.ClassName, StudentAttendance.Date, 100*P.Present/T.Total AS Procent " 
                        + "FROM " 
                        + "(SELECT ClassID, COUNT(attended) AS Total " 
                        + "FROM StudentAttendance " 
@@ -227,8 +227,9 @@ public class StudentDAO
                        + "GROUP BY ClassID) P " 
                        + "ON T.ClassID = P.ClassID "
                        + "INNER JOIN Classes ON T.ClassID = Classes.ClassID "
-                       + "WHERE Date BETWEEN ? and ?";
-            
+                       + "INNER JOIN StudentAttendance ON T.ClassID = StudentAttendance.ClassID "
+                       + "WHERE Date BETWEEN ? and ?"+sqlChosenClasses;
+            System.out.println(sql);
             PreparedStatement stmt = con.prepareStatement(sql);
             
             int i = 1;

@@ -21,6 +21,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -52,6 +54,7 @@ public class Model
     private final BLLManager bll;
 
     private final ObservableList<PieChart.Data> pieChartAttendance;
+    private final ObservableList<Series<String, Number>> barChartAttendance;
     private final ObservableList<LoadedStudent> students;
     private User user;
 
@@ -64,8 +67,11 @@ public class Model
         // Object initiation
         bll = new BLLManager();
 
-        // Adding mock data to the pie chart
+        // pie chart
         pieChartAttendance = FXCollections.observableArrayList();
+        
+        //Bar chart
+        barChartAttendance = FXCollections.observableArrayList();
 
         students = FXCollections.observableArrayList();
         loadStudents(students);
@@ -310,5 +316,13 @@ public class Model
     public void changeStudentAttendance(Date date, int classID, int userID) throws BLLException
     {
         bll.changeStudentAttendance(date, classID, userID);
+    }
+
+    public ObservableList<Series<String, Number>> getBarChartAttendance(LocalDate from, LocalDate to) {
+        
+            
+            //ObservableList<Series> seriesData = bll.getBarChartAttendance(user, from, to);
+            //barChartAttendance.addAll(series1, series2, series3);
+           return barChartAttendance;
     }
 }

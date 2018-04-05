@@ -17,7 +17,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
@@ -61,6 +64,10 @@ public class StudentStatisticWindowController implements Initializable
     private JFXDatePicker dateFrom;
     @FXML
     private JFXDatePicker dateTo;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
     //</editor-fold>
 
     /**
@@ -81,6 +88,22 @@ public class StudentStatisticWindowController implements Initializable
 
         LocalDate today = LocalDate.now();
         dateTo.setValue(today);
+        
+        BarChart();
+    }
+
+    /**
+     * 
+     */
+    private void BarChart() {
+        xAxis = new CategoryAxis();
+        yAxis = new NumberAxis();
+        chrtClassAttendance.setTitle("Attendance for each class");
+        xAxis.setLabel("Class");       
+        yAxis.setLabel("Attendance");
+
+        //chrtClassAttendance.setData(model.getBarChartAttendance(dateFrom.getValue(), dateTo.getValue()));
+    
     }
 
     @FXML
