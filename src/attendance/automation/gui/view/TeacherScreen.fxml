@@ -23,15 +23,13 @@
     <bottom>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ButtonBar buttonOrder="U" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <buttons>
                         <Button id="btn-hover" fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" text="Logout" ButtonBar.buttonData="LEFT" />
                         <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
                         </Button>
                         <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
+                  <Button mnemonicParsing="false" onAction="#readMessages" text="Read Messages" />
                     </buttons>
                 </ButtonBar>
             </children>

@@ -8,22 +8,23 @@ package attendance.automation.gui.controller;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
-import attendance.automation.dal.TeacherDAO;
 import attendance.automation.gui.model.Model;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 /**
@@ -47,6 +48,10 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     
     private Model model;
     
+    private ContextMenu cm;
+    @FXML
+    private AnchorPane anchorPane;
+    
 
     /**
      * Initializes the controller class.
@@ -56,6 +61,7 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     {
         messageViewSetup();
         model = Model.getInstance();
+        setupContextMenu();
         // TODO
     } 
 
@@ -99,30 +105,86 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
                 return cell;
             }
         });
-        labelUpdate();
+        clickEvents();
     }
    
-    public void labelUpdate()
+    public void clickEvents()
     {
         messageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-
+            public void handle(MouseEvent event) 
+            {
+                
                 NotificationMessage message = messageView.getSelectionModel().getSelectedItem();
                 if(message !=  null)
                 {
-                lblClass.setText(message.getClassID() + "");
+                lblClass.setText(message.getClassName());
                 lblStudentName.setText(message.getStudentName());
                 lblDate.setText("04-04-2018 - midlertidig");
                 }
-
+                openContextMenu(event, message);
             }
         });
+    }
+    
+    public void openContextMenu(MouseEvent e, NotificationMessage message)
+    {
+        if(e.getButton() == MouseButton.SECONDARY)
+        {
+            if(message != null)
+            {
+                cm.hide();
+                cm.show(anchorPane, e.getScreenX(), e.getScreenY());
+            }
+        }
+    }
+    
+    public void setupContextMenu()
+    {
+        cm = new ContextMenu();
+        MenuItem accept = new MenuItem("Accept");
+        MenuItem decline = new MenuItem("Decline");
+        
+        accept.setOnAction(new EventHandler<ActionEvent>() 
+        {
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                System.out.println("Attendance has been changed.");
+            }
+        });
+        decline.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                System.out.println("Attendance hasn't been changed");
+            }
+        });
+        cm.getItems().addAll(accept, decline);
     }
     
     public void setUser(User user)
     {
         this.user = user;
+    }
+    
+    public void loadMessages()
+    {
+                messageView.getItems().clear();
+        try 
+        {
+           for(NotificationMessage message : model.allNotifications())
+           {             
+               messageView.getItems().add(message);
+           }
+        } 
+        catch (BLLException ex) 
+        {
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setContentText(ex.getMessage());
+           alert.show();
+        }
     }
     
 }
