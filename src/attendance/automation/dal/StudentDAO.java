@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,7 +91,6 @@ public class StudentDAO
      * @param studentID
      * @param classID
      * @param message
-     * @param dates
      * @throws SQLException 
      */
     public void sendAttendanceChange(int studentID, int classID, String message, LocalDate date) throws SQLException 
@@ -206,6 +206,50 @@ public class StudentDAO
         }
         return ids;
     }
-    
+ 
+    public HashMap<String, Integer> attendanceClassStatistics(int StudentId, List<String> chosenCalsses, String sqlChosenClasses) throws SQLException
+    {
+        
+        HashMap<String, Integer> classes = new HashMap();
+        try (Connection con = db.getConnection())
+        {
+       
+            String sql = "SELECT Classes.ClassName, 100*P.Present/T.Total AS Procent " 
+                       + "FROM " 
+                       + "(SELECT ClassID, COUNT(attended) AS Total " 
+                       + "FROM StudentAttendance " 
+                       + "WHERE UserID = ? " 
+                       + "GROUP BY ClassID) T " 
+                       + "LEFT JOIN " 
+                       + "(SELECT ClassID, COUNT(attended) AS Present " 
+                       + "FROM StudentAttendance " 
+                       + "WHERE Attended = 'true' AND  UserID = ? " 
+                       + "GROUP BY ClassID) P " 
+                       + "ON T.ClassID = P.ClassID "
+                       + "INNER JOIN Classes ON T.ClassID = Classes.ClassID";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            int i = 1;
+            stmt.setInt(i++, StudentId);  
+            stmt.setInt(i++, StudentId); 
+            
+            for(String subject : chosenCalsses){
+                stmt.setString(i++, subject);    
+            }
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
+            {
+                classes.put(rs.getString("ClassName"), rs.getInt("Procent"));
+                classes.put(rs.getString("ClassName"), rs.getInt("Procent"));
+            }
+        } catch (SQLServerException ex) {
+            throw new SQLException(ex.getMessage());
+        }
+        return classes;
+        
+    }
     
 }
