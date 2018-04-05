@@ -332,4 +332,22 @@ public class DALManager {
            throw new DALException("Failed, you are a fool.... xD", ex);
         }
     }
+    
+    public void attendanceClassStatistics(int studentId, List<String> chosenCalsses, LocalDate from, LocalDate to) throws DALException
+    {
+        String classes = "";
+        for (int i = 0; i < chosenCalsses.size(); i++) {
+            if (classes.isEmpty()) {
+                classes = "ClassName = ? ";
+            } else {
+                classes += "OR ClassName = ? ";
+            }
+        }
+        try {
+            sDAO.attendanceClassStatistics(studentId, chosenCalsses, classes, from, to);
+        } catch (SQLException ex) {
+            throw new DALException(ex.getMessage());
+        }
+        
+    }
 }

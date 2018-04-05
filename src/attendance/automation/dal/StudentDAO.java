@@ -207,7 +207,7 @@ public class StudentDAO
         return ids;
     }
  
-    public HashMap<String, Integer> attendanceClassStatistics(int StudentId, List<String> chosenCalsses, String sqlChosenClasses) throws SQLException
+    public HashMap<String, Integer> attendanceClassStatistics(int StudentId, List<String> chosenCalsses, String sqlChosenClasses, LocalDate from, LocalDate to) throws SQLException
     {
         
         HashMap<String, Integer> classes = new HashMap();
@@ -226,13 +226,16 @@ public class StudentDAO
                        + "WHERE Attended = 'true' AND  UserID = ? " 
                        + "GROUP BY ClassID) P " 
                        + "ON T.ClassID = P.ClassID "
-                       + "INNER JOIN Classes ON T.ClassID = Classes.ClassID";
+                       + "INNER JOIN Classes ON T.ClassID = Classes.ClassID "
+                       + "WHERE Date BETWEEN ? and ?";
             
             PreparedStatement stmt = con.prepareStatement(sql);
             
             int i = 1;
             stmt.setInt(i++, StudentId);  
             stmt.setInt(i++, StudentId); 
+            stmt.setDate(i++, java.sql.Date.valueOf(from));
+            stmt.setDate(i++, java.sql.Date.valueOf(to));
             
             for(String subject : chosenCalsses){
                 stmt.setString(i++, subject);    
