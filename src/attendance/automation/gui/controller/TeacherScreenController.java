@@ -8,10 +8,8 @@ import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,10 +21,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -69,6 +69,8 @@ public class TeacherScreenController implements Initializable {
     private JFXDatePicker fromDatePicker;
     @FXML
     private JFXDatePicker toDatePicker;
+    @FXML
+    private Button btnAddStudenntAcc;
 
     /**
      * Initializes the controller class.
@@ -242,6 +244,26 @@ public class TeacherScreenController implements Initializable {
             attendanceRequest.loadMessages();
         } catch (IOException ex) {
             System.out.println("failed 2 open window");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void addStudentAccount(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(
+                    TeacherAddStudentAccController.class.getResource("gui/view/TeacherAddStudentacc.fxml"));
+            stage.setScene(new Scene(root));
+            stage.setTitle("tadaaaaa");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(
+                    ((Node) event.getSource()).getScene().getWindow());
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("failed to open window");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(ex.getMessage());
             alert.show();
