@@ -13,10 +13,10 @@ import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -64,7 +64,10 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private AnchorPane anchorPane;
     @FXML
     private JFXButton loadMessages;
+    
     private Stage currentStage;
+    
+    private NotificationMessage message;
     
 
     /**
@@ -121,9 +124,11 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
                 cm.hide();
                 if(message !=  null)
                 {
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                String dateString = df.format(message.getDate());   
                 lblClass.setText(message.getClassName());
-                lblStudentName.setText(message.getStudentName());
-                lblDate.setText("04-04-2018 - midlertidig");
+                lblStudentName.setText(message.getStudentName());  
+                lblDate.setText(dateString);
                 }
                 openContextMenu(event, message);
             }
@@ -167,7 +172,7 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             @Override
             public void handle(ActionEvent event) 
             {
-                System.out.println("Attendance hasn't been changed");
+                messageView.getItems().remove(message);
             }
         });
         cm.getItems().addAll(accept, decline);

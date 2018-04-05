@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,7 +55,8 @@ public class TeacherDAO
                         String message = rs.getString("Message");
                         String studentName = getStudentName(studentId);
                         String className = getStudentClassName(messageClassID);
-                        NotificationMessage notificationMessage = new NotificationMessage(studentId, className, studentName,  message);
+                        Date date = rs.getDate("Date");
+                        NotificationMessage notificationMessage = new NotificationMessage(studentId, className, studentName,  message, date);
                         allNotifications.add(notificationMessage);
                     }
                 }
