@@ -247,7 +247,6 @@ public class StudentDAO
             while (rs.next())
             {
                 classes.put(rs.getString("ClassName"), rs.getInt("Procent"));
-                classes.put(rs.getString("ClassName"), rs.getInt("Procent"));
             }
         } catch (SQLServerException ex) {
             throw new SQLException(ex.getMessage());

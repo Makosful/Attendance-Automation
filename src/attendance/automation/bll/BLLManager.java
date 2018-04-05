@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -409,31 +410,25 @@ public class BLLManager
 
     public ObservableList<XYChart.Series<String, Number>> getBarChartAttendance(User user, LocalDate from, LocalDate to) throws BLLException {
         
-            /*
+        ObservableList<XYChart.Series<String, Number>> bars = FXCollections.observableArrayList();
+        HashMap map;
+        
         try {
-            dal.attendanceClassStatistics(user.getId(), user.getClasses(), from, to);
+            map = dal.attendanceClassStatistics(user.getId(), user.getClasses(), from, to);
+            System.out.println();
         } catch (DALException ex) {
             throw new BLLException(ex.getMessage(), ex);
         }
-        */
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("SCO");  
+    
+        map.forEach((className, percentage) -> {
+            System.out.println("Key : " + className + " Value : " + percentage);
+            XYChart.Series bar = new XYChart.Series();
+            bar.setName(className.toString());  
+            bar.getData().add(new XYChart.Data(className.toString(), percentage));
+            bars.add(bar);
+        });
 
-        series1.getData().add(new XYChart.Data("SCO", 20));
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("SDE"); 
-        series2.getData().add(new XYChart.Data("SDE", 50));
-
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("ITO"); 
-        series3.getData().add(new XYChart.Data("ITO", 100));
-
-        ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
-
-        series.addAll(series1, series2, series3);
-
-        return series;
+        return bars;
             
     }
 }

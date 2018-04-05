@@ -102,7 +102,7 @@ public class StudentStatisticWindowController implements Initializable
         xAxis.setLabel("Class");       
         yAxis.setLabel("Attendance");
 
-        //chrtClassAttendance.setData(model.getBarChartAttendance(dateFrom.getValue(), dateTo.getValue()));
+        chrtClassAttendance.setData(model.getBarChartAttendance(dateFrom.getValue(), dateTo.getValue()));
     
     }
 
@@ -185,5 +185,6 @@ public class StudentStatisticWindowController implements Initializable
     private void updateDate(ActionEvent event)
     {
         model.attendanceTimeFrame(dateFrom.getValue(), dateTo.getValue());
+        chrtClassAttendance.setData(model.getBarChartAttendance(dateFrom.getValue(), dateTo.getValue()));
     }
 }

@@ -320,9 +320,13 @@ public class Model
 
     public ObservableList<Series<String, Number>> getBarChartAttendance(LocalDate from, LocalDate to) {
         
-            
-            //ObservableList<Series> seriesData = bll.getBarChartAttendance(user, from, to);
-            //barChartAttendance.addAll(series1, series2, series3);
-           return barChartAttendance;
+        barChartAttendance.clear();
+        try {
+            ObservableList<Series<String, Number>> seriesData = bll.getBarChartAttendance(user, from, to);
+            barChartAttendance.addAll(seriesData);
+        } catch (BLLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return barChartAttendance;
     }
 }
