@@ -14,11 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -52,11 +49,12 @@ public class TeacherDAO
                     if (messageClassID == classIds.get(i)) 
                     {
                         int studentId = rs.getInt("StudentID");
+                        int classId = rs.getInt("classId");
                         String message = rs.getString("Message");
                         String studentName = getStudentName(studentId);
                         String className = getStudentClassName(messageClassID);
                         Date date = rs.getDate("Date");
-                        NotificationMessage notificationMessage = new NotificationMessage(studentId, className, studentName,  message, date);
+                        NotificationMessage notificationMessage = new NotificationMessage(studentId, classId, className, studentName,  message, date);
                         allNotifications.add(notificationMessage);
                     }
                 }
@@ -103,7 +101,12 @@ public class TeacherDAO
     {
         return classIds;
     }
-    
+    /**
+     * Gets student name.
+     * @param studentId
+     * @return
+     * @throws SQLException 
+     */
     public String getStudentName(int studentId) throws SQLException
     {
         try(Connection con = dbConnector.getConnection())
@@ -121,7 +124,12 @@ public class TeacherDAO
             throw new SQLException();
         }
     }
-    
+    /**
+     * Gets Student class name.
+     * @param studentId
+     * @return
+     * @throws SQLException 
+     */
     public String getStudentClassName(int studentId) throws SQLException
     {
          try(Connection con = dbConnector.getConnection())
@@ -137,21 +145,53 @@ public class TeacherDAO
             throw new SQLException(ex.getMessage(), ex);
         }
     }
-    
+    /**
+     * Changes student to attended.
+     * @param date
+     * @param classID
+     * @param userID
+     * @throws SQLException 
+     */
     public void changeStudentAttendance(Date date, int classID, int userID) throws SQLException
     {
         try(Connection  con = dbConnector.getConnection())
         {
-            String sql = "Update StudentAttendance set Attended = true where Date = ?, and ClassID = ?, and UserID = ?";
+            String sql = "Update StudentAttendance set Attended = 1 where Date = ? and ClassID = ? and UserID = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setDate(1, date);
             pstmt.setInt(2, classID);
             pstmt.setInt(3, userID);
             pstmt.executeUpdate();
+            deleteMessage(date, classID, userID);
+            
         }
         catch (SQLException ex) 
         {
             throw new SQLException(ex.getMessage(), ex);
         }
     }
+    /**
+     * Delets message.
+     * @param date
+     * @param classID
+     * @param studentID
+     * @throws SQLException 
+     */
+    public void deleteMessage(Date date, int classID, int studentID) throws SQLException
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "DELETE FROM AttendanceChangeRequest where Date = ? and ClassID = ? and StudentID = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setDate(1, date);
+            pstmt.setInt(2, classID);
+            pstmt.setInt(3, studentID);
+            pstmt.execute();
+
+        } catch (SQLException ex)
+        {
+            throw new SQLException(ex.getMessage(), ex);
+        }
+    }
+    
 }

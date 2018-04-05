@@ -18,14 +18,21 @@ public class NotificationMessage
     private final String className;
     private final String studentName;
     private final Date date;
+    private final int classId;
     
-    public NotificationMessage(int studentID, String className, String studentName, String message, Date date)
+    public NotificationMessage(int studentID, int classId, String className, String studentName, String message, Date date)
     {
         this.studentID = studentID;
         this.className = className;
         this.message = message;
         this.studentName = studentName;
         this.date = date;
+        this.classId = classId;
+    }
+
+    public int getClassId() 
+    {
+        return classId;
     }
 
     public Date getDate() 

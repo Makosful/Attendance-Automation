@@ -9,14 +9,18 @@ import attendance.automation.Main;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
+import attendance.automation.dal.TeacherDAO;
 import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -68,6 +72,10 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private Stage currentStage;
     
     private NotificationMessage message;
+    
+    private Date date;
+    private int userId;
+    private int classId;
     
 
     /**
@@ -124,8 +132,12 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
                 cm.hide();
                 if(message !=  null)
                 {
+                 userId = message.getStudentID();
+                 classId = message.getClassId();
+      
+                date = message.getDate();
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String dateString = df.format(message.getDate());   
+                String dateString = df.format(date);   
                 lblClass.setText(message.getClassName());
                 lblStudentName.setText(message.getStudentName());  
                 lblDate.setText(dateString);
@@ -164,7 +176,8 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             @Override
             public void handle(ActionEvent event) 
             {
-                System.out.println("Attendance has been changed.");
+                changeStudentAttendance();
+                messageView.getItems().remove(message);
             }
         });
         decline.setOnAction(new EventHandler<ActionEvent>()
@@ -235,5 +248,18 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
         currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
+    
+    private void changeStudentAttendance()
+    {
+        try
+        {
+            model.changeStudentAttendance((java.sql.Date) date, classId, userId);
+        } catch (BLLException ex)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
     }
 }

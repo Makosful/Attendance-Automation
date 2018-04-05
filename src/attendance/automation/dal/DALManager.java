@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
@@ -301,7 +303,8 @@ public class DALManager {
         }
     }
 
-    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException 
+    {
         System.out.println(date);
         String classes = "";
         for (int i = 0; i < chosenCalsses.size(); i++) {
@@ -315,6 +318,18 @@ public class DALManager {
         for (Integer id : ids) {
             System.out.println(id);
             sDAO.sendAttendanceChange(studentId, id, message, date);
+        }
+    }
+    
+    public void changeStudentAttendance(Date date, int classID, int userID) throws DALException
+    {
+        try
+        {
+            tDAO.changeStudentAttendance(date, classID, userID);
+        } 
+        catch (SQLException ex)
+        {
+           throw new DALException("Failed, you are a fool.... xD", ex);
         }
     }
 }
