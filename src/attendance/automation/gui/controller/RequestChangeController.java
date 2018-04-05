@@ -103,7 +103,7 @@ public class RequestChangeController implements Initializable {
         datePicker.setValue(LocalDate.now());
 
         datePicker.setOnAction(event -> {
-            date =datePicker.getValue();
+            date = datePicker.getValue();
         });
     }
      
