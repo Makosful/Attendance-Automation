@@ -303,6 +303,16 @@ public class DALManager {
         }
     }
 
+    
+    /**
+     * Inserts the students request in the database, so that a teacher can be 
+     * notified about it
+     * @param studentId
+     * @param chosenCalsses
+     * @param message
+     * @param date
+     * @throws SQLException 
+     */
     public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException 
     {
         System.out.println(date);
@@ -321,6 +331,14 @@ public class DALManager {
         }
     }
     
+    
+    /**
+     * Change the students attendance for a specific day
+     * @param date
+     * @param classID
+     * @param userID
+     * @throws DALException 
+     */
     public void changeStudentAttendance(Date date, int classID, int userID) throws DALException
     {
         try
@@ -333,6 +351,17 @@ public class DALManager {
         }
     }
     
+    
+    /**
+     * Get percentage of attendance for each class/subject, this method creates a
+     * sql string with criteria determining which classes/subjects statistics should 
+     * be shown for
+     * @param studentId
+     * @param chosenCalsses
+     * @param from
+     * @param to
+     * @throws DALException 
+     */
     public void attendanceClassStatistics(int studentId, List<String> chosenCalsses, LocalDate from, LocalDate to) throws DALException
     {
         String classes = "";
