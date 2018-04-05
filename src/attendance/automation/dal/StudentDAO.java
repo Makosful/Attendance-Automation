@@ -84,7 +84,7 @@ public class StudentDAO
         }
     }
 
-    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate dates) 
+    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate dates) throws SQLException 
     {
         try (Connection con = db.getConnection())
         {
@@ -99,7 +99,7 @@ public class StudentDAO
             pstmt.setString(4, message);
             pstmt.execute();
         } catch (SQLException ex) {
-            
+            throw new SQLException(ex.getMessage());
         } 
        
     }
