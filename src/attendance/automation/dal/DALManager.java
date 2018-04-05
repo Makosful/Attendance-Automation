@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -335,7 +336,7 @@ public class DALManager
             throw new DALException("Failed to get messages", ex);
         }
     }
-
+    
     public void getUser(User user) throws DALException
     {
         try
@@ -346,5 +347,26 @@ public class DALManager
         {
             throw new DALException("Couldn't get user", ex);
         }
+    }
+
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+        System.out.println(date);
+            String classes = "";
+            for(int i = 0; i < chosenCalsses.size(); i++)
+            {
+                if(classes.isEmpty())
+                {
+                    classes = "ClassName = ? ";
+                } 
+                else 
+                {
+                    classes += "OR ClassName = ? ";                    
+                }
+            }
+            ArrayList<Integer> ids = sDAO.lookUpClassIdsFromClassNames(chosenCalsses, classes);
+            for(Integer id : ids){
+                System.out.println(id);
+                sDAO.sendAttendanceChange(studentId, id, message, date);
+            }
     }
 }

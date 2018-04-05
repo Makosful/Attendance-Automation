@@ -7,6 +7,7 @@ import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -403,5 +404,9 @@ public class BLLManager
         double sum = 0;
         sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
         return sum / size;
+    }
+
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+        dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
 }
