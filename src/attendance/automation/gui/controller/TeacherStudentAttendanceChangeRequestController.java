@@ -211,14 +211,16 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             Parent parent = loader.load();
             currentStage.setScene(new Scene(parent));
             centerStage();
-        } catch (IOException ex) 
+        } 
+        catch (IOException ex) 
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(ex.getMessage());
+            alert.show();
         }
     }
     
-        /**
+     /**
      * Centers the window on the screen
      *
      * @param currentStage
