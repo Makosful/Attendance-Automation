@@ -19,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -207,24 +206,6 @@ public class Model
     {
         LocalDate startDate = bll.setStartDate();
         return startDate;
-    }
-
-    public XYChart.Series getScoData()
-    {
-        XYChart.Series series = bll.getScoData();
-        return series;
-    }
-
-    public XYChart.Series getSdeData()
-    {
-        XYChart.Series series = bll.getSdeData();
-        return series;
-    }
-
-    public XYChart.Series getItoData()
-    {
-        XYChart.Series series = bll.getItoData();
-        return series;
     }
 
     public LocalDate getFirstDayOfMonth()

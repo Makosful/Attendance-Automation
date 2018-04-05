@@ -15,7 +15,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javax.mail.MessagingException;
 
@@ -229,24 +228,6 @@ public class BLLManager
     {
         LocalDate startDate = dal.setStartDate();
         return startDate;
-    }
-
-    public XYChart.Series getScoData()
-    {
-        XYChart.Series series = dal.getScoData();
-        return series;
-    }
-
-    public XYChart.Series getSdeData()
-    {
-        XYChart.Series series = dal.getSdeData();
-        return series;
-    }
-
-    public XYChart.Series getItoData()
-    {
-        XYChart.Series series = dal.getItoData();
-        return series;
     }
 
     public LocalDate getFirstDayOfMonth()
