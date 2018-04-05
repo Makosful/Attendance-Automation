@@ -107,7 +107,9 @@
     -fx-background-color: #004d39; }
 
 #student-statistics {
-    -fx-background-color: #009999; }
+    -fx-background-color: #009999;
+    -fx-text-fill: black;
+}
 
 #student-statistics:pressed {
     -fx-background-color: #006666; }
@@ -135,9 +137,21 @@
     -fx-background-color: #004d39; 
 }
 
+.jfx-date-picker .input-line {
+    -fx-background-color: transparent;
+}
+.jfx-date-picker .input-focused-line {
+    -fx-background-color: #009999;
+}
+
 .jfx-date-picker .jfx-text-field{
-    -fx-text-fill: #80bfff;
+    -fx-text-fill: #009999;
     -fx-prompt-text-fill: white;
+}
+
+.jfx-date-picker .day-cell:hover {
+    -fx-background-color: #6698cc;
+    -fx-border-color: transparent;
 }
 
 /*# sourceMappingURL=style.css.map */
