@@ -4,10 +4,10 @@ import attendance.automation.be.*;
 import attendance.automation.bll.Hashing.Hash;
 import attendance.automation.dal.DALException;
 import attendance.automation.dal.DALManager;
+import attendance.automation.dal.IDAL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import javax.mail.MessagingException;
 public class BLLManager implements IBLL
 {
 
-    private final DALManager dal;
+    private final IDAL dal;
 
     public BLLManager()
     {
@@ -372,7 +372,7 @@ public class BLLManager implements IBLL
         {
             return dal.GetAttendancePercentage(UserID);
         }
-        catch (SQLException ex)
+        catch (DALException ex)
         {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }
@@ -443,7 +443,7 @@ public class BLLManager implements IBLL
         {
             dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
         }
-        catch (SQLException ex)
+        catch (DALException ex)
         {
             throw new BLLException(ex.getLocalizedMessage(), ex);
         }

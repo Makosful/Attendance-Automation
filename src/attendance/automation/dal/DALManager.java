@@ -11,20 +11,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 
 /**
  *
  * @author Axl
  */
-public class DALManager
+public class DALManager implements IDAL
 {
 
     private final String sub1 = "Jan";
@@ -47,6 +45,7 @@ public class DALManager
         cDAO = new ClassDAO();
     }
 
+    @Override
     public ArrayList<Boolean> attendanceTimeFrame(LocalDate from, LocalDate to, int id) throws DALException
     {
         try
@@ -59,16 +58,19 @@ public class DALManager
         }
     }
 
+    @Override
     public void changePassword(User user, String pass)
     {
         uDAO.setNewPassword(pass, user.getEmail());
     }
 
+    @Override
     public void createNewUser(User user)
     {
         uDAO.addNewUser(user);
     }
 
+    @Override
     public ArrayList<Integer> getStudentAttendance(User user) throws DALException
     {
         try
@@ -81,6 +83,7 @@ public class DALManager
         }
     }
 
+    @Override
     public ArrayList loadStudents() throws DALException
     {
         try
@@ -93,6 +96,7 @@ public class DALManager
         }
     }
 
+    @Override
     public void registerAttendance(User user) throws DALException
     {
         try
@@ -105,6 +109,7 @@ public class DALManager
         }
     }
 
+    @Override
     public User userLogIn(String username, String password) throws DALException
     {
         try
@@ -117,16 +122,19 @@ public class DALManager
         }
     }
 
+    @Override
     public boolean validEmail(String email)
     {
         return vd.validEmail(email);
     }
 
+    @Override
     public boolean validUsername(String username)
     {
         return vd.validUsername(username);
     }
 
+    @Override
     public ArrayList<Clazz> fillClassesListCombo() throws DALException
     {
         try
@@ -139,6 +147,7 @@ public class DALManager
         }
     }
 
+    @Override
     public void fillStudentsList(ListView<String> lstStudents)
     {
         lstStudents.getItems().addAll(
@@ -175,6 +184,11 @@ public class DALManager
         );
     }
 
+    /**
+     *
+     * @param chrtClasses
+     */
+    @Override
     public void fillClassesChart(PieChart chrtClasses)
     {
         chrtClasses.setTitle("Overall Attendance in class");
@@ -184,6 +198,7 @@ public class DALManager
         );
     }
 
+    @Override
     public void fillStudentsChart(PieChart chrtStudents)
     {
         chrtStudents.setTitle("Student's Overall Attendance");
@@ -193,49 +208,13 @@ public class DALManager
         );
     }
 
+    @Override
     public LocalDate setStartDate()
     {
         return LocalDate.of(2018, 1, 1);
     }
 
-    public XYChart.Series getScoData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("SCO");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 95),
-                new XYChart.Data<>(sub2, 86),
-                new XYChart.Data<>(sub3, 91)
-        );
-        return series;
-    }
-
-    public XYChart.Series getSdeData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("SDE");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 100),
-                new XYChart.Data<>(sub2, 89),
-                new XYChart.Data<>(sub3, 96)
-        );
-
-        return series;
-    }
-
-    public XYChart.Series getItoData()
-    {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("ITO");
-        series.getData().addAll(
-                new XYChart.Data<>(sub1, 85),
-                new XYChart.Data<>(sub2, 76),
-                new XYChart.Data<>(sub3, 70)
-        );
-
-        return series;
-    }
-
+    @Override
     public LocalDate getFirstDayOfMonth()
     {
         LocalDate initial = LocalDate.now();
@@ -248,6 +227,7 @@ public class DALManager
      * @param password
      * @param email
      */
+    @Override
     public void setNewPassword(String password, String email)
     {
         uDAO.setNewPassword(password, email);
@@ -260,9 +240,9 @@ public class DALManager
      *
      * @throws DALException
      */
+    @Override
     public List<Wifi> getWifi() throws DALException
     {
-
         try
         {
             List<Wifi> results = new ArrayList();
@@ -305,26 +285,35 @@ public class DALManager
         }
     }
 
-    public double GetAttendancePercentage(int UserID) throws SQLException
+    @Override
+    public double GetAttendancePercentage(int UserID) throws DALException
     {
-        ArrayList<Boolean> n = sDAO.registerAverageAttendance(UserID);
-
-        double totalDays = n.size();
-        double attendedDays = 0;
-        double avgAmount = 0;
-
-        for (Boolean b : n)
+        try
         {
-            if (b)
-            {
-                attendedDays++;
-            }
+            ArrayList<Boolean> n = sDAO.registerAverageAttendance(UserID);
 
-            avgAmount = (attendedDays / totalDays);
+            double totalDays = n.size();
+            double attendedDays = 0;
+            double avgAmount = 0;
+
+            for (Boolean b : n)
+            {
+                if (b)
+                {
+                    attendedDays++;
+                }
+
+                avgAmount = (attendedDays / totalDays);
+            }
+            return avgAmount;
         }
-        return avgAmount;
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
     }
 
+    @Override
     public List<NotificationMessage> allNotifications() throws DALException
     {
         try
@@ -336,7 +325,8 @@ public class DALManager
             throw new DALException("Failed to get messages", ex);
         }
     }
-    
+
+    @Override
     public void getUser(User user) throws DALException
     {
         try
@@ -349,24 +339,34 @@ public class DALManager
         }
     }
 
-    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    @Override
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws DALException
+    {
         System.out.println(date);
-            String classes = "";
-            for(int i = 0; i < chosenCalsses.size(); i++)
+        String classes = "";
+        for (int i = 0; i < chosenCalsses.size(); i++)
+        {
+            if (classes.isEmpty())
             {
-                if(classes.isEmpty())
-                {
-                    classes = "ClassName = ? ";
-                } 
-                else 
-                {
-                    classes += "OR ClassName = ? ";                    
-                }
+                classes = "ClassName = ? ";
             }
+            else
+            {
+                classes += "OR ClassName = ? ";
+            }
+        }
+        try
+        {
             ArrayList<Integer> ids = sDAO.lookUpClassIdsFromClassNames(chosenCalsses, classes);
-            for(Integer id : ids){
+            for (Integer id : ids)
+            {
                 System.out.println(id);
                 sDAO.sendAttendanceChange(studentId, id, message, date);
             }
+        }
+        catch (SQLException ex)
+        {
+            throw new DALException(ex.getLocalizedMessage(), ex);
+        }
     }
 }
