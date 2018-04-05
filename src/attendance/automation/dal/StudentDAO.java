@@ -13,9 +13,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -78,19 +84,24 @@ public class StudentDAO
         }
     }
 
-    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate date) throws SQLServerException, SQLException
+    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate dates) throws SQLException 
     {
         try (Connection con = db.getConnection())
         {
-            System.out.println(date);
+            java.util.Date today = new java.util.Date();
+            Date date = new java.sql.Date(today.getTime()); 
+
             String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
             pstmt.setInt(2, classID);
-            pstmt.setString(3, message);
-            pstmt.setObject(4, date);
-            pstmt.executeUpdate();
-        }
+            pstmt.setDate(3, date);
+            pstmt.setString(4, message);
+            pstmt.execute();
+        } catch (SQLException ex) {
+            throw new SQLException(ex.getMessage());
+        } 
+       
     }
 
     public void changeStudentAttendance()
@@ -188,5 +199,22 @@ public class StudentDAO
         }
         return ids;
     }
-
+    
+    public void insertDate() {
+        try (Connection con = db.getConnection())
+        {
+            java.util.Date today = new java.util.Date();
+            Date date = new java.sql.Date(today.getTime());
+            
+            String sql = "INSERT INTO Date (Date) VALUES(?)";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
 }
