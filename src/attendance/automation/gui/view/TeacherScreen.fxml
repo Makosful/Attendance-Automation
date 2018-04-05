@@ -55,13 +55,13 @@
                 <ComboBox fx:id="comboClasses" onAction="#comboFillClasses" prefWidth="250.0" promptText="Select Class..." />
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="fromDatePicker" defaultColor="#009999" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
+                        <JFXDatePicker fx:id="fromDatePicker" defaultColor="#80bfff" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
                         <Button id="btn-hover" fx:id="btnDatePickerSemesterStart" mnemonicParsing="false" onAction="#setFromDatePickerToSemesterStart" prefHeight="30.0" text="Semester start" />
                     </children>
                 </HBox>
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="toDatePicker" defaultColor="#009999" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
+                        <JFXDatePicker fx:id="toDatePicker" defaultColor="#80bfff" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
                         <Button id="btn-hover" fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
                     </children>
                 </HBox>
