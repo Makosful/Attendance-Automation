@@ -9,7 +9,6 @@ import attendance.automation.bll.BLLManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -32,7 +30,8 @@ import javax.mail.MessagingException;
  *
  * @author Axl
  */
-public class Model {
+public class Model
+{
 
     //<editor-fold defaultstate="collapsed" desc="Singleton">
 // Singleton instance of the model
@@ -43,7 +42,8 @@ public class Model {
      *
      * @return The Model class
      */
-    public static Model getInstance() {
+    public static Model getInstance()
+    {
         return INSTANCE;
     }
     //</editor-fold>
@@ -58,7 +58,8 @@ public class Model {
      * Singleton constructor. Prevents new instances of this class being made
      * outside of this class
      */
-    private Model() {
+    private Model()
+    {
         // Object initiation
         bll = new BLLManager();
 
@@ -69,13 +70,18 @@ public class Model {
         loadStudents(students);
     }
 
-    public void attendanceTimeFrame(LocalDate from, LocalDate to) {
-        try {
+    public void attendanceTimeFrame(LocalDate from, LocalDate to)
+    {
+        try
+        {
             ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
-            for (int i = 0; i < pieChartAttendance.size(); i++) {
+            for (int i = 0; i < pieChartAttendance.size(); i++)
+            {
                 pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());
             }
-        } catch (BLLException ex) {
+        }
+        catch (BLLException ex)
+        {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -83,7 +89,8 @@ public class Model {
     /**
      * Opens the Change Password window
      */
-    public void changePassword() {
+    public void changePassword()
+    {
         openWindow("ChangePassword");
     }
 
@@ -95,36 +102,48 @@ public class Model {
      *
      * @throws attendance.automation.bll.BLLException
      */
-    public void changePassword(String newPass, String curPass) throws BLLException {
+    public void changePassword(String newPass, String curPass) throws BLLException
+    {
         bll.changePassword(user, newPass, curPass);
     }
 
-    public ObservableList<LoadedStudent> getStudents() {
+    public ObservableList<LoadedStudent> getStudents()
+    {
         return students;
     }
 
-    public boolean isAtSchool(String wifi) {
-        try {
+    public boolean isAtSchool(String wifi)
+    {
+        try
+        {
             return bll.isConnectedToWifi(wifi);
-        } catch (BLLException ex) {
+        }
+        catch (BLLException ex)
+        {
             return false;
         }
     }
 
-    public void loadAttendance() {
-        try {
+    public void loadAttendance()
+    {
+        try
+        {
             pieChartAttendance.addAll(bll.getStudentAttendance(user));
-        } catch (BLLException ex) {
+        }
+        catch (BLLException ex)
+        {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void registerPresent() throws BLLException {
+    public void registerPresent() throws BLLException
+    {
         bll.registerAttendance(user);
     }
 
     public void signUp(String fName, String lName, String uName,
-            String email, String password) {
+                       String email, String password)
+    {
         bll.createStudent(fName, lName, uName, email, password);
     }
 
@@ -135,7 +154,8 @@ public class Model {
      *
      * @return
      */
-    public boolean validEmail(String email) {
+    public boolean validEmail(String email)
+    {
         return bll.validEmail(email);
     }
 
@@ -146,87 +166,90 @@ public class Model {
      *
      * @return
      */
-    public boolean validUsername(String username) {
+    public boolean validUsername(String username)
+    {
         return bll.validUsername(username);
     }
 
-    public User userLogIn(String username, String password) throws BLLException {
+    public User userLogIn(String username, String password) throws BLLException
+    {
         user = bll.userLogIn(username, password);
         bll.getUser(user);
         return user;
     }
 
-    public ObservableList<String> fillClassesListCombo() throws BLLException {
+    public ObservableList<String> fillClassesListCombo() throws BLLException
+    {
         return bll.fillClassesListCombo();
     }
 
-    public void fillStudentsList(ListView<String> lstStudents) {
+    public void fillStudentsList(ListView<String> lstStudents)
+    {
         bll.fillStudentsList(lstStudents);
     }
 
-    public void fillClassesChart(PieChart chrtClasses) {
+    public void fillClassesChart(PieChart chrtClasses)
+    {
         bll.fillClassesChart(chrtClasses);
     }
 
-    public void fillStudentsChart(PieChart chrtStudents) {
+    public void fillStudentsChart(PieChart chrtStudents)
+    {
         bll.fillStudentsChart(chrtStudents);
     }
 
-    public ObservableList<PieChart.Data> getPieChartAttendance() {
+    public ObservableList<PieChart.Data> getPieChartAttendance()
+    {
         return pieChartAttendance;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDate getStartDate()
+    {
         LocalDate startDate = bll.setStartDate();
         return startDate;
     }
 
-    public XYChart.Series getScoData() {
-        XYChart.Series series = bll.getScoData();
-        return series;
-    }
-
-    public XYChart.Series getSdeData() {
-        XYChart.Series series = bll.getSdeData();
-        return series;
-    }
-
-    public XYChart.Series getItoData() {
-        XYChart.Series series = bll.getItoData();
-        return series;
-    }
-
-    public LocalDate getFirstDayOfMonth() {
+    public LocalDate getFirstDayOfMonth()
+    {
         LocalDate firstDay = bll.getFirstDayOfMonth();
         return firstDay;
     }
 
     public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected)
             throws IOException,
-            NoSuchAlgorithmException {
+                   NoSuchAlgorithmException
+    {
         bll.storeLocalLogin(txtUserName, txtPassword, selected);
     }
 
-    public String[] getLogInInfo() throws FileNotFoundException {
+    public String[] getLogInInfo() throws FileNotFoundException
+    {
         String[] login = bll.getLoginInfo();
         return login;
     }
 
-    public boolean forgottenPassEmail(String email) throws MessagingException {
+    public boolean forgottenPassEmail(String email) throws MessagingException
+    {
         boolean emailExistsInDB = bll.forgottenPassEmail(email);
         return emailExistsInDB;
     }
 
-    private void loadStudents(ObservableList<LoadedStudent> list) {
-        try {
+    private void loadStudents(ObservableList<LoadedStudent> list)
+    {
+        try
+        {
             list.addAll(bll.loadStudent());
-        } catch (BLLException ex) {
+        }
+        catch (BLLException ex)
+        {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void openWindow(String fxml) {
-        try {
+    private void openWindow(String fxml)
+    {
+        try
+        {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("gui/view/" + fxml + ".fxml"));
             Parent parent = loader.load();
@@ -236,7 +259,9 @@ public class Model {
             stage.showAndWait();
             stage.setResizable(false);
             stage.centerOnScreen();
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -246,18 +271,24 @@ public class Model {
      *
      * @return
      */
-    public User getUser() {
+    public User getUser()
+    {
         return user;
     }
 
-    public List<NotificationMessage> allNotifications() throws BLLException {
+    public List<NotificationMessage> allNotifications() throws BLLException
+    {
         return bll.allNotifications();
     }
 
-    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz) {
-        try {
+    public void studentTimeFrame(LocalDate fromDate, LocalDate toDate, String clazz)
+    {
+        try
+        {
             bll.studentTimeFrame(fromDate, toDate, this.students);
-        } catch (BLLException ex) {
+        }
+        catch (BLLException ex)
+        {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -270,7 +301,8 @@ public class Model {
      * @param chosenCalsses
      * @param date
      */
-    public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    public void requestAttendanceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException
+    {
         bll.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
 }
