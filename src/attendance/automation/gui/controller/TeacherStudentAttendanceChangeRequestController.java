@@ -5,17 +5,26 @@
  */
 package attendance.automation.gui.controller;
 
+import attendance.automation.Main;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
 import attendance.automation.gui.model.Model;
+import com.jfoenix.controls.JFXButton;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -25,6 +34,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -51,6 +62,12 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private ContextMenu cm;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private JFXButton loadMessages;
+    
+    private Stage currentStage;
+    
+    private NotificationMessage message;
     
 
     /**
@@ -62,28 +79,16 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         messageViewSetup();
         model = Model.getInstance();
         setupContextMenu();
-        // TODO
     } 
 
-    @FXML
-    private void loadMessages(ActionEvent event) throws SQLException 
+    private void loadMessages(ActionEvent event)
     {
-        messageView.getItems().clear();
-        try 
-        {
-           for(NotificationMessage message : model.allNotifications())
-           {             
-               messageView.getItems().add(message);
-           }
-        } 
-        catch (BLLException ex) 
-        {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setContentText(ex.getMessage());
-           alert.show();
-        }
+        System.out.println("jfx");
+        loadMessages();
     }
-    
+    /**
+     * Custom objects in a listview.
+     */
     public void messageViewSetup() 
     {
         messageView.setCellFactory(new Callback<ListView<NotificationMessage>, ListCell<NotificationMessage>>() 
@@ -114,19 +119,26 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             @Override
             public void handle(MouseEvent event) 
             {
-                
-                NotificationMessage message = messageView.getSelectionModel().getSelectedItem();
+                NotificationMessage message = null;
+                message = messageView.getSelectionModel().getSelectedItem();
+                cm.hide();
                 if(message !=  null)
                 {
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                String dateString = df.format(message.getDate());   
                 lblClass.setText(message.getClassName());
-                lblStudentName.setText(message.getStudentName());
-                lblDate.setText("04-04-2018 - midlertidig");
+                lblStudentName.setText(message.getStudentName());  
+                lblDate.setText(dateString);
                 }
                 openContextMenu(event, message);
             }
         });
     }
-    
+    /**
+     * Open contextmenu only if a message has been clicked.
+     * @param e
+     * @param message 
+     */
     public void openContextMenu(MouseEvent e, NotificationMessage message)
     {
         if(e.getButton() == MouseButton.SECONDARY)
@@ -138,7 +150,9 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             }
         }
     }
-    
+    /**
+     * Action events  and contextmenu setup.
+     */
     public void setupContextMenu()
     {
         cm = new ContextMenu();
@@ -158,20 +172,25 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             @Override
             public void handle(ActionEvent event) 
             {
-                System.out.println("Attendance hasn't been changed");
+                messageView.getItems().remove(message);
             }
         });
         cm.getItems().addAll(accept, decline);
     }
-    
+    /**
+     * Sets the current user.
+     * @param user 
+     */
     public void setUser(User user)
     {
         this.user = user;
     }
-    
+    /**
+     * Gets all the messages for the teacher.
+     */
     public void loadMessages()
     {
-                messageView.getItems().clear();
+        messageView.getItems().clear();
         try 
         {
            for(NotificationMessage message : model.allNotifications())
@@ -186,5 +205,35 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
            alert.show();
         }
     }
+
+    @FXML
+    private void backButton(ActionEvent event) 
+    {
+        try 
+        {
+            currentStage = (Stage) messageView.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+            Parent parent = loader.load();
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+        } 
+        catch (IOException ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
+    }
     
+     /**
+     * Centers the window on the screen
+     *
+     * @param currentStage
+     */
+    private void centerStage()
+    {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        currentStage.setX((primScreenBounds.getWidth() - currentStage.getWidth()) / 2);
+        currentStage.setY((primScreenBounds.getHeight() - currentStage.getHeight()) / 2);
+    }
 }
