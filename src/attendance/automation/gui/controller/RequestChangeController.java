@@ -61,7 +61,10 @@ public class RequestChangeController implements Initializable {
         removeClassItem();
         setDate();
        
-    }    
+    }
+
+
+    
     /**
      * Adda a class/subject to the listview, which will be used in the request 
      * for change in attendance status
@@ -78,6 +81,8 @@ public class RequestChangeController implements Initializable {
         });
     }
 
+    
+    
     /**
      * Remove a selected class
      */
@@ -101,7 +106,8 @@ public class RequestChangeController implements Initializable {
     private void setDate() {
 
         datePicker.setValue(LocalDate.now());
-
+        date = datePicker.getValue();
+        
         datePicker.setOnAction(event -> {
             date = datePicker.getValue();
         });
@@ -117,6 +123,8 @@ public class RequestChangeController implements Initializable {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        Stage stage = (Stage)txtFieldMessage.getScene().getWindow();
+        stage.close();
     }
 
     
