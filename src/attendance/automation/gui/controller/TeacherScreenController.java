@@ -166,6 +166,7 @@ public class TeacherScreenController implements Initializable {
             String clazz = comboClasses.getSelectionModel().getSelectedItem();
             model.studentTimeFrame(fromDate, toDate, clazz);
         } else {
+            return;
         }
     }
 

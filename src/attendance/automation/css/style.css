@@ -83,6 +83,9 @@
     -fx-background-color: #80bfff;
     -fx-text-fill: black;
 }
+#btn-hover:pressed {
+    -fx-background-color: #6698cc;
+}
 
 .checkbox-container {
     -fx-background-color: #fefefe; }

@@ -11,9 +11,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
+<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -23,13 +22,14 @@
     <bottom>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="U" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ButtonBar buttonMinWidth="100.0" buttonOrder="L-U-R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <buttons>
-                        <Button id="btn-hover" fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" text="Logout" ButtonBar.buttonData="LEFT" />
-                        <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
+                        <Button id="btn-hover" fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="50.0" text="Logout" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="LEFT" />
+                        <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" prefHeight="50.0" text="Edit Student Statistics" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="RIGHT">
                         </Button>
-                        <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
-                  <Button mnemonicParsing="false" onAction="#readMessages" text="Read Messages" />
+                        <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" text="Change Password" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="OTHER" />
+                      <Button id="btn-hover" mnemonicParsing="false" onAction="#MessageController" prefHeight="50.0" prefWidth="150.0" text="Message Controller" textAlignment="CENTER" wrapText="true" />
+                  <Button id="btn-hover" mnemonicParsing="false" onAction="#readMessages" prefHeight="50.0" text="Read Messages" textAlignment="CENTER" wrapText="true" />
                     </buttons>
                 </ButtonBar>
             </children>
@@ -40,9 +40,9 @@
             <children>
                 <TableView fx:id="tblStudents" prefHeight="300.0">
                     <columns>
-                        <TableColumn fx:id="clmFName" prefWidth="75.0" text="First Name" />
-                        <TableColumn fx:id="clmLName" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="clmAtt" prefWidth="75.0" text="Attendance" />
+                        <TableColumn fx:id="clmFName" minWidth="100.0" prefWidth="-1.0" text="First Name" />
+                        <TableColumn fx:id="clmLName" minWidth="100.0" prefWidth="-1.0" text="Last Name" />
+                        <TableColumn fx:id="clmAtt" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" text="Attendance" />
                     </columns>
                 </TableView>
                 <HBox alignment="CENTER" spacing="20.0" />
@@ -65,7 +65,6 @@
                         <Button id="btn-hover" fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
                     </children>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#MessageController" prefHeight="30.0" prefWidth="150.0" text="Message Controller" />
             </children>
         </VBox>
     </left>
