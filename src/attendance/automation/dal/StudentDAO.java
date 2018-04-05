@@ -84,18 +84,25 @@ public class StudentDAO
         }
     }
 
-    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate dates) throws SQLException 
+    
+    /**
+     * Store the request for changing the attendance in the db
+     * @param studentID
+     * @param classID
+     * @param message
+     * @param dates
+     * @throws SQLException 
+     */
+    public void sendAttendanceChange(int studentID, int classID, String message, LocalDate date) throws SQLException 
     {
         try (Connection con = db.getConnection())
         {
-            java.util.Date today = new java.util.Date();
-            Date date = new java.sql.Date(today.getTime()); 
 
             String sql = "INSERT INTO AttendanceChangeRequest VALUES(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
             pstmt.setInt(2, classID);
-            pstmt.setDate(3, date);
+            pstmt.setDate(3, java.sql.Date.valueOf(date));
             pstmt.setString(4, message);
             pstmt.execute();
         } catch (SQLException ex) {
