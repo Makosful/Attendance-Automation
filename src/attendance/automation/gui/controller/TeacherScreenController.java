@@ -239,7 +239,7 @@ public class TeacherScreenController implements Initializable {
             attendanceRequest.setUser(user);
             currentStage.setScene(new Scene(parent));
             centerStage();
-            attendanceRequest.loadMessages();
+            attendanceRequest.getMessages();
         } catch (IOException ex)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);

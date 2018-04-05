@@ -30,7 +30,7 @@
          </children>
       </GridPane>
       <ListView fx:id="messageView" layoutX="64.0" prefHeight="334.0" prefWidth="384.0" />
-      <JFXButton fx:id="loadMessages" layoutX="196.0" layoutY="345.0" text="Update Messages" textFill="#4bc399" />
+      <JFXButton layoutX="196.0" layoutY="345.0" onAction="#loadMessages" text="Update Messages" textFill="#4bc399" />
       <JFXButton graphicTextGap="6.0" layoutX="12.0" layoutY="14.0" onAction="#backButton" prefHeight="30.0" prefWidth="36.0" text="&lt;" textFill="#40d0b8" />
    </children>
 </AnchorPane>

@@ -9,18 +9,14 @@ import attendance.automation.Main;
 import attendance.automation.be.NotificationMessage;
 import attendance.automation.be.User;
 import attendance.automation.bll.BLLException;
-import attendance.automation.dal.TeacherDAO;
 import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -66,8 +62,6 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     private ContextMenu cm;
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private JFXButton loadMessages;
     
     private Stage currentStage;
     
@@ -89,11 +83,6 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
         setupContextMenu();
     } 
 
-    private void loadMessages(ActionEvent event)
-    {
-        System.out.println("jfx");
-        loadMessages();
-    }
     /**
      * Custom objects in a listview.
      */
@@ -201,7 +190,7 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
     /**
      * Gets all the messages for the teacher.
      */
-    public void loadMessages()
+    public void getMessages()
     {
         messageView.getItems().clear();
         try 
@@ -261,5 +250,11 @@ public class TeacherStudentAttendanceChangeRequestController implements Initiali
             alert.setContentText(ex.getMessage());
             alert.show();
         }
+    }
+
+    @FXML
+    private void loadMessages(ActionEvent event) 
+    {
+        getMessages();
     }
 }
