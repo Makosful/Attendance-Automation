@@ -7,7 +7,6 @@ import attendance.automation.dal.DALManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -208,7 +207,8 @@ public class BLLManager
         {
             ObservableList<String> data = FXCollections.observableArrayList();
             ArrayList<Clazz> clazzes = dal.fillClassesListCombo();
-            clazzes.forEach((clazz) ->
+            clazzes.forEach((clazz)
+                    ->
             {
                 data.add(clazz.getName());
             });
@@ -387,7 +387,8 @@ public class BLLManager
         return sum / size;
     }
 
-    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException {
+    public void requestAttendaceChange(int studentId, List<String> chosenCalsses, String message, LocalDate date) throws SQLException
+    {
         dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
 }

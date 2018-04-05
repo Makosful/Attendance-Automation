@@ -8,7 +8,11 @@ import attendance.automation.gui.model.Model;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,16 +61,14 @@ public class TeacherScreenController implements Initializable {
     private ObservableList<LoadedStudent> students;
     @FXML
     private ComboBox<String> comboClasses;
-    private JFXDatePicker fromDatepicker;
-    private JFXDatePicker toDatepicker;
-    @FXML
-    private JFXDatePicker fromDatePicker;
     @FXML
     private Button btnDatePickerSemesterStart;
     @FXML
-    private JFXDatePicker toDatePicker;
-    @FXML
     private Button btnDatePickerToday;
+    @FXML
+    private JFXDatePicker fromDatePicker;
+    @FXML
+    private JFXDatePicker toDatePicker;
 
     /**
      * Initializes the controller class.
@@ -157,22 +159,13 @@ public class TeacherScreenController implements Initializable {
         this.user = user;
     }
 
-    private void SetFromDatepicker(ActionEvent event) {
-        CheckDatetimePickers();
-    }
-
-    private void SetToDatepicker(ActionEvent event) {
-        CheckDatetimePickers();
-    }
-
     private void CheckDatetimePickers() {
-        if (fromDatepicker.getValue() != null && toDatepicker.getValue() != null) {
-            LocalDate fromDate = fromDatepicker.getValue();
-            LocalDate toDate = toDatepicker.getValue();
+        if (fromDatePicker.getValue() != null && toDatePicker.getValue() != null) {
+            LocalDate fromDate = fromDatePicker.getValue();
+            LocalDate toDate = toDatePicker.getValue();
             String clazz = comboClasses.getSelectionModel().getSelectedItem();
             model.studentTimeFrame(fromDate, toDate, clazz);
         } else {
-            return;
         }
     }
 
@@ -198,19 +191,59 @@ public class TeacherScreenController implements Initializable {
     }
 
     @FXML
-    private void setFromDatePickerToSemesterStart(ActionEvent event) {
-    }
-
-    @FXML
     private void setToDatepicker(ActionEvent event) {
         CheckDatetimePickers();
     }
 
     @FXML
+    private void setFromDatePickerToSemesterStart(ActionEvent event) {
+        forceDatepickerToSemesterStart();
+    }
+
+    @FXML
     private void setToDatePickerToTodaysDate(ActionEvent event) {
+        forceDatepickerToToday();
     }
 
     @FXML
     private void comboFillClasses(ActionEvent event) {
+    }
+
+    private void forceDatepickerToSemesterStart() {
+        fromDatePicker.setValue(LocalDate.of(1111, 1, 1));
+    }
+
+    private void forceDatepickerToToday() {
+        Locale dk = new Locale("dk", "DK");
+
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", dk);
+        final String formattedDate = LocalDate.now().format(formatter);
+        System.out.println(formattedDate);
+
+        LocalDate stringToLocalDate = LocalDate.parse(formattedDate, formatter);
+
+        System.out.println(stringToLocalDate);
+
+        toDatePicker.setValue(stringToLocalDate);
+    }
+
+    @FXML
+    private void readMessages(ActionEvent event
+    ) {
+        try {
+            currentStage = (Stage) btnStudentStatistics.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherStudentAttendanceChangeRequest.fxml"));
+            Parent parent = loader.load();
+            TeacherStudentAttendanceChangeRequestController attendanceRequest = loader.getController();
+            attendanceRequest.setUser(user);
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+            attendanceRequest.loadMessages();
+        } catch (IOException ex) {
+            System.out.println("failed 2 open window");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
     }
 }

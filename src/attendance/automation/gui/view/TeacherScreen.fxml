@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
+<BorderPane styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendance.automation.gui.controller.TeacherScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -24,15 +23,13 @@
     <bottom>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <ButtonBar buttonOrder="L_U_R" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ButtonBar buttonOrder="U" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <buttons>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout" text="Logout" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
-                        <Button id="student-statistics" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
+                        <Button id="btn-hover" fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogOut" text="Logout" ButtonBar.buttonData="LEFT" />
+                        <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" text="Edit Student Statistics" ButtonBar.buttonData="RIGHT">
                         </Button>
+                        <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" text="Change Password" ButtonBar.buttonData="OTHER" />
+                  <Button mnemonicParsing="false" onAction="#readMessages" text="Read Messages" />
                     </buttons>
                 </ButtonBar>
             </children>
@@ -58,17 +55,17 @@
                 <ComboBox fx:id="comboClasses" onAction="#comboFillClasses" prefWidth="250.0" promptText="Select Class..." />
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="fromDatePicker" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
-                        <Button fx:id="btnDatePickerSemesterStart" mnemonicParsing="false" onAction="#setFromDatePickerToSemesterStart" prefHeight="30.0" text="Semester start" />
+                        <JFXDatePicker fx:id="fromDatePicker" defaultColor="#009999" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
+                        <Button id="btn-hover" fx:id="btnDatePickerSemesterStart" mnemonicParsing="false" onAction="#setFromDatePickerToSemesterStart" prefHeight="30.0" text="Semester start" />
                     </children>
                 </HBox>
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="toDatePicker" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
-                        <Button fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
+                        <JFXDatePicker fx:id="toDatePicker" defaultColor="#009999" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
+                        <Button id="btn-hover" fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
                     </children>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#MessageController" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
+                <Button mnemonicParsing="false" onAction="#MessageController" prefHeight="30.0" prefWidth="150.0" text="Message Controller" />
             </children>
         </VBox>
     </left>
