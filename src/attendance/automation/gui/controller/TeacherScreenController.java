@@ -241,9 +241,9 @@ public class TeacherScreenController implements Initializable {
             attendanceRequest.setUser(user);
             currentStage.setScene(new Scene(parent));
             centerStage();
-            attendanceRequest.loadMessages();
-        } catch (IOException ex) {
-            System.out.println("failed 2 open window");
+            attendanceRequest.getMessages();
+        } catch (IOException ex)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(ex.getMessage());
             alert.show();
@@ -258,8 +258,7 @@ public class TeacherScreenController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("Add a student to the Database");
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(
-                    ((Node) event.getSource()).getScene().getWindow());
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.show();
         } catch (IOException ex) {
             System.out.println("failed to open window");

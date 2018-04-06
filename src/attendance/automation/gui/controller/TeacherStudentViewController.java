@@ -5,6 +5,8 @@ import attendance.automation.gui.model.Model;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +35,7 @@ public class TeacherStudentViewController implements Initializable
     private ToggleGroup days;
     @FXML
     private Button btnBackButton;
-    
+
     private Stage currentStage;
 
     /**
@@ -49,16 +51,22 @@ public class TeacherStudentViewController implements Initializable
     }
 
     @FXML
-    private void handleBackButton(ActionEvent event) throws IOException
+    private void handleBackButton(ActionEvent event)
     {
-        currentStage = (Stage) btnBackButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
-        Parent parent = loader.load();
-        currentStage.setScene(new Scene(parent)); 
-        centerStage();
+        try
+        {
+            currentStage = (Stage) btnBackButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/view/TeacherScreen.fxml"));
+            Parent parent = loader.load();
+            currentStage.setScene(new Scene(parent));
+            centerStage();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(TeacherStudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    
+
     /**
      * Centers the window on the screen
      *
