@@ -213,7 +213,7 @@ public class TeacherScreenController implements Initializable {
     }
 
     private void forceDatepickerToSemesterStart() {
-        fromDatePicker.setValue(LocalDate.of(1111, 1, 1));
+        fromDatePicker.setValue(LocalDate.of(2018, 4, 1));
     }
 
     private void forceDatepickerToToday() {
@@ -242,8 +242,7 @@ public class TeacherScreenController implements Initializable {
             currentStage.setScene(new Scene(parent));
             centerStage();
             attendanceRequest.getMessages();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(ex.getMessage());
             alert.show();
