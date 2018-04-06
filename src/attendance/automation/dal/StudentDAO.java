@@ -34,10 +34,8 @@ public class StudentDAO
 
     /**
      * Registers whether the student is in school or not.
-     *
      * @param userID
      * @param attendance
-     *
      * @throws SQLServerException
      * @throws SQLException
      */
