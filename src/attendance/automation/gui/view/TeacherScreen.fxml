@@ -28,6 +28,8 @@
                         <Button id="btn-hover" fx:id="btnStudentStatistics" mnemonicParsing="false" onAction="#handleStudentStatictics" prefHeight="50.0" text="Edit Student Statistics" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="RIGHT">
                         </Button>
                         <Button id="btn-hover" fx:id="btnChangePassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" text="Change Password" textAlignment="CENTER" wrapText="true" ButtonBar.buttonData="OTHER" />
+                  <Button id="btn-hover" fx:id="btnAddStudenntAcc" mnemonicParsing="false" onAction="#addStudentAccount" prefHeight="50.0" text="Add Student" textAlignment="CENTER" wrapText="true" />
+                      <Button id="btn-hover" mnemonicParsing="false" onAction="#MessageController" prefHeight="50.0" prefWidth="150.0" text="Message Controller" textAlignment="CENTER" wrapText="true" />
                   <Button id="btn-hover" mnemonicParsing="false" onAction="#readMessages" prefHeight="50.0" text="Read Messages" textAlignment="CENTER" wrapText="true" />
                     </buttons>
                 </ButtonBar>
@@ -54,13 +56,13 @@
                 <ComboBox fx:id="comboClasses" onAction="#comboFillClasses" prefWidth="250.0" promptText="Select Class..." />
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="fromDatePicker" defaultColor="#009999" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
+                        <JFXDatePicker fx:id="fromDatePicker" defaultColor="#80bfff" onAction="#setFromDatePicker" prefWidth="151.0" promptText="From..." />
                         <Button id="btn-hover" fx:id="btnDatePickerSemesterStart" mnemonicParsing="false" onAction="#setFromDatePickerToSemesterStart" prefHeight="30.0" text="Semester start" />
                     </children>
                 </HBox>
                 <HBox>
                     <children>
-                        <JFXDatePicker fx:id="toDatePicker" defaultColor="#009999" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
+                        <JFXDatePicker fx:id="toDatePicker" defaultColor="#80bfff" onAction="#setToDatepicker" prefWidth="151.0" promptText="To..." />
                         <Button id="btn-hover" fx:id="btnDatePickerToday" mnemonicParsing="false" onAction="#setToDatePickerToTodaysDate" prefHeight="30.0" prefWidth="99.0" text="Todays date" />
                     </children>
                 </HBox>

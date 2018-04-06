@@ -14,8 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -374,7 +372,8 @@ public class BLLManager
             {
                 ArrayList<Boolean> bool = dal.attendanceTimeFrame(fromDate, toDate, s.getId());
                 double d = calculateAverage(bool) * 100;
-                newStudents.add(new LoadedStudent(s.getId(), s.getFirstName(), s.getLastName(), d + "%"));
+                DecimalFormat df = new DecimalFormat("##.##");
+                newStudents.add(new LoadedStudent(s.getId(), s.getFirstName(), s.getLastName(), df.format(d) + "%"));
             }
             catch (DALException ex)
             {
@@ -388,7 +387,15 @@ public class BLLManager
     {
         double size = bool.size();
         double sum = 0;
-        sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
+
+        for (Boolean b : bool)
+        {
+            if (b)
+            {
+                sum++;
+            }
+        }
+//        sum = bool.stream().map((_item) -> 1.0).reduce(sum, (accumulator, _item) -> accumulator + 1);
         return sum / size;
     }
 
@@ -396,39 +403,45 @@ public class BLLManager
     {
         dal.requestAttendaceChange(studentId, chosenCalsses, message, date);
     }
-    
+
     public void changeStudentAttendance(Date date, int classID, int userID) throws BLLException
     {
-        try 
+        try
         {
             dal.changeStudentAttendance(date, classID, userID);
-        } catch (DALException ex) 
+        }
+        catch (DALException ex)
         {
             throw new BLLException(ex.getMessage(), ex);
         }
     }
 
-    public ObservableList<XYChart.Series<String, Number>> getBarChartAttendance(User user, LocalDate from, LocalDate to) throws BLLException {
-        
+    public ObservableList<XYChart.Series<String, Number>> getBarChartAttendance(User user, LocalDate from, LocalDate to) throws BLLException
+    {
+
         ObservableList<XYChart.Series<String, Number>> bars = FXCollections.observableArrayList();
         HashMap map;
-        
-        try {
+
+        try
+        {
             map = dal.attendanceClassStatistics(user.getId(), user.getClasses(), from, to);
             System.out.println();
-        } catch (DALException ex) {
+        }
+        catch (DALException ex)
+        {
             throw new BLLException(ex.getMessage(), ex);
         }
-    
-        map.forEach((className, percentage) -> {
+
+        map.forEach((className, percentage) ->
+        {
             System.out.println("Key : " + className + " Value : " + percentage);
             XYChart.Series bar = new XYChart.Series();
-            bar.setName(className.toString());  
+            bar.setName(className.toString());
             bar.getData().add(new XYChart.Data(className.toString(), percentage));
             bars.add(bar);
         });
 
         return bars;
-            
+
     }
 }
