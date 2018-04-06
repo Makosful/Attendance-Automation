@@ -140,15 +140,19 @@
     -fx-background-color: #004d39; 
 }
 
+.jfx-date-picker:hover  .input-line {
+    -fx-background-color: #80bfff;
+}
+
 .jfx-date-picker .input-line {
     -fx-background-color: transparent;
 }
 .jfx-date-picker .input-focused-line {
-    -fx-background-color: #009999;
+    -fx-background-color: #6698cc;
 }
 
 .jfx-date-picker .jfx-text-field{
-    -fx-text-fill: #009999;
+    -fx-text-fill: #80bfff;
     -fx-prompt-text-fill: white;
 }
 
