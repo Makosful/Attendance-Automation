@@ -81,12 +81,13 @@ public class Model
     {
         try
         {
-            pieChartAttendance.clear();
+            
             ObservableList<PieChart.Data> data = bll.attendanceTimeFrame(from, to, user);
             for (int i = 0; i < pieChartAttendance.size(); i++)
             {
                 pieChartAttendance.get(i).setPieValue(data.get(i).getPieValue());
             }
+            
         }
         catch (BLLException ex)
         {
@@ -136,6 +137,7 @@ public class Model
     {
         try
         {
+            pieChartAttendance.clear();
             pieChartAttendance.addAll(bll.getStudentAttendance(user));
         }
         catch (BLLException ex)
@@ -208,6 +210,7 @@ public class Model
 
     public ObservableList<PieChart.Data> getPieChartAttendance()
     {
+    
         return pieChartAttendance;
     }
 
