@@ -158,7 +158,10 @@
 
 .jfx-date-picker .day-cell:hover {
     -fx-background-color: #6698cc;
-    -fx-border-color: transparent;
+}
+
+.jfx-date-picker .label{
+    -fx-text-fill: black;
 }
 
 .context-menu 
