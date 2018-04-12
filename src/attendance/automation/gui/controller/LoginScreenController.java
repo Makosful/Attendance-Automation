@@ -45,6 +45,7 @@ public class LoginScreenController implements Initializable
 
     //</editor-fold>
     // Objects
+    private String rememberMeLogin = "";
     private Model model;
     @FXML
     private Label lblInfoMessage;
@@ -124,9 +125,7 @@ public class LoginScreenController implements Initializable
     @FXML
     private void handleLogin(ActionEvent event)
     {
-        //for the "remember me" checkbox
-        rememberMe();
-
+        
         try
         {
 
@@ -145,7 +144,18 @@ public class LoginScreenController implements Initializable
         {
             if (textFieldsFilled())
             {
-                User user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText()));
+                User user;
+                if(rememberMeLogin.equals(txtPassword.getText())){
+                    user = model.userLogIn(txtUserName.getText(), txtPassword.getText());
+                    //for the "remember me" checkbox and functionality
+                    rememberMe(true);
+                }
+                else
+                {
+                    user = model.userLogIn(txtUserName.getText(), Hash.passwordHashing(txtPassword.getText()));
+                    //for the "remember me" checkbox and functionality
+                    rememberMe(false);
+                }
                 System.out.println(user.getEmail());
                 if (user.getIsStudent())
                 {
@@ -218,11 +228,11 @@ public class LoginScreenController implements Initializable
     /**
      * Remembers the users login credentials, for the "remember me" checkbox
      */
-    private void rememberMe()
+    private void rememberMe(boolean isHashed)
     {
         try
         {
-            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected());
+            model.storeLocalLogin(txtUserName.getText(), txtPassword.getText(), checkBoxRememberMe.isSelected(), isHashed);
         }
         catch (IOException ex)
         {
@@ -247,6 +257,7 @@ public class LoginScreenController implements Initializable
             {
                 txtUserName.setText(login[0]);
                 txtPassword.setText(login[1]);
+                rememberMeLogin = login[1];
                 checkBoxRememberMe.selectedProperty().setValue(Boolean.TRUE);
             }
         }

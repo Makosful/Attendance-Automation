@@ -226,11 +226,11 @@ public class Model
         return firstDay;
     }
 
-    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected)
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean selected, boolean isHashed)
             throws IOException,
                    NoSuchAlgorithmException
     {
-        bll.storeLocalLogin(txtUserName, txtPassword, selected);
+        bll.storeLocalLogin(txtUserName, txtPassword, selected, isHashed);
     }
 
     public String[] getLogInInfo() throws FileNotFoundException

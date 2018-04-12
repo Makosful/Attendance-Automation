@@ -256,17 +256,21 @@ public class BLLManager
      * @param txtUserName
      * @param txtPassword
      * @param checkBoxSelected
+     * @param isHashed
      *
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected)
+    public void storeLocalLogin(String txtUserName, String txtPassword, boolean checkBoxSelected, boolean isHashed)
             throws IOException,
                    NoSuchAlgorithmException
     {
         if (checkBoxSelected)
         {
-            StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+            if(isHashed == false)
+            {
+                StoreLocalLogin.setLoginInfo(txtUserName, txtPassword);
+            }
         }
         else
         {
