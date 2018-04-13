@@ -221,7 +221,7 @@ public class StudentDAO
                        + "INNER JOIN Classes ON T.ClassID = Classes.ClassID "
                        + "INNER JOIN StudentAttendance ON T.ClassID = StudentAttendance.ClassID "
                        + "WHERE StudentAttendance.Date >= ? and StudentAttendance.Date < ?"+sqlChosenClasses;
-            System.out.println(sql);
+            
             PreparedStatement stmt = con.prepareStatement(sql);
             
             int i = 1;
