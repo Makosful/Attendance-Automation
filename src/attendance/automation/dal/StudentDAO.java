@@ -206,7 +206,7 @@ public class StudentDAO
         try (Connection con = db.getConnection())
         {
        
-            String sql = "SELECT Classes.ClassName, StudentAttendance.Date, 100*P.Present/T.Total AS Procent " 
+            String sql = "SELECT Classes.ClassName, 100*P.Present/T.Total AS Procent " 
                        + "FROM " 
                        + "(SELECT ClassID, COUNT(attended) AS Total " 
                        + "FROM StudentAttendance " 
