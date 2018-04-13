@@ -5,6 +5,7 @@
  */
 package attendance.automation.bll.validation;
 
+import attendance.automation.bll.BLLException;
 import static attendance.automation.bll.validation.ValidationFactory.validationType.firstAndLastName;
 
 /**
@@ -24,7 +25,7 @@ public class ValidationFactory {
      * @return
      * @throws Exception 
      */
-    public static IValidation createValidation(validationType validationType) throws Exception
+    public static IValidation createValidation(validationType validationType) throws BLLException 
     {
         switch(validationType)
         {
@@ -38,7 +39,7 @@ public class ValidationFactory {
                 return new firstAndLastName();
                 
             default: 
-                throw new Exception("Unknown validation type submitted to ValidationFactory");
+                throw new BLLException("Unknown validation type submitted to ValidationFactory");
         }
        
     }
